@@ -2,13 +2,14 @@ name: Daily graded-race update
 
 on:
   schedule:
-    # 日本時間の毎朝6:17。毎時00分を避け、実行混雑による遅延を抑えます。
+    # 日本時間の毎朝6:17に更新・通知します。
     - cron: "17 6 * * *"
       timezone: "Asia/Tokyo"
+
   workflow_dispatch:
     inputs:
       base_date:
-        description: "任意の基準日 YYYY-MM-DD（空欄なら当日）"
+        description: "更新・通知する日付 YYYY-MM-DD（空欄なら当日）"
         required: false
         type: string
 
@@ -42,9 +43,16 @@ jobs:
           BASE_DATE: ${{ inputs.base_date }}
         run: |
           if [ -n "$BASE_DATE" ]; then
-            python -m scripts.update_races --date "$BASE_DATE" --before 3 --after 3 --fail-if-all-sources-fail
+            python -m scripts.update_races \
+              --date "$BASE_DATE" \
+              --before 3 \
+              --after 3 \
+              --fail-if-all-sources-fail
           else
-            python -m scripts.update_races --before 3 --after 3 --fail-if-all-sources-fail
+            python -m scripts.update_races \
+              --before 3 \
+              --after 3 \
+              --fail-if-all-sources-fail
           fi
 
       - name: Validate JSON
@@ -52,7 +60,9 @@ jobs:
 
       - name: Embed JSON into HTML
         run: |
-          python -m scripts.sync_html --json races.json --html graded_races_schedule.html
+          python -m scripts.sync_html \
+            --json races.json \
+            --html graded_races_schedule.html
           cp graded_races_schedule.html index.html
 
       - name: Upload diagnostic reports
@@ -66,19 +76,31 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Send Discord notification
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python scripts/send_discord.py
-
       - name: Commit updated files
         run: |
-          if git diff --quiet -- races.json graded_races_schedule.html index.html changes.json source_status.json; then
-            echo "変更はありません。"
-            exit 0
-          fi
           git config user.name "graded-races-bot"
           git config user.email "graded-races-bot@users.noreply.github.com"
-          git add races.json graded_races_schedule.html index.html changes.json source_status.json
-          git commit -m "Update graded races $(date -u +'%Y-%m-%d')"
-          git push
+
+          git add \
+            races.json \
+            graded_races_schedule.html \
+            index.html \
+            changes.json \
+            source_status.json
+
+          if git diff --cached --quiet; then
+            echo "ファイル変更はありません。"
+          else
+            git commit -m "Update graded races $(date -u +'%Y-%m-%d')"
+            git push
+          fi
+
+      - name: Send today's graded races to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          # 任意。GitHubのVariablesにSITE_URLを登録すると、
+          # 独自ドメインなど任意のURLへ変更できます。
+          SITE_URL: ${{ vars.SITE_URL }}
+          # 手動実行時にbase_dateを指定すれば、その日の通知を試せます。
+          NOTIFY_DATE: ${{ inputs.base_date }}
+        run: python scripts/send_discord.py
