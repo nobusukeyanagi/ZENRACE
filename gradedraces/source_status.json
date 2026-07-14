@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-14T11:30:00.206425+09:00",
+  "generated_at": "2026-07-14T11:35:16.434908+09:00",
   "sources": [
     {
       "name": "JRA",
@@ -15,16 +15,15 @@
     {
       "name": "地方競馬",
       "ok": true,
-      "patch_count": 5,
+      "patch_count": 6,
       "fetched_urls": [
         "https://www.keiba.go.jp/gradedrace/schedule.html",
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F09&k_babaCode=23",
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F09&k_babaCode=36",
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F10&k_babaCode=27",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F12&k_babaCode=10",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F12&k_babaCode=22",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F12&k_babaCode=03",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F16&k_babaCode=32",
-        "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=32&k_nenndo=2026",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F16&k_babaCode=36",
-        "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=36&k_nenndo=2026"
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F12&k_babaCode=03"
       ],
       "warnings": [
         "地方競馬重賞一覧の本文を十分に確認できませんでした。個別レース情報の取得は継続します。"
@@ -65,8 +64,20 @@
       "name": "オートレース",
       "ok": true,
       "patch_count": 0,
-      "fetched_urls": [],
-      "warnings": [],
+      "fetched_urls": [
+        "https://autorace.jp/calendar/graderace/",
+        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_12",
+        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_11",
+        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_10",
+        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_09",
+        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_12",
+        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_11",
+        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_10",
+        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_09"
+      ],
+      "warnings": [
+        "2026-07-10 飯塚: 優勝戦ページを特定できませんでした"
+      ],
       "error": ""
     }
   ]
