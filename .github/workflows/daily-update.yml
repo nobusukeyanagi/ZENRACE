@@ -138,17 +138,28 @@ jobs:
             fi
           done
 
-          # HTML側で記述を忘れても全ページへ共通ボトムナビを配置する。
+          # 各ページの入口HTMLだけに共通ボトムナビを配置する。iframe用HTMLには挿入しない。
           python - <<'PY'
           from pathlib import Path
           import os
 
           site = Path("_site")
-          for html in site.rglob("*.html"):
+          entry_points = [
+              site / "index.html",
+              site / "gradedraces" / "index.html",
+              site / "gradedraces" / "graded_races_schedule.html",
+              site / "vote" / "index.html",
+              site / "onair" / "index.html",
+              site / "mypage" / "index.html",
+          ]
+
+          for html in entry_points:
+              if not html.exists():
+                  continue
               text = html.read_text(encoding="utf-8")
               relative_root = os.path.relpath(site, html.parent).replace(os.sep, "/")
               prefix = "" if relative_root == "." else f"{relative_root}/"
-              script = f'<script src="{prefix}shared/bottom-nav.js?v=16" defer></script>'
+              script = f'<script src="{prefix}shared/bottom-nav.js?v=17" defer></script>'
 
               if "bottom-nav.js" not in text and "</head>" in text:
                   text = text.replace("</head>", f"  {script}\n</head>", 1)
