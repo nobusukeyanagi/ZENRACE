@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-14T11:35:16.434882+09:00",
-  "center_date": "2026-07-12",
+  "generated_at": "2026-07-14T11:52:48.762800+09:00",
+  "center_date": "2026-07-14",
   "window": {
-    "start": "2026-07-09",
-    "end": "2026-07-15"
+    "start": "2026-07-11",
+    "end": "2026-07-17"
   },
-  "target_count": 11,
+  "target_count": 9,
   "change_count": 0,
   "changes": []
 }
