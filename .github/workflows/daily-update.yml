@@ -2,8 +2,13 @@ name: Daily graded-race update
 
 on:
   schedule:
-    # 日本時間の毎朝6:17に更新・通知します。
+    # 本実行：日本時間 毎朝6:17
     - cron: "17 6 * * *"
+      timezone: "Asia/Tokyo"
+
+    # 予備実行：日本時間 毎朝6:47
+    # 6:17の実行が成功済みなら、重複通知防止により送信しません。
+    - cron: "47 6 * * *"
       timezone: "Asia/Tokyo"
 
   workflow_dispatch:
@@ -12,6 +17,11 @@ on:
         description: "更新・通知する日付 YYYY-MM-DD（空欄なら当日）"
         required: false
         type: string
+      force_notify:
+        description: "同じ日付でも強制的にDiscord通知する"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -26,8 +36,11 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Checkout
+      - name: Checkout latest main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -39,6 +52,8 @@ jobs:
         run: python -m pip install -r requirements.txt
 
       - name: Update official race information
+        id: race_update
+        continue-on-error: true
         env:
           BASE_DATE: ${{ inputs.base_date }}
         run: |
@@ -56,14 +71,47 @@ jobs:
           fi
 
       - name: Validate JSON
+        if: steps.race_update.outcome == 'success'
         run: python -m scripts.validate_races races.json
 
       - name: Embed JSON into HTML
+        if: steps.race_update.outcome == 'success'
         run: |
           python -m scripts.sync_html \
             --json races.json \
             --html graded_races_schedule.html
           cp graded_races_schedule.html index.html
+
+      - name: Send today's graded races to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          NOTIFY_DATE: ${{ inputs.base_date }}
+          FORCE_NOTIFY: ${{ inputs.force_notify }}
+        run: python scripts/send_discord.py
+
+      - name: Commit updated files and notification state
+        if: always()
+        run: |
+          git config user.name "graded-races-bot"
+          git config user.email "graded-races-bot@users.noreply.github.com"
+
+          git add \
+            races.json \
+            graded_races_schedule.html \
+            index.html
+
+          [ -f changes.json ] && git add changes.json || true
+          [ -f source_status.json ] && git add source_status.json || true
+          [ -f discord_notification_state.json ] && git add discord_notification_state.json || true
+
+          if git diff --cached --quiet; then
+            echo "コミット対象の変更はありません。"
+          else
+            git pull --rebase origin main
+            git commit -m "Update graded races and notification state"
+            git push origin main
+          fi
 
       - name: Upload diagnostic reports
         if: always()
@@ -73,34 +121,12 @@ jobs:
           path: |
             changes.json
             source_status.json
+            discord_notification_state.json
           if-no-files-found: ignore
           retention-days: 14
 
-      - name: Commit updated files
+      - name: Report update failure
+        if: steps.race_update.outcome == 'failure'
         run: |
-          git config user.name "graded-races-bot"
-          git config user.email "graded-races-bot@users.noreply.github.com"
-
-          git add \
-            races.json \
-            graded_races_schedule.html \
-            index.html \
-            changes.json \
-            source_status.json
-
-          if git diff --cached --quiet; then
-            echo "ファイル変更はありません。"
-          else
-            git commit -m "Update graded races $(date -u +'%Y-%m-%d')"
-            git push
-          fi
-
-      - name: Send today's graded races to Discord
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          # 任意。GitHubのVariablesにSITE_URLを登録すると、
-          # 独自ドメインなど任意のURLへ変更できます。
-          SITE_URL: ${{ vars.SITE_URL }}
-          # 手動実行時にbase_dateを指定すれば、その日の通知を試せます。
-          NOTIFY_DATE: ${{ inputs.base_date }}
-        run: python scripts/send_discord.py
+          echo "公式情報の更新には失敗しましたが、既存のraces.jsonを使ったDiscord通知は実行しました。"
+          exit 1
