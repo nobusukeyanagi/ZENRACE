@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-13T17:42:06.317346+09:00",
+  "generated_at": "2026-07-14T09:23:13.710391+09:00",
   "sources": [
     {
       "name": "JRA",
@@ -56,20 +56,8 @@
       "name": "オートレース",
       "ok": true,
       "patch_count": 0,
-      "fetched_urls": [
-        "https://autorace.jp/calendar/graderace/",
-        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_12",
-        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_11",
-        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_10",
-        "https://autorace.jp/race_info/RaceResult/iizuka/2026-07-10_09",
-        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_12",
-        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_11",
-        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_10",
-        "https://autorace.jp/race_info/Program/iizuka/2026-07-10_09"
-      ],
-      "warnings": [
-        "2026-07-10 飯塚: 優勝戦ページを特定できませんでした"
-      ],
+      "fetched_urls": [],
+      "warnings": [],
       "error": ""
     }
   ]
