@@ -1,0 +1,281 @@
+name: Daily graded-race update
+
+on:
+  schedule:
+    # 本実行：日本時間 毎朝6:17
+    - cron: "17 6 * * *"
+      timezone: "Asia/Tokyo"
+
+    # 予備実行：日本時間 毎朝6:47
+    - cron: "47 6 * * *"
+      timezone: "Asia/Tokyo"
+
+  workflow_dispatch:
+    inputs:
+      base_date:
+        description: "更新・通知する日付 YYYY-MM-DD（空欄なら当日）"
+        required: false
+        type: string
+      force_notify:
+        description: "同じ日付でも強制的にDiscord通知する"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: graded-races-daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update data and prepare site
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+
+    outputs:
+      race_update_outcome: ${{ steps.race_update.outcome }}
+
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: gradedraces/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r gradedraces/requirements.txt
+
+      - name: Update official race information
+        id: race_update
+        continue-on-error: true
+        working-directory: gradedraces
+        env:
+          BASE_DATE: ${{ inputs.base_date }}
+        run: |
+          if [ -n "$BASE_DATE" ]; then
+            python -m scripts.update_races \
+              --date "$BASE_DATE" \
+              --before 3 \
+              --after 3 \
+              --fail-if-all-sources-fail
+          else
+            python -m scripts.update_races \
+              --before 3 \
+              --after 3 \
+              --fail-if-all-sources-fail
+          fi
+
+      - name: Validate JSON
+        if: steps.race_update.outcome == 'success'
+        working-directory: gradedraces
+        run: python -m scripts.validate_races races.json
+
+      - name: Embed JSON into HTML
+        if: steps.race_update.outcome == 'success'
+        working-directory: gradedraces
+        run: |
+          python -m scripts.sync_html \
+            --json races.json \
+            --html graded_races_schedule.html
+          cp graded_races_schedule.html index.html
+
+      - name: Commit updated source files
+        if: always()
+        run: |
+          git config user.name "graded-races-bot"
+          git config user.email "graded-races-bot@users.noreply.github.com"
+
+          git add \
+            gradedraces/races.json \
+            gradedraces/graded_races_schedule.html \
+            gradedraces/index.html
+
+          [ -f gradedraces/changes.json ] && \
+            git add gradedraces/changes.json || true
+
+          [ -f gradedraces/source_status.json ] && \
+            git add gradedraces/source_status.json || true
+
+          if git diff --cached --quiet; then
+            echo "データファイルの変更はありません。"
+          else
+            git commit -m "Update graded races"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Prepare Pages files
+        env:
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          rm -rf _site
+          mkdir -p _site/gradedraces
+
+          # zenrace全体のトップページ
+          cp index.html _site/index.html
+
+          # 公営競技重賞日程
+          cp gradedraces/index.html \
+            _site/gradedraces/index.html
+          cp gradedraces/graded_races_schedule.html \
+            _site/gradedraces/graded_races_schedule.html
+          cp gradedraces/races.json \
+            _site/gradedraces/races.json
+
+          # Jekyll処理を行わず、そのまま静的ファイルとして公開する。
+          touch _site/.nojekyll
+
+          export DEPLOYED_SHA="$(git rev-parse HEAD)"
+
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          marker = {
+              "run_id": os.environ["RUN_ID"],
+              "commit_sha": os.environ["DEPLOYED_SHA"],
+              "deployed_at": datetime.now(timezone.utc).isoformat(),
+          }
+
+          Path("_site/deployment.json").write_text(
+              json.dumps(
+                  marker,
+                  ensure_ascii=False,
+                  separators=(",", ":"),
+              ),
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Upload diagnostic reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: graded-race-update-report
+          path: |
+            gradedraces/changes.json
+            gradedraces/source_status.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+  deploy:
+    name: Deploy website
+    needs: update
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+  notify:
+    name: Notify Discord after deployment
+    needs:
+      - update
+      - deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Confirm the new website is live
+        env:
+          PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          MARKER_URL="${PAGE_URL%/}/deployment.json?run=${RUN_ID}"
+
+          for attempt in $(seq 1 18); do
+            CONTENT="$(curl --fail --silent --show-error \
+              --max-time 15 "$MARKER_URL" || true)"
+
+            if printf '%s' "$CONTENT" | \
+              grep -q "\"run_id\":\"${RUN_ID}\""; then
+              echo "今回のWebページが公開済みであることを確認しました。"
+              exit 0
+            fi
+
+            echo "公開反映を待っています（${attempt}/18）"
+            sleep 5
+          done
+
+          echo "今回のWebページが公開されたことを確認できませんでした。"
+          exit 1
+
+      - name: Send today's graded races to Discord
+        working-directory: gradedraces
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SITE_URL: ${{ vars.SITE_URL }}
+          NOTIFY_DATE: ${{ inputs.base_date }}
+          FORCE_NOTIFY: ${{ inputs.force_notify }}
+        run: python scripts/send_discord.py
+
+      - name: Commit notification state
+        run: |
+          git config user.name "graded-races-bot"
+          git config user.email "graded-races-bot@users.noreply.github.com"
+
+          if [ ! -f gradedraces/discord_notification_state.json ]; then
+            echo "通知済み状態ファイルは作成されませんでした。"
+            exit 0
+          fi
+
+          git add gradedraces/discord_notification_state.json
+
+          if git diff --cached --quiet; then
+            echo "通知済み状態の変更はありません。"
+          else
+            git commit -m "Save Discord notification state"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Report source update failure
+        if: needs.update.outputs.race_update_outcome == 'failure'
+        run: |
+          echo "公式情報を取得できませんでした。既存データの公開・通知は完了しています。"
+          exit 1
