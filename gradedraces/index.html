@@ -61,12 +61,12 @@ zenrace-bottom-nav{touch-action:none;overscroll-behavior:none}
   overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:linear-gradient(180deg,#f6f8fb,#e9edf3);
   touch-action:pan-x pan-y;
 }
-.zoom-sizer{position:relative;min-width:100%;min-height:100%}
+.zoom-sizer{position:relative;min-width:100%;height:100%;min-height:100%}
 .zoom-stage{
   position:absolute;left:0;top:0;transform:scale(var(--content-scale));transform-origin:0 0;
-  width:520px;min-height:100%;will-change:transform
+  width:520px;height:max-content;min-height:0;will-change:transform
 }
-.schedule{padding:7px 8px 20px}
+.schedule{padding:7px 8px 6px}
 .day-block{
   display:grid;grid-template-columns:38px minmax(0,1fr);margin-bottom:3px;overflow:hidden;
   border:1px solid var(--line);border-radius:7px;background:var(--panel);box-shadow:0 1px 4px rgba(15,23,42,.045)
@@ -114,7 +114,7 @@ zenrace-bottom-nav{touch-action:none;overscroll-behavior:none}
   :root{--header-h:54px;--nav-content-h:62px}
   .topbar{grid-template-columns:68px auto 68px}.header-side{padding:0 7px}.header-btn{min-width:48px;height:32px;padding:0 6px;font-size:10px}
   .month-nav{grid-template-columns:29px minmax(102px,auto) 29px}.month-arrow{width:29px}.month-title{font-size:15px}
-  .schedule{padding:5px 5px 16px}.day-block{grid-template-columns:36px minmax(0,1fr)}
+  .schedule{padding:5px 5px 5px}.day-block{grid-template-columns:36px minmax(0,1fr)}
   .date-number{font-size:16px}.weekday{font-size:6.5px}
 }
 @media(display-mode:standalone){
@@ -350,27 +350,43 @@ function measureContentRightEdge(){
   if(!rows.length)return stageBaseWidth;
   return Math.max(...rows.map(el=>el.offsetLeft+el.offsetWidth));
 }
+function measureContentBottomEdge(){
+  const schedule=$("schedule");
+  const empty=document.querySelector(".empty-month");
+  const target=empty||schedule;
+  if(!target)return 0;
+  return Math.max(0,target.offsetTop+target.scrollHeight);
+}
+function clampScrollBounds(){
+  const shell=$("contentShell"),sizer=$("zoomSizer");
+  const maxLeft=Math.max(0,sizer.offsetWidth-shell.clientWidth);
+  const maxTop=Math.max(0,sizer.offsetHeight-shell.clientHeight);
+  if(shell.scrollLeft<0)shell.scrollLeft=0;
+  else if(shell.scrollLeft>maxLeft)shell.scrollLeft=maxLeft;
+  if(shell.scrollTop<0)shell.scrollTop=0;
+  else if(shell.scrollTop>maxTop)shell.scrollTop=maxTop;
+}
 function updateZoomMetrics(forceBaseWidth=false){
   const stage=$("zoomStage"),sizer=$("zoomSizer"),shell=$("contentShell");
   if(forceBaseWidth){stageBaseWidth=Math.max(520,shell.clientWidth);}
   stage.style.width=`${stageBaseWidth}px`;
   requestAnimationFrame(()=>{
     contentRightEdge=measureContentRightEdge();
+    const contentBottomEdge=measureContentBottomEdge();
     zoom.min=Math.min(1,Math.max(.62,shell.clientWidth/contentRightEdge));
     const desiredInitial=Math.min(zoom.max,Math.max(zoom.min,INITIAL_SCALE));
     if(Math.abs(zoom.scale-INITIAL_SCALE)<0.001||zoom.scale<zoom.min){zoom.scale=desiredInitial;document.documentElement.style.setProperty("--content-scale",String(zoom.scale));}
-    sizer.style.width=`${Math.max(shell.clientWidth,contentRightEdge*zoom.scale)}px`;
-    sizer.style.height=`${Math.max(shell.clientHeight,stage.scrollHeight*zoom.scale)}px`;
-    const maxLeft=Math.max(0,contentRightEdge*zoom.scale-shell.clientWidth);
-    if(shell.scrollLeft>maxLeft)shell.scrollLeft=maxLeft;
+    sizer.style.width=`${Math.ceil(Math.max(shell.clientWidth,contentRightEdge*zoom.scale))}px`;
+    sizer.style.height=`${Math.ceil(Math.max(shell.clientHeight,contentBottomEdge*zoom.scale))}px`;
+    requestAnimationFrame(clampScrollBounds);
   });
 }
 function installContentPinch(){
   const shell=$("contentShell");
   shell.addEventListener("touchstart",e=>{if(e.touches.length===2){zoom.active=true;zoom.startDistance=touchDistance(e.touches);zoom.startScale=zoom.scale}}, {passive:true});
   shell.addEventListener("touchmove",e=>{if(zoom.active&&e.touches.length===2){e.preventDefault();const rect=shell.getBoundingClientRect();setZoom(zoom.startScale*touchDistance(e.touches)/zoom.startDistance,touchCenter(e.touches,rect))}}, {passive:false});
-  shell.addEventListener("touchend",e=>{if(e.touches.length<2)zoom.active=false},{passive:true});
-  shell.addEventListener("touchcancel",()=>zoom.active=false,{passive:true});
+  shell.addEventListener("touchend",e=>{if(e.touches.length<2){zoom.active=false;requestAnimationFrame(clampScrollBounds)}},{passive:true});
+  shell.addEventListener("touchcancel",()=>{zoom.active=false;requestAnimationFrame(clampScrollBounds)},{passive:true});
   shell.addEventListener("gesturestart",e=>e.preventDefault(),{passive:false});
   shell.addEventListener("gesturechange",e=>e.preventDefault(),{passive:false});
   shell.addEventListener("wheel",e=>{if(!e.ctrlKey)return;e.preventDefault();const rect=shell.getBoundingClientRect();setZoom(zoom.scale*Math.exp(-e.deltaY*.003),{x:e.clientX-rect.left,y:e.clientY-rect.top})},{passive:false});
