@@ -1,262 +1,54 @@
 (() => {
-  "use strict";
+  if (customElements.get("zenrace-bottom-nav")) return;
 
-  const scriptUrl = document.currentScript?.src || window.location.href;
-  const appRoot = new URL("../", scriptUrl);
-
-  const routes = [
-    {
-      id: "home",
-      label: "ホーム",
-      path: "",
-      icon: `
-        <svg viewBox="0 0 96 96" aria-hidden="true">
-          <path d="M10 47.5L48 14l38 33.5" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M20 45v36h20V58h16v23h20V45L48 20 20 45z" fill="currentColor"/>
-        </svg>`,
-    },
-    {
-      id: "schedule",
-      label: "開催情報",
-      path: "gradedraces/",
-      icon: `
-        <svg viewBox="0 0 96 96" aria-hidden="true">
-          <rect x="15" y="17" width="66" height="64" rx="8" fill="none" stroke="currentColor" stroke-width="8"/>
-          <path d="M15 33h66" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-          <path d="M31 12v16M65 12v16" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-          <rect x="28" y="44" width="10" height="10" rx="2" fill="currentColor"/>
-          <rect x="43" y="44" width="10" height="10" rx="2" fill="currentColor"/>
-          <rect x="58" y="44" width="10" height="10" rx="2" fill="currentColor"/>
-          <rect x="28" y="59" width="10" height="10" rx="2" fill="currentColor"/>
-          <rect x="43" y="59" width="10" height="10" rx="2" fill="currentColor"/>
-          <rect x="58" y="59" width="10" height="10" rx="2" fill="currentColor"/>
-        </svg>`,
-    },
-    {
-      id: "vote",
-      label: "投票",
-      path: "vote/",
-      featured: true,
-      icon: `
-        <svg viewBox="0 0 96 96" aria-hidden="true">
-          <rect x="15" y="18" width="66" height="60" rx="7" fill="none" stroke="currentColor" stroke-width="8"/>
-          <path d="M28 33h40M28 49h18M28 64h18" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
-          <rect x="55" y="47" width="16" height="20" rx="3" fill="currentColor"/>
-        </svg>`,
-    },
-    {
-      id: "onair",
-      label: "ONAIR",
-      path: "onair/",
-      icon: `
-        <svg viewBox="0 0 112 96" aria-hidden="true">
-          <rect x="15" y="17" width="82" height="55" rx="5" fill="none" stroke="currentColor" stroke-width="8"/>
-          <path d="M27 29h28L27 57V29z" fill="currentColor"/>
-          <path d="M56 72v10M39 84h34" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-        </svg>`,
-    },
-    {
-      id: "mypage",
-      label: "マイページ",
-      path: "mypage/",
-      icon: `
-        <svg viewBox="0 0 96 96" aria-hidden="true">
-          <circle cx="48" cy="27" r="18" fill="currentColor"/>
-          <path d="M17 83c2.5-20 15-33 31-33s28.5 13 31 33H17z" fill="currentColor"/>
-        </svg>`,
-    },
+  const ITEMS = [
+    { key: "home", label: "ホーム", href: "../", icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.2 12 4l9 7.2"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9.5 20v-6h5v6"/></svg>` },
+    { key: "schedule", label: "日程", href: "../gradedraces/", icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17"/><path d="M7.5 13h2M11 13h2M14.5 13h2M7.5 16.5h2M11 16.5h2"/></svg>` },
+    { key: "vote", label: "投票", href: "../vote/", icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h11l3 3V20.5H5z"/><path d="M16 3.5v4h4M8 11h8M8 14.5h8M8 18h5"/><path d="m8 7 1.3 1.3L12 5.7"/></svg>` },
+    { key: "onair", label: "配信", href: "../onair/", icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="13" rx="2"/><path d="m10 8 5 3-5 3zM8 21h8M12 17.5V21"/></svg>` },
+    { key: "mypage", label: "マイページ", href: "../mypage/", icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.7-4 3-6 6.5-6s5.8 2 6.5 6"/></svg>` }
   ];
 
   class ZenraceBottomNav extends HTMLElement {
     connectedCallback() {
-      if (this.shadowRoot) return;
-
-      const active = this.getAttribute("active") || "home";
-      const available = new Set(
-        (this.getAttribute("available") || "home schedule")
-          .split(/[\s,]+/)
-          .filter(Boolean),
-      );
-      available.add(active);
-
+      const active = this.getAttribute("active") || "";
+      const standalone = window.matchMedia?.("(display-mode: standalone)").matches || window.navigator.standalone === true;
+      if (standalone) this.setAttribute("standalone", "");
       const shadow = this.attachShadow({ mode: "open" });
-      const items = routes.map((route) => {
-        const isActive = route.id === active;
-        const isAvailable = available.has(route.id);
-        const href = new URL(route.path, appRoot).href;
-        const classes = [
-          "item",
-          isActive ? "active" : "",
-          route.featured ? "featured" : "",
-          !isAvailable ? "disabled" : "",
-        ].filter(Boolean).join(" ");
-
-        return `
-          <a
-            class="${classes}"
-            href="${isAvailable ? href : "#"}"
-            data-route="${route.id}"
-            ${isActive ? 'aria-current="page"' : ""}
-            ${!isAvailable ? 'aria-disabled="true" tabindex="-1"' : ""}
-          >
-            <span class="icon">${route.icon}</span>
-            <span class="label">${route.label}</span>
-          </a>`;
-      }).join("");
-
       shadow.innerHTML = `
         <style>
-          :host {
-            --nav-yellow: #ffd76a;
-            --nav-white: #ffffff;
-            --nav-bg: rgba(4, 7, 12, 0.88);
-            display: block;
-            height: calc(clamp(84px, 22vw, 94px) + env(safe-area-inset-bottom, 0px));
+          :host{
+            --safe:max(env(safe-area-inset-bottom),0px);
+            position:fixed;left:0;right:0;bottom:0;z-index:2000;display:block;
+            height:calc(62px + var(--safe));font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+            -webkit-text-size-adjust:100%;text-size-adjust:100%;contain:layout style;
           }
-
-          * { box-sizing: border-box; }
-
-          .nav {
-            position: fixed;
-            z-index: 1000;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            height: calc(clamp(84px, 22vw, 94px) + env(safe-area-inset-bottom, 0px));
-            display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
-            padding: 4px 0 env(safe-area-inset-bottom, 0px);
-            background:
-              linear-gradient(180deg, rgba(255,255,255,.035), transparent 18%),
-              var(--nav-bg);
-            border-top: 1px solid rgba(255,255,255,.09);
-            box-shadow: 0 -8px 24px rgba(0,0,0,.35);
-            backdrop-filter: blur(16px) saturate(125%);
-            -webkit-backdrop-filter: blur(16px) saturate(125%);
+          :host([standalone]){height:calc(58px + var(--safe))}
+          *{box-sizing:border-box}
+          nav{
+            width:100%;height:100%;display:grid;grid-template-columns:repeat(5,1fr);align-items:start;
+            padding:4px 2px var(--safe);color:#d7dce3;background:
+              linear-gradient(110deg,rgba(213,171,67,.08),transparent 27%,transparent 72%,rgba(213,171,67,.07)),
+              linear-gradient(180deg,#151515,#070707);
+            border-top:1px solid rgba(213,171,67,.4);box-shadow:0 -5px 18px rgba(0,0,0,.25)
           }
-
-          .item {
-            position: relative;
-            isolation: isolate;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            padding: 4px 1px 5px;
-            color: var(--nav-white);
-            text-decoration: none;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
+          a{
+            min-width:0;height:57px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+            color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation
           }
-
-          .item::after {
-            content: "";
-            position: absolute;
-            right: 24%;
-            bottom: 3px;
-            left: 24%;
-            height: 3px;
-            border-radius: 999px;
-            opacity: 0;
-            background: linear-gradient(90deg, transparent, var(--nav-yellow), transparent);
-            box-shadow: 0 0 12px rgba(255,215,106,.55);
-          }
-
-          .item.active {
-            color: var(--nav-yellow);
-          }
-
-          .item.active::after {
-            opacity: 1;
-          }
-
-          .item.featured::before {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            inset: 5px 8px 4px;
-            border: 1px solid rgba(255,215,106,.24);
-            border-radius: 17px;
-            background:
-              radial-gradient(circle at 50% 20%, rgba(255,215,106,.18), transparent 50%),
-              linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-            box-shadow:
-              inset 0 1px 0 rgba(255,255,255,.12),
-              0 0 16px rgba(255,215,106,.10);
-          }
-
-          .item.disabled {
-            cursor: default;
-          }
-
-          .icon {
-            width: clamp(29px, 8.3vw, 38px);
-            height: clamp(29px, 8.3vw, 38px);
-            display: grid;
-            place-items: center;
-            transform: translateY(-4px);
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,.38));
-          }
-
-          .icon svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-          }
-
-          .label {
-            max-width: 100%;
-            overflow: hidden;
-            color: currentColor;
-            font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-            font-size: clamp(9px, 2.65vw, 12px);
-            font-weight: 900;
-            line-height: 1.15;
-            letter-spacing: .01em;
-            text-overflow: clip;
-            text-shadow: 0 2px 4px rgba(0,0,0,.5);
-            white-space: nowrap;
-          }
-
-          .item[data-route="onair"] .label {
-            letter-spacing: .04em;
-          }
-
-          @media (hover: hover) {
-            .item:not(.disabled):hover {
-              background: rgba(255,255,255,.045);
-            }
-          }
-
-          @media (max-width: 340px) {
-            .item.featured::before {
-              inset-inline: 5px;
-            }
-            .label {
-              font-size: 9px;
-            }
-          }
-
-          @media print {
-            :host,
-            .nav {
-              display: none !important;
-            }
-          }
+          :host([standalone]) a{height:53px}
+          .icon{width:27px;height:27px;display:grid;place-items:center;flex:none}
+          svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+          .label{font-size:10px;line-height:1;font-weight:750;white-space:nowrap;letter-spacing:-.02em}
+          a.active{color:#f0cc70}.active .icon{filter:drop-shadow(0 0 5px rgba(213,171,67,.28))}.active .label{font-weight:900}
+          @media(max-width:380px){.icon{width:25px;height:25px}.label{font-size:9px}}
+          @media(display-mode:standalone){.icon{width:25px;height:25px}.label{font-size:9.5px}}
         </style>
-        <nav class="nav" aria-label="メインナビゲーション">
-          ${items}
+        <nav aria-label="メインナビゲーション">
+          ${ITEMS.map(item => `<a href="${item.href}" class="${item.key === active ? "active" : ""}" ${item.key === active ? 'aria-current="page"' : ""}><span class="icon">${item.icon}</span><span class="label">${item.label}</span></a>`).join("")}
         </nav>`;
-
-      shadow.querySelectorAll(".disabled").forEach((item) => {
-        item.addEventListener("click", (event) => event.preventDefault());
-      });
     }
   }
 
-  if (!customElements.get("zenrace-bottom-nav")) {
-    customElements.define("zenrace-bottom-nav", ZenraceBottomNav);
-  }
+  customElements.define("zenrace-bottom-nav", ZenraceBottomNav);
 })();
