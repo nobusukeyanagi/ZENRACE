@@ -1,0 +1,142 @@
+name: Backfill 2026 H1 race times
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_days:
+        description: "最初の再照合を何日単位で行うか"
+        required: true
+        default: "7"
+        type: string
+      retry_passes:
+        description: "空欄の日を日単位で再試行する回数"
+        required: true
+        default: "2"
+        type: string
+
+concurrency:
+  group: graded-races-h1-time-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    name: Recheck every race from January through June 2026
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: gradedraces/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r gradedraces/requirements.txt
+
+      - name: Backfill January-June 2026 times
+        working-directory: gradedraces
+        run: |
+          python -m scripts.backfill_h1_2026 \
+            --batch-days "${{ inputs.batch_days }}" \
+            --retry-passes "${{ inputs.retry_passes }}" \
+            --delay 1.0
+
+      - name: Validate races.json
+        working-directory: gradedraces
+        run: python -m scripts.validate_races races.json
+
+      - name: Verify that no H1 time is blank
+        id: verify_times
+        continue-on-error: true
+        working-directory: gradedraces
+        run: python -m scripts.verify_h1_times
+
+      - name: Embed updated JSON into HTML
+        working-directory: gradedraces
+        run: |
+          python -m scripts.sync_html \
+            --json races.json \
+            --html graded_races_schedule.html
+          cp graded_races_schedule.html index.html
+
+      - name: Commit researched times and reports
+        run: |
+          git config user.name "graded-races-bot"
+          git config user.email "graded-races-bot@users.noreply.github.com"
+          git add \
+            gradedraces/races.json \
+            gradedraces/graded_races_schedule.html \
+            gradedraces/index.html \
+            gradedraces/h1_2026_time_backfill_report.json \
+            gradedraces/h1_2026_time_verification.json
+          [ -f gradedraces/grade_normalization_report.json ] && git add gradedraces/grade_normalization_report.json || true
+          [ -f gradedraces/changes.json ] && git add gradedraces/changes.json || true
+          [ -f gradedraces/source_status.json ] && git add gradedraces/source_status.json || true
+          if git diff --cached --quiet; then
+            echo "発走時刻の変更はありません。"
+          else
+            git commit -m "Backfill graded-race times for 2026 H1"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Prepare GitHub Pages files
+        run: |
+          rm -rf _site
+          mkdir -p _site/gradedraces _site/shared
+          cp index.html _site/index.html
+          cp shared/bottom-nav.js _site/shared/bottom-nav.js
+          cp gradedraces/index.html _site/gradedraces/index.html
+          cp gradedraces/graded_races_schedule.html _site/gradedraces/graded_races_schedule.html
+          cp gradedraces/races.json _site/gradedraces/races.json
+          if [ -d gradedraces/icons ]; then
+            cp -R gradedraces/icons _site/gradedraces/icons
+          fi
+          touch _site/.nojekyll
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+      - name: Upload detailed investigation reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: h1-2026-race-time-backfill-report
+          path: |
+            gradedraces/h1_2026_time_backfill_report.json
+            gradedraces/h1_2026_time_verification.json
+            gradedraces/grade_normalization_report.json
+            gradedraces/changes.json
+            gradedraces/source_status.json
+          if-no-files-found: ignore
+          retention-days: 90
+
+      - name: Mark the run incomplete if a blank remains
+        if: steps.verify_times.outcome == 'failure'
+        run: |
+          echo "公式取得を再試行しましたが、2026年1月〜6月に未取得の発走時刻が残っています。"
+          echo "h1_2026_time_verification.json を確認してください。"
+          exit 1
