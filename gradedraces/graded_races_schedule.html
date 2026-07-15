@@ -96,8 +96,8 @@ zenrace-bottom-nav{touch-action:none;overscroll-behavior:none}
 .name-cell .race-name-text{display:inline-block;min-width:max-content;white-space:nowrap;will-change:transform}
 .name-cell.scrolling .race-name-text{animation:race-name-pan var(--marquee-duration,12s) ease-in-out infinite alternate}
 @keyframes race-name-pan{0%,18%{transform:translateX(0)}82%,100%{transform:translateX(calc(-1 * var(--marquee-distance,0px)))}}
-.winner-cell span{display:block;min-width:0;overflow:visible;text-overflow:clip;white-space:nowrap}
-.winner-cell{justify-content:center;border-left:1px solid #edf0f4;font-weight:800;overflow:visible}
+.winner-cell span{display:block;width:100%;min-width:0;overflow:visible;text-overflow:clip;white-space:nowrap;text-align:left}
+.winner-cell{justify-content:flex-start;text-align:left;border-left:1px solid #edf0f4;font-weight:800;overflow:visible}
 .grade-top,.name-top{color:#c62828}
 .empty-month,.loading-state{margin:12px;padding:44px 20px;border:1px dashed #c7ced8;border-radius:11px;background:rgba(255,255,255,.74);color:#8792a0;text-align:center;font-size:12px}
 
