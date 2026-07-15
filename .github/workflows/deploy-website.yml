@@ -27,8 +27,6 @@ jobs:
           fetch-depth: 1
 
       - name: Prepare Pages files
-        env:
-          RUN_ID: ${{ github.run_id }}
         run: |
           rm -rf _site
           mkdir -p _site
@@ -92,6 +90,13 @@ jobs:
               html.write_text(text, encoding='utf-8')
           PY
 
+      - name: Prevent search engine indexing
+        run: python .github/scripts/inject-noindex.py _site
+
+      - name: Add GitHub Pages marker files
+        env:
+          RUN_ID: ${{ github.run_id }}
+        run: |
           touch _site/.nojekyll
 
           export DEPLOYED_SHA="$(git rev-parse HEAD)"
