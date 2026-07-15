@@ -63,7 +63,7 @@ jobs:
               text = html.read_text(encoding="utf-8")
               relative_root = os.path.relpath(site, html.parent).replace(os.sep, "/")
               prefix = "" if relative_root == "." else f"{relative_root}/"
-              script = f'<script src="{prefix}shared/bottom-nav.js?v=17" defer></script>'
+              script = f'<script src="{prefix}shared/bottom-nav.js?v=19" defer></script>'
 
               if "bottom-nav.js" not in text and "</head>" in text:
                   text = text.replace("</head>", f"  {script}\n</head>", 1)
