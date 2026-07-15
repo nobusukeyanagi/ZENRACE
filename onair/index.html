@@ -10,12 +10,14 @@
 :root{--w:540px;--h:1074px;--fade:260ms}
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;overscroll-behavior:none;touch-action:manipulation;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif}
-#appViewport{position:fixed;left:0;right:0;top:var(--visual-top,0px);bottom:calc(var(--visual-bottom,0px) + var(--bottom-nav-total-h,62px));overflow:hidden;background:#020713 url("assets/personality_bg_mobile.webp") center/cover no-repeat;contain:strict;touch-action:none}
-#stage{position:absolute;left:0;top:0;width:var(--w);height:var(--h);overflow:hidden;background:transparent;isolation:isolate;will-change:transform}
-.layer{position:absolute;border:0;margin:0;padding:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity var(--fade) linear}
-.layer.show{opacity:1}.layer.no-fade{transition:none}iframe.layer{background:transparent}.bg{left:0;top:0;width:540px;height:1074px;z-index:0}
-.personality-bg{background:url("assets/personality_bg_mobile.webp") center/cover no-repeat}
+#appViewport{position:fixed;left:0;right:0;top:var(--visual-top,0px);bottom:calc(var(--visual-bottom,0px) + var(--bottom-nav-total-h,62px));overflow:hidden;background:#020713;contain:strict;touch-action:none}
+.viewport-bg{position:absolute;inset:0;width:100%;height:100%;border:0;margin:0;padding:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity var(--fade) linear;z-index:0;background:#020713}
+.viewport-bg.show{opacity:1}
+.personality-bg{background:#020713 url("assets/personality_bg_mobile.webp") center center/cover no-repeat}
 .personality-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 18%,rgba(4,10,30,.16),transparent 34%),linear-gradient(180deg,rgba(0,0,0,.08),transparent 45%,rgba(0,0,0,.10))}
+#stage{position:absolute;left:0;top:0;width:var(--w);height:var(--h);overflow:hidden;background:transparent;isolation:isolate;will-change:transform;z-index:1}
+.layer{position:absolute;border:0;margin:0;padding:0;overflow:hidden;pointer-events:none;opacity:0;transition:opacity var(--fade) linear}
+.layer.show{opacity:1}.layer.no-fade{transition:none}iframe.layer{background:transparent}
 .status-live{left:0;top:0;width:540px;height:64px;z-index:50}.banner{left:0;top:65px;width:540px;height:275px;z-index:30}
 .vote-button-layer{left:30px;top:384px;width:150px;height:150px;z-index:45}.chat{left:0;top:0;width:540px;height:750px;z-index:42}
 .comment-stream{left:0;top:575px;width:430px;height:370px;z-index:60}.input{left:0;top:925px;width:540px;height:110px;z-index:70}
@@ -29,9 +31,10 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;oversc
 </style>
 </head>
 <body>
-<div id="appViewport"><div id="stage">
-  <div id="bgPersonality" class="layer bg personality-bg"></div>
-  <iframe id="bgConcierge" class="layer bg" data-src="assets/concierge_bg.html" scrolling="no"></iframe>
+<div id="appViewport">
+  <div id="bgPersonality" class="viewport-bg personality-bg"></div>
+  <iframe id="bgConcierge" class="viewport-bg" data-src="assets/concierge_bg.html" scrolling="no"></iframe>
+  <div id="stage">
   <div id="transitionScreen" class="layer transition-screen"></div>
   <iframe id="avatarCustom" loading="eager" scrolling="no" class="layer avatar-custom" src="assets/avatar_live2d.html"></iframe>
   <iframe id="statusLive" loading="eager" scrolling="no" class="layer status-live" src="assets/status_live_row.html"></iframe>
@@ -56,9 +59,6 @@ const layers={bgPersonality:$("bgPersonality"),bgConcierge:$("bgConcierge"),tran
 const bgm=$("bgm"),voiceRace=$("voiceRace"),voiceAddiction=$("voiceAddiction");
 bgm.volume=CONFIG.bgmVolume;voiceRace.volume=CONFIG.voiceVolume;voiceAddiction.volume=CONFIG.voiceVolume;
 let startTime=null,raceVoiceStarted=false,addictionVoiceStarted=false,finished=false,currentScene="",previousScene="",conciergeChatStarted=false,voiceLevelSmooth=0,conciergeAvatarSpeaking=false,conciergeAvatarLevel=0,conciergeAvatarSpeakingAt=0,conciergeReleased=false,raceReleased=false;
-let contentZoom=1,pinchActive=false,pinchStartDistance=0,pinchStartZoom=1;
-const clamp=(value,min,max)=>Math.min(max,Math.max(min,value));
-const pinchDistance=touches=>Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY);
 function ensureLoaded(el){if(!el||el.dataset.loaded==="1")return;const src=el.dataset.src;if(src){el.src=src;el.dataset.loaded="1"}}
 function releaseFrame(el){if(!el)return;try{el.src="about:blank";delete el.dataset.loaded}catch(e){}}
 function warmConcierge(){ensureLoaded(layers.bgConcierge);ensureLoaded(layers.chatBot);ensureLoaded(layers.conciergeButton)}
@@ -75,13 +75,12 @@ async function startPlayback(){if(startTime!==null)return;startTime=performance.
 function unlockAudio(){if(startTime===null)return;const t=Math.max(0,(performance.now()-startTime)/1000);if(bgm.paused){try{bgm.currentTime=Math.min(t,bgm.duration||t)}catch(e){}bgm.play().catch(()=>{})}if(t<CONFIG.tConcierge&&voiceRace.paused){try{voiceRace.currentTime=Math.min(t,Math.max(0,(voiceRace.duration||t)-.05))}catch(e){}voiceRace.play().catch(()=>{})}if(t>=CONFIG.tPersonality&&t<CONFIG.tEnd){warmFinal();if(voiceAddiction.paused){try{voiceAddiction.currentTime=Math.min(t-CONFIG.tPersonality,Math.max(0,(voiceAddiction.duration||t)-.05))}catch(e){}voiceAddiction.play().catch(()=>{})}}}
 ["pointerdown","touchstart","click"].forEach(type=>window.addEventListener(type,unlockAudio,{once:true,passive:true}));
 let flashC=false,flashP=false;function tick(now){if(startTime===null)return;const t=(now-startTime)/1000;if(t>54)warmConcierge();if(t>156)warmFinal();const scene=getScene(t);applyScene(scene);if(!flashC&&t>=CONFIG.tConcierge-CONFIG.preSwitchFlash&&t<CONFIG.tConcierge){flashC=true;flashButton(layers.personalityButton)}if(!flashP&&t>=CONFIG.tPersonality2Return-CONFIG.preSwitchFlash&&t<CONFIG.tPersonality2Return){flashP=true;flashButton(layers.conciergeButton)}updateAvatar(scene,now);if(!raceVoiceStarted){raceVoiceStarted=true;voiceRace.currentTime=0;voiceRace.play().catch(()=>{})}if(!addictionVoiceStarted&&t>=CONFIG.tPersonality){addictionVoiceStarted=true;warmFinal();voiceAddiction.currentTime=0;voiceAddiction.play().catch(()=>{})}if(!conciergeReleased&&t>146){conciergeReleased=true;setTimeout(()=>{releaseFrame(layers.bgConcierge);releaseFrame(layers.chatBot);releaseFrame(layers.conciergeButton)},500)}if(!raceReleased&&t>167){raceReleased=true;setTimeout(()=>releaseFrame(layers.bannerRace),500)}if(!finished&&t>=CONFIG.tEnd){finished=true;[bgm,voiceRace,voiceAddiction].forEach(a=>{try{a.pause();a.removeAttribute("src");a.load()}catch(e){}});try{layers.avatarCustom.contentWindow.postMessage({type:"freezeAvatar"},"*")}catch(e){}window.__AITUBER_DONE__=true}if(!finished)requestAnimationFrame(tick)}
-function syncViewport(){const root=document.documentElement,vv=window.visualViewport,layout=Math.max(root.clientHeight,window.innerHeight||0),top=vv?Math.max(0,vv.offsetTop):0,visible=vv?vv.height:(window.innerHeight||layout),bottom=vv?Math.max(0,layout-visible-top):0;root.style.setProperty("--visual-top",`${Math.round(top)}px`);root.style.setProperty("--visual-bottom",`${Math.round(bottom)}px`);const vp=$("appViewport"),stage=$("stage");if(!vp||!stage)return;const baseScale=Math.min(vp.clientWidth/CONFIG.width,vp.clientHeight/CONFIG.height);const scale=baseScale*contentZoom;stage.style.transformOrigin="50% 50%";stage.style.transform=`scale(${scale})`;stage.style.left=`${(vp.clientWidth-CONFIG.width)/2}px`;stage.style.top=`${(vp.clientHeight-CONFIG.height)/2}px`}
+function syncViewport(){const root=document.documentElement,vv=window.visualViewport,layout=Math.max(root.clientHeight,window.innerHeight||0),top=vv?Math.max(0,vv.offsetTop):0,visible=vv?vv.height:(window.innerHeight||layout),bottom=vv?Math.max(0,layout-visible-top):0;root.style.setProperty("--visual-top",`${Math.round(top)}px`);root.style.setProperty("--visual-bottom",`${Math.round(bottom)}px`);const vp=$("appViewport"),stage=$("stage");if(!vp||!stage)return;const scale=Math.min(vp.clientWidth/CONFIG.width,vp.clientHeight/CONFIG.height);stage.style.transformOrigin="50% 50%";stage.style.transform=`scale(${scale})`;stage.style.left=`${(vp.clientWidth-CONFIG.width)/2}px`;stage.style.top=`${(vp.clientHeight-CONFIG.height)/2}px`}
 const appViewport=$("appViewport");
+const stopMultiTouch=event=>{if(event.touches&&event.touches.length>1)event.preventDefault()};
 for(const type of ["gesturestart","gesturechange","gestureend"]){document.addEventListener(type,event=>event.preventDefault(),{passive:false})}
-appViewport.addEventListener("touchstart",event=>{if(event.touches.length!==2)return;pinchActive=true;pinchStartDistance=pinchDistance(event.touches);pinchStartZoom=contentZoom},{passive:true});
-appViewport.addEventListener("touchmove",event=>{if(!pinchActive||event.touches.length!==2)return;event.preventDefault();contentZoom=clamp(pinchStartZoom*pinchDistance(event.touches)/Math.max(1,pinchStartDistance),.82,1.65);syncViewport()},{passive:false});
-appViewport.addEventListener("touchend",event=>{if(event.touches.length<2)pinchActive=false},{passive:true});
-appViewport.addEventListener("touchcancel",()=>{pinchActive=false},{passive:true});
+document.addEventListener("touchstart",stopMultiTouch,{passive:false});
+document.addEventListener("touchmove",stopMultiTouch,{passive:false});
 window.addEventListener("load",()=>{syncViewport();setTimeout(startPlayback,160)});document.addEventListener("visibilitychange",()=>{if(document.hidden){[bgm,voiceRace,voiceAddiction].forEach(a=>{try{a.pause()}catch(e){}})}else if(startTime!==null&&!finished)unlockAudio()},{passive:true});window.addEventListener("resize",syncViewport,{passive:true});window.addEventListener("orientationchange",()=>setTimeout(syncViewport,100),{passive:true});if(window.visualViewport){visualViewport.addEventListener("resize",syncViewport,{passive:true});visualViewport.addEventListener("scroll",syncViewport,{passive:true})}
 </script>
 </body></html>
