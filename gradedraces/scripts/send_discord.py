@@ -33,6 +33,8 @@ SPORT_ORDER = {
     "auto": 4,
 }
 
+WEEKDAY_NAMES = ("月", "火", "水", "木", "金", "土", "日")
+
 
 def truthy(value: str) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "on"}
@@ -116,6 +118,20 @@ def format_race(race: dict[str, Any]) -> str:
     return " ".join(value for value in values if value)
 
 
+def format_target_date(target_date: str) -> str:
+    parsed = datetime.strptime(target_date, "%Y-%m-%d")
+    return f"{parsed.month}/{parsed.day} ({WEEKDAY_NAMES[parsed.weekday()]})"
+
+
+def build_message_block(
+    title: str,
+    date_text: str,
+    race_lines: list[str],
+    site_url: str,
+) -> str:
+    return "\n".join([title, date_text, *race_lines, site_url])
+
+
 def build_messages(
     target_date: str,
     site_url: str,
@@ -135,24 +151,67 @@ def build_messages(
         )
     )
 
-    linked_title = f"[🏁本日のグレードレース](<{site_url}>)"
-    if not todays_races:
-        return [f"{linked_title}\nグレードレースはありません"]
+    title = "🏁本日のグレードレース"
+    date_text = format_target_date(target_date)
+    normalized_site_url = site_url.rstrip("/") + "/"
 
+    if not todays_races:
+        return [
+            build_message_block(
+                title,
+                date_text,
+                ["グレードレースはありません"],
+                normalized_site_url,
+            )
+        ]
+
+    race_lines = [format_race(race) for race in todays_races]
     messages: list[str] = []
-    current_lines = [linked_title]
-    for line in (format_race(race) for race in todays_races):
-        candidate = "\n".join(current_lines + [line])
+    current_lines: list[str] = []
+
+    for line in race_lines:
+        candidate = build_message_block(
+            title if not messages else "🏁本日のグレードレース（続き）",
+            date_text,
+            current_lines + [line],
+            normalized_site_url,
+        )
         if len(candidate) <= DISCORD_MAX_LENGTH:
             current_lines.append(line)
             continue
-        messages.append("\n".join(current_lines))
-        current_lines = [
-            f"[🏁本日のグレードレース（続き）](<{site_url}>)",
-            line,
-        ]
+
+        if current_lines:
+            messages.append(
+                build_message_block(
+                    title if not messages else "🏁本日のグレードレース（続き）",
+                    date_text,
+                    current_lines,
+                    normalized_site_url,
+                )
+            )
+            current_lines = [line]
+            continue
+
+        # 1行だけで上限を超える場合も、通知処理自体は止めない。
+        messages.append(
+            build_message_block(
+                title if not messages else "🏁本日のグレードレース（続き）",
+                date_text,
+                [line[: max(1, DISCORD_MAX_LENGTH - 120)]],
+                normalized_site_url,
+            )
+        )
+
     if current_lines:
-        messages.append("\n".join(current_lines))
+        messages.append(
+            build_message_block(
+                title if not messages else "🏁本日のグレードレース（続き）",
+                date_text,
+                current_lines,
+                normalized_site_url,
+            )
+        )
+
     return messages
 
 
