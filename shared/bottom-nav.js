@@ -109,6 +109,7 @@
       if (this.shadowRoot) return;
 
       const active = this.getAttribute("active") || inferActiveRoute();
+      this.setAttribute("active-route", active);
       const availableAttribute = this.getAttribute("available");
       const available = availableAttribute
         ? new Set(availableAttribute.split(/[\s,]+/).filter(Boolean))
@@ -136,6 +137,7 @@
             class="${classes}"
             href="${isAvailable ? href : "#"}"
             data-route="${route.id}"
+            data-active="${isActive ? "true" : "false"}"
             ${isActive ? 'aria-current="page"' : ""}
             ${!isAvailable ? 'aria-disabled="true" tabindex="-1"' : ""}
           >
@@ -148,6 +150,7 @@
         <style>
           :host {
             --safe: max(env(safe-area-inset-bottom), 0px);
+            --nav-active: #f0b84c;
             position: fixed;
             right: 0;
             bottom: var(--visual-bottom, 0px);
@@ -232,7 +235,7 @@
             max-width: 100%;
             overflow: hidden;
             font-size: ${standalone ? "9.5px" : "10px"};
-            font-weight: 750;
+            font-weight: 800;
             line-height: 1;
             letter-spacing: -.02em;
             text-overflow: clip;
@@ -240,9 +243,28 @@
           }
 
           .item[data-route="onair"] .label { letter-spacing: .04em; }
-          .item.active, .item.featured.active { color: #f0cc70 !important; }
-          .active .icon { filter: drop-shadow(0 0 5px rgba(213,171,67,.28)); }
-          .active .label { font-weight: 900; }
+          .item.active,
+          .item[data-active="true"],
+          .item[aria-current="page"],
+          :host([active-route="home"]) .item[data-route="home"],
+          :host([active-route="schedule"]) .item[data-route="schedule"],
+          :host([active-route="vote"]) .item[data-route="vote"],
+          :host([active-route="onair"]) .item[data-route="onair"],
+          :host([active-route="mypage"]) .item[data-route="mypage"] {
+            color: var(--nav-active) !important;
+          }
+          .item.active .icon,
+          .item[data-active="true"] .icon,
+          .item[aria-current="page"] .icon {
+            color: var(--nav-active) !important;
+            filter: drop-shadow(0 0 5px rgba(213,171,67,.28));
+          }
+          .item.active .label,
+          .item[data-active="true"] .label,
+          .item[aria-current="page"] .label {
+            color: var(--nav-active) !important;
+            font-weight: 800;
+          }
           .disabled { opacity: .38; pointer-events: none; }
 
           @media (max-width: 380px) {

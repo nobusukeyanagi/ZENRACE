@@ -53,9 +53,9 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;oversc
   <audio id="voiceAddiction" class="hidden-media" data-src="assets/voice_addiction.m4a?v=26" preload="metadata" playsinline></audio>
 </div><button id="audioUnlock" type="button">音声を再生</button></div>
 <zenrace-bottom-nav active="onair"></zenrace-bottom-nav>
-<script src="../shared/bottom-nav.js?v=26"></script>
+<script src="../shared/bottom-nav.js?v=27"></script>
 <script>
-const CONFIG={width:540,height:1074,bgmVolume:.8,voiceVolume:1,tConcierge:60,tPersonality2Return:140,tPersonality2End:165,tPersonality:165,tEnd:236,transitionDuration:3,preSwitchFlash:.3};
+const CONFIG={width:540,height:1074,bgmVolume:.08,voiceVolume:1,tConcierge:60,tPersonality2Return:140,tPersonality2End:165,tPersonality:165,tEnd:236,transitionDuration:3,preSwitchFlash:.3};
 const $=id=>document.getElementById(id);
 const layers={bgPersonality:$("bgPersonality"),bgConcierge:$("bgConcierge"),transitionBackdrop:$("transitionBackdrop"),transitionScreen:$("transitionScreen"),statusLive:$("statusLive"),bannerRace:$("bannerRace"),bannerAddiction:$("bannerAddiction"),voteButton:$("voteButton"),chatBot:$("chatBot"),commentStream:$("commentStream"),sharedInput:$("sharedInput"),personalityButton:$("personalityButton"),conciergeButton:$("conciergeButton"),avatarCustom:$("avatarCustom")};
 const bgm=$("bgm"),voiceRace=$("voiceRace"),voiceAddiction=$("voiceAddiction"),audioUnlock=$("audioUnlock");
