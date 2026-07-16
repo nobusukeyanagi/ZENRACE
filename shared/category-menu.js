@@ -20,8 +20,10 @@
     ],
     vote: [
       { id: "racecard", label: "出走表", path: "vote/" },
+      { id: "odds", label: "オッズ", path: "vote/odds/" },
       { id: "bet", label: "投票", path: "vote/bet/" },
-      { id: "introduction", label: "紹介", path: "vote/introduction/" },
+      { id: "inquiry", label: "照会", path: "vote/introduction/" },
+      { id: "results", label: "結果", path: "vote/results/" },
     ],
     mypage: [
       { id: "profile", label: "プロフィール", path: "mypage/" },

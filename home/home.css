@@ -69,10 +69,11 @@ button{font:inherit}
 .balance-row--coin .balance-label{color:#281b05;background:linear-gradient(100deg,#b88017,#ebc45d)}
 .balance-value{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 2.8em;
+  grid-template-columns:max-content 2em;
+  justify-content:end;
   align-items:center;
   min-width:0;
-  padding:4px 10px;
+  padding:4px 4px 4px 2px;
   color:#161616;
   background:#f8f8f7;
   font-size:clamp(17px,4.7vw,25px);
@@ -81,7 +82,7 @@ button{font:inherit}
   white-space:nowrap;
 }
 .balance-number{min-width:0;text-align:right}
-.balance-unit{display:block;width:2.8em;margin-left:0;text-align:right;font-size:.55em;color:#555}
+.balance-unit{display:block;width:2em;margin-left:0;text-align:right;font-size:.55em;color:#555}
 .wallet-actions{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -255,7 +256,7 @@ button{font:inherit}
   .campaign-carousel{margin-inline:-9px}
   .balance-row{grid-template-columns:108px minmax(0,1fr)}
   .balance-label{padding-inline:9px;font-size:13px}
-  .balance-value{padding-inline:7px;font-size:17px}
+  .balance-value{padding:4px 3px 4px 1px;font-size:17px}
   .wallet-actions{gap:5px}
   .wallet-actions button{min-height:55px;font-size:11.5px}
   .notice-grid{gap:6px}
