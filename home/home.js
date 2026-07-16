@@ -10,6 +10,7 @@
   let settleTimer = 0;
   let allSlides = originalSlides;
   let isProgrammaticScroll = false;
+  let isInstantJump = false;
 
   const toast = document.querySelector("[data-home-toast]");
   let toastTimer = 0;
@@ -62,22 +63,50 @@
     });
   };
 
-  const centerPhysical = (physicalIndex, behavior = "smooth") => {
+  const targetLeftFor = (physicalIndex) => {
     const slide = allSlides[physicalIndex];
-    if (!slide) return;
-    const targetLeft = slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2;
-    isProgrammaticScroll = true;
-    track.scrollTo({ left: targetLeft, behavior });
-    window.setTimeout(() => { isProgrammaticScroll = false; }, behavior === "smooth" ? 360 : 0);
+    if (!slide) return null;
+    return slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2;
   };
 
-  let wrapResetTimer = 0;
+  // 複製スライドから正規位置へ戻す際は、CSS側のsmoothやscroll-snapも
+  // 一時的に無効化し、描画される前に座標だけを瞬時に切り替える。
+  const jumpPhysical = (physicalIndex) => {
+    const targetLeft = targetLeftFor(physicalIndex);
+    if (targetLeft === null) return;
 
-  const resetAfterWrap = (physicalIndex) => {
-    window.clearTimeout(wrapResetTimer);
-    wrapResetTimer = window.setTimeout(() => {
-      centerPhysical(physicalIndex, "auto");
-    }, 460);
+    isInstantJump = true;
+    isProgrammaticScroll = true;
+    window.clearTimeout(settleTimer);
+
+    const previousBehavior = track.style.scrollBehavior;
+    const previousSnapType = track.style.scrollSnapType;
+    track.style.scrollBehavior = "auto";
+    track.style.scrollSnapType = "none";
+    track.scrollLeft = targetLeft;
+
+    // 座標変更を確定させた後で通常設定を復元する。
+    void track.offsetWidth;
+    window.requestAnimationFrame(() => {
+      track.style.scrollBehavior = previousBehavior;
+      track.style.scrollSnapType = previousSnapType;
+      window.requestAnimationFrame(() => {
+        isInstantJump = false;
+        isProgrammaticScroll = false;
+      });
+    });
+  };
+
+  const centerPhysical = (physicalIndex, behavior = "smooth") => {
+    if (behavior !== "smooth") {
+      jumpPhysical(physicalIndex);
+      return;
+    }
+
+    const targetLeft = targetLeftFor(physicalIndex);
+    if (targetLeft === null) return;
+    isProgrammaticScroll = true;
+    track.scrollTo({ left: targetLeft, behavior: "smooth" });
   };
 
   const goTo = (index, userInitiated = false) => {
@@ -89,12 +118,10 @@
       current = 0;
       updateDots();
       centerPhysical(allSlides.length - 1, "smooth");
-      resetAfterWrap(physicalIndexFor(0));
     } else if (count > 1 && current === 0 && index === -1) {
       current = count - 1;
       updateDots();
       centerPhysical(0, "smooth");
-      resetAfterWrap(physicalIndexFor(current));
     } else {
       current = (index + count) % count;
       updateDots();
@@ -135,8 +162,20 @@
   };
 
   track.addEventListener("scroll", () => {
+    if (isInstantJump) return;
     window.clearTimeout(settleTimer);
-    settleTimer = window.setTimeout(normalizeAfterScroll, isProgrammaticScroll ? 220 : 110);
+    settleTimer = window.setTimeout(() => {
+      normalizeAfterScroll();
+      isProgrammaticScroll = false;
+    }, isProgrammaticScroll ? 160 : 110);
+  }, { passive: true });
+
+  // 対応ブラウザではスクロール完了直後に複製位置を正規化する。
+  track.addEventListener("scrollend", () => {
+    if (isInstantJump) return;
+    window.clearTimeout(settleTimer);
+    normalizeAfterScroll();
+    isProgrammaticScroll = false;
   }, { passive: true });
 
   const stopAutoPlay = () => {
