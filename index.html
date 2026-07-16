@@ -9,11 +9,11 @@
 <title>トップ | ZENRACE</title>
 <link rel="stylesheet" href="./shared/category-menu.css?v=35">
 <link rel="stylesheet" href="./shared/page-shell.css?v=19">
-<link rel="stylesheet" href="./home/home.css?v=42">
+<link rel="stylesheet" href="./home/home.css?v=43">
 <script src="./shared/category-menu.js?v=38" defer></script>
 <script src="./shared/fixed-layout.js?v=19" defer></script>
 <script src="./shared/bottom-nav.js?v=41" defer></script>
-<script src="./home/home.js?v=42" defer></script>
+<script src="./home/home.js?v=43" defer></script>
 </head>
 <body>
 <zenrace-category-menu category="home" active="home"></zenrace-category-menu>
@@ -36,23 +36,16 @@
           </div>
 
           <div class="wallet-actions">
-            <button type="button" data-demo-message="デルカ入金は準備中です"><span>デルカ</span>入金</button>
-            <button type="button" data-demo-message="デルカ交換は準備中です"><span>デルカ</span>に交換</button>
-            <button type="button" data-demo-message="デルカ履歴は準備中です"><span>デルカ</span>履歴</button>
-            <button type="button" data-demo-message="コイン獲得は準備中です"><span>コイン</span>を貯める</button>
-            <button type="button" data-demo-message="コイン利用は準備中です"><span>コイン</span>を使う</button>
-            <button type="button" data-demo-message="コイン履歴は準備中です"><span>コイン</span>履歴</button>
+            <button class="wallet-action wallet-action--delca" type="button" data-demo-message="デルカ入金は準備中です"><span>デルカ</span>入金</button>
+            <button class="wallet-action wallet-action--delca" type="button" data-demo-message="デルカ交換は準備中です"><span>デルカ</span>に交換</button>
+            <button class="wallet-action wallet-action--delca" type="button" data-demo-message="デルカ履歴は準備中です"><span>デルカ</span>履歴</button>
+            <button class="wallet-action wallet-action--coin" type="button" data-demo-message="コイン獲得は準備中です"><span>コイン</span>を貯める</button>
+            <button class="wallet-action wallet-action--coin" type="button" data-demo-message="コイン利用は準備中です"><span>コイン</span>を使う</button>
+            <button class="wallet-action wallet-action--coin" type="button" data-demo-message="コイン履歴は準備中です"><span>コイン</span>履歴</button>
           </div>
         </section>
 
-        <section class="campaign-section" aria-labelledby="campaign-title">
-          <div class="section-heading">
-            <div>
-              <span class="section-kicker">PICK UP</span>
-              <h1 id="campaign-title">キャンペーン</h1>
-            </div>
-            <span class="section-count">4</span>
-          </div>
+        <section class="campaign-section" aria-label="キャンペーン">
           <div class="campaign-carousel" data-carousel>
             <div class="campaign-track" data-carousel-track>
               <a class="campaign-slide" href="#" aria-label="キャンペーン1" data-demo-message="キャンペーン詳細は準備中です">
@@ -94,13 +87,7 @@
           </button>
         </section>
 
-        <section class="youtube-section" aria-labelledby="youtube-title">
-          <div class="section-heading section-heading--compact">
-            <div>
-              <span class="section-kicker">MOVIE</span>
-              <h2 id="youtube-title">ZENRACEチャンネル</h2>
-            </div>
-          </div>
+        <section class="youtube-section" aria-label="ZENRACEチャンネル">
           <div class="youtube-frame">
             <iframe
               src="https://www.youtube-nocookie.com/embed/_bt0yvWRrbM?start=4&amp;rel=0&amp;playsinline=1"
