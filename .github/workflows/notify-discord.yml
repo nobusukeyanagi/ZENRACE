@@ -2,10 +2,16 @@ name: Notify Discord
 
 on:
   schedule:
-    # 日本時間 毎朝6:17（UTCでは前日21:17）
-    - cron: '17 21 * * *'
-    # 予備実行：日本時間 毎朝6:47。通知済みなら自動で何もしない。
-    - cron: '47 21 * * *'
+    # GitHub Actionsの遅延・欠落対策。
+    # 5:37 / 5:57に先行起動し、実際の送信は6:05まで待機する。
+    - cron: '37 20 * * *' # JST 05:37
+    - cron: '57 20 * * *' # JST 05:57
+    # 6時台の通常・予備実行。
+    - cron: '17 21 * * *' # JST 06:17
+    - cron: '37 21 * * *' # JST 06:37
+    - cron: '57 21 * * *' # JST 06:57
+    # 6時台がすべて欠落した場合の最終予備実行。
+    - cron: '17 22 * * *' # JST 07:17
   workflow_dispatch:
     inputs:
       notify_date:
@@ -21,6 +27,8 @@ on:
 permissions:
   contents: write
 
+# 先行実行が6:05まで待っている間は、後続実行を並列で動かさない。
+# 最初の実行が通知状態を保存した後、後続実行は最新mainを取得して重複を回避する。
 concurrency:
   group: notify-discord
   cancel-in-progress: false
@@ -29,9 +37,33 @@ jobs:
   notify:
     name: Send graded races to Discord
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 70
 
     steps:
+      - name: Wait until 06:05 JST for early scheduled runs
+        if: github.event_name == 'schedule'
+        shell: bash
+        run: |
+          python - <<'PY'
+          from datetime import datetime
+          import time
+          from zoneinfo import ZoneInfo
+
+          jst = ZoneInfo("Asia/Tokyo")
+          now = datetime.now(jst)
+          target = now.replace(hour=6, minute=5, second=0, microsecond=0)
+
+          if now < target:
+              wait_seconds = int((target - now).total_seconds())
+              print(
+                  f"現在は日本時間 {now:%H:%M:%S}。"
+                  f"6:05まで{wait_seconds}秒待機します。"
+              )
+              time.sleep(wait_seconds)
+          else:
+              print(f"現在は日本時間 {now:%H:%M:%S}。直ちに通知処理へ進みます。")
+          PY
+
       - name: Checkout latest main
         uses: actions/checkout@v7
         with:
@@ -42,6 +74,14 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+
+      - name: Show trigger information
+        shell: bash
+        run: |
+          echo "event=${{ github.event_name }}"
+          echo "schedule=${{ github.event.schedule }}"
+          date -u '+UTC=%Y-%m-%d %H:%M:%S'
+          TZ=Asia/Tokyo date '+JST=%Y-%m-%d %H:%M:%S'
 
       - name: Send graded races
         working-directory: gradedraces
