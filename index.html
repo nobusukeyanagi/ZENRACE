@@ -7,28 +7,117 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>トップ | ZENRACE</title>
-<link rel="stylesheet" href="./shared/category-menu.css?v=34">
+<link rel="stylesheet" href="./shared/category-menu.css?v=35">
 <link rel="stylesheet" href="./shared/page-shell.css?v=19">
-<link rel="stylesheet" href="./shared/placeholder-page.css?v=33">
+<link rel="stylesheet" href="./home/home.css?v=42">
 <script src="./shared/category-menu.js?v=38" defer></script>
 <script src="./shared/fixed-layout.js?v=19" defer></script>
 <script src="./shared/bottom-nav.js?v=41" defer></script>
+<script src="./home/home.js?v=42" defer></script>
 </head>
 <body>
 <zenrace-category-menu category="home" active="home"></zenrace-category-menu>
 <div class="zenrace-content-shell" data-zenrace-pinch-shell>
   <div class="zenrace-content-sizer" data-zenrace-pinch-sizer>
     <div class="zenrace-content-stage" data-zenrace-pinch-stage>
-      <main class="placeholder-main">
-        <section class="placeholder-card">
-          <p class="placeholder-label">ZENRACE</p>
-          <h1 class="placeholder-title">トップ</h1>
-          <div class="placeholder-status">作成中</div>
+      <main class="home-page">
+        <section class="brand-panel" aria-label="ZENRACE">
+          <img class="brand-logo" src="./home/assets/zenrace-logo.png" alt="ZENRACE">
         </section>
+
+        <section class="wallet-panel" aria-label="ポイント情報">
+          <div class="balance-row balance-row--delca">
+            <span class="balance-label">投票用デルカ</span>
+            <strong class="balance-value">123,456,789 <small>pt</small></strong>
+          </div>
+          <div class="balance-row balance-row--coin">
+            <span class="balance-label">コイン</span>
+            <strong class="balance-value">123,456,789 <small>pt</small></strong>
+          </div>
+
+          <div class="wallet-actions">
+            <button type="button" data-demo-message="デルカ入金は準備中です"><span>デルカ</span>入金</button>
+            <button type="button" data-demo-message="デルカ交換は準備中です"><span>デルカ</span>に交換</button>
+            <button type="button" data-demo-message="デルカ履歴は準備中です"><span>デルカ</span>履歴</button>
+            <button type="button" data-demo-message="コイン獲得は準備中です"><span>コイン</span>を貯める</button>
+            <button type="button" data-demo-message="コイン利用は準備中です"><span>コイン</span>を使う</button>
+            <button type="button" data-demo-message="コイン履歴は準備中です"><span>コイン</span>履歴</button>
+          </div>
+        </section>
+
+        <section class="campaign-section" aria-labelledby="campaign-title">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">PICK UP</span>
+              <h1 id="campaign-title">キャンペーン</h1>
+            </div>
+            <span class="section-count">4</span>
+          </div>
+          <div class="campaign-carousel" data-carousel>
+            <div class="campaign-track" data-carousel-track>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン1" data-demo-message="キャンペーン詳細は準備中です">
+                <img src="./home/assets/campaign-1.webp" alt="競輪の決勝レースは5%還元">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン2" data-demo-message="キャンペーン詳細は準備中です">
+                <img src="./home/assets/campaign-2.webp" alt="松山GIオールスター競輪を観に行こう">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン3" data-demo-message="キャンペーン詳細は準備中です">
+                <img src="./home/assets/campaign-3.webp" alt="高知GIIサマーナイトフェスティバル">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン4" data-demo-message="キャンペーン詳細は準備中です">
+                <img src="./home/assets/campaign-4.webp" alt="森且行選手サイン入りTシャツプレゼント">
+              </a>
+            </div>
+          </div>
+          <div class="carousel-controls" aria-label="キャンペーン切り替え">
+            <button class="carousel-arrow" type="button" data-carousel-prev aria-label="前のバナー">‹</button>
+            <div class="carousel-dots" data-carousel-dots></div>
+            <button class="carousel-arrow" type="button" data-carousel-next aria-label="次のバナー">›</button>
+          </div>
+        </section>
+
+        <section class="notice-grid" aria-label="お知らせ">
+          <button type="button" data-demo-message="キャンペーン一覧は準備中です">
+            <span class="notice-icon" aria-hidden="true">◆</span>
+            <span>キャンペーン</span>
+            <strong>2</strong>
+          </button>
+          <button type="button" data-demo-message="ニュース一覧は準備中です">
+            <span class="notice-icon" aria-hidden="true">●</span>
+            <span>ニュース</span>
+            <strong>1</strong>
+          </button>
+          <button type="button" data-demo-message="メッセージ一覧は準備中です">
+            <span class="notice-icon" aria-hidden="true">✦</span>
+            <span>メッセージ</span>
+            <strong>1</strong>
+          </button>
+        </section>
+
+        <section class="youtube-section" aria-labelledby="youtube-title">
+          <div class="section-heading section-heading--compact">
+            <div>
+              <span class="section-kicker">MOVIE</span>
+              <h2 id="youtube-title">ZENRACEチャンネル</h2>
+            </div>
+          </div>
+          <div class="youtube-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/_bt0yvWRrbM?start=4&amp;rel=0&amp;playsinline=1"
+              title="ZENRACE YouTube動画"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <div class="home-end-mark" aria-hidden="true"><span></span></div>
       </main>
     </div>
   </div>
 </div>
+<div class="home-toast" role="status" aria-live="polite" data-home-toast></div>
 <zenrace-bottom-nav active="home"></zenrace-bottom-nav>
 </body>
 </html>
