@@ -1,136 +1,19 @@
 {
-  "generated_at": "2026-07-16T05:46:03.163870+09:00",
-  "center_date": "2026-07-16",
+  "generated_at": "2026-07-17T05:33:42.471266+09:00",
+  "center_date": "2026-07-17",
   "window": {
-    "start": "2026-07-14",
-    "end": "2026-07-30"
+    "start": "2026-07-15",
+    "end": "2026-07-31"
   },
   "target_count": 32,
-  "change_count": 9,
+  "change_count": 5,
   "changes": [
     {
       "date": "2026-07-19",
       "sport": "jra",
-      "venue": "小倉",
-      "name": "小倉記念",
-      "before": {
-        "date": "2026-07-19",
-        "time": "15:45",
-        "sport": "jra",
-        "venue": "小倉",
-        "grade": "GⅢ",
-        "name": "小倉記念",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-19",
-        "time": "15:45",
-        "sport": "jra",
-        "venue": "小倉",
-        "grade": "GIII",
-        "name": "小倉記念",
-        "winner": ""
-      },
-      "source": "JRA",
-      "evidence_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/jyusyo.html",
-      "note": "JRA重賞一覧"
-    },
-    {
-      "date": "2026-07-19",
-      "sport": "jra",
       "venue": "函館",
       "name": "函館2歳S",
       "before": {
-        "date": "2026-07-19",
-        "time": "15:20",
-        "sport": "jra",
-        "venue": "函館",
-        "grade": "GⅢ",
-        "name": "函館2歳ステークス",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-19",
-        "time": "15:20",
-        "sport": "jra",
-        "venue": "函館",
-        "grade": "GIII",
-        "name": "函館2歳S",
-        "winner": ""
-      },
-      "source": "JRA",
-      "evidence_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/jyusyo.html",
-      "note": "JRA重賞一覧"
-    },
-    {
-      "date": "2026-07-26",
-      "sport": "jra",
-      "venue": "新潟",
-      "name": "関屋記念",
-      "before": {
-        "date": "2026-07-26",
-        "time": "15:45",
-        "sport": "jra",
-        "venue": "新潟",
-        "grade": "GⅢ",
-        "name": "関屋記念",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-26",
-        "time": "15:45",
-        "sport": "jra",
-        "venue": "新潟",
-        "grade": "GIII",
-        "name": "関屋記念",
-        "winner": ""
-      },
-      "source": "JRA",
-      "evidence_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/jyusyo.html",
-      "note": "JRA重賞一覧"
-    },
-    {
-      "date": "2026-07-26",
-      "sport": "jra",
-      "venue": "中京",
-      "name": "東海S",
-      "before": {
-        "date": "2026-07-26",
-        "time": "15:35",
-        "sport": "jra",
-        "venue": "中京",
-        "grade": "GⅢ",
-        "name": "東海ステークス",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-26",
-        "time": "15:35",
-        "sport": "jra",
-        "venue": "中京",
-        "grade": "GIII",
-        "name": "東海S",
-        "winner": ""
-      },
-      "source": "JRA",
-      "evidence_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/jyusyo.html",
-      "note": "JRA重賞一覧"
-    },
-    {
-      "date": "2026-07-19",
-      "sport": "jra",
-      "venue": "函館",
-      "name": "函館2歳S",
-      "before": {
-        "date": "2026-07-19",
-        "time": "15:20",
-        "sport": "jra",
-        "venue": "函館",
-        "grade": "GIII",
-        "name": "函館2歳S",
-        "winner": ""
-      },
-      "after": {
         "date": "2026-07-19",
         "time": "16:05",
         "sport": "jra",
@@ -139,31 +22,13 @@
         "name": "函館2歳S",
         "winner": ""
       },
-      "source": "JRA",
-      "evidence_url": "https://www.jra.go.jp/keiba/calendar2026/2026/7/0719.html",
-      "note": "JRA競馬番組"
-    },
-    {
-      "date": "2026-07-19",
-      "sport": "jra",
-      "venue": "小倉",
-      "name": "小倉記念",
-      "before": {
-        "date": "2026-07-19",
-        "time": "15:45",
-        "sport": "jra",
-        "venue": "小倉",
-        "grade": "GIII",
-        "name": "小倉記念",
-        "winner": ""
-      },
       "after": {
         "date": "2026-07-19",
-        "time": "15:20",
+        "time": "14:10",
         "sport": "jra",
-        "venue": "小倉",
+        "venue": "函館",
         "grade": "GIII",
-        "name": "小倉記念",
+        "name": "函館2歳S",
         "winner": ""
       },
       "source": "JRA",
@@ -177,15 +42,6 @@
       "name": "東海S",
       "before": {
         "date": "2026-07-26",
-        "time": "15:35",
-        "sport": "jra",
-        "venue": "中京",
-        "grade": "GIII",
-        "name": "東海S",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-26",
         "time": "13:50",
         "sport": "jra",
         "venue": "中京",
@@ -193,62 +49,98 @@
         "name": "東海S",
         "winner": ""
       },
+      "after": {
+        "date": "2026-07-26",
+        "time": "16:10",
+        "sport": "jra",
+        "venue": "中京",
+        "grade": "GIII",
+        "name": "東海S",
+        "winner": ""
+      },
       "source": "JRA",
       "evidence_url": "https://www.jra.go.jp/keiba/calendar2026/2026/7/0726.html",
       "note": "JRA競馬番組"
     },
     {
-      "date": "2026-07-26",
-      "sport": "jra",
-      "venue": "新潟",
-      "name": "関屋記念",
+      "date": "2026-07-16",
+      "sport": "nar",
+      "venue": "佐賀",
+      "name": "霧島賞",
       "before": {
-        "date": "2026-07-26",
-        "time": "15:45",
-        "sport": "jra",
-        "venue": "新潟",
-        "grade": "GIII",
-        "name": "関屋記念",
+        "date": "2026-07-16",
+        "time": "16:50",
+        "sport": "nar",
+        "venue": "佐賀",
+        "grade": "",
+        "name": "霧島賞",
         "winner": ""
       },
       "after": {
-        "date": "2026-07-26",
-        "time": "15:35",
-        "sport": "jra",
-        "venue": "新潟",
-        "grade": "GIII",
-        "name": "関屋記念",
+        "date": "2026-07-16",
+        "time": "16:50",
+        "sport": "nar",
+        "venue": "佐賀",
+        "grade": "",
+        "name": "霧島賞",
+        "winner": "アイタカ"
+      },
+      "source": "地方競馬",
+      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F16&k_babaCode=32",
+      "note": "地方競馬公式レース情報"
+    },
+    {
+      "date": "2026-07-16",
+      "sport": "nar",
+      "venue": "門別",
+      "name": "ノースクイーンカップ",
+      "before": {
+        "date": "2026-07-16",
+        "time": "20:50",
+        "sport": "nar",
+        "venue": "門別",
+        "grade": "H2",
+        "name": "ノースクイーンカップ",
         "winner": ""
       },
-      "source": "JRA",
-      "evidence_url": "https://www.jra.go.jp/keiba/calendar2026/2026/7/0726.html",
-      "note": "JRA競馬番組"
+      "after": {
+        "date": "2026-07-16",
+        "time": "20:50",
+        "sport": "nar",
+        "venue": "門別",
+        "grade": "H2",
+        "name": "ノースクイーンカップ",
+        "winner": "チャチャハツゴウ"
+      },
+      "source": "地方競馬",
+      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F16&k_babaCode=36",
+      "note": "地方競馬公式レース情報"
     },
     {
       "date": "2026-07-19",
       "sport": "nar",
-      "venue": "高知",
-      "name": "トレノ賞",
+      "venue": "金沢",
+      "name": "金沢城鼠多門賞",
       "before": {
         "date": "2026-07-19",
         "time": "",
         "sport": "nar",
-        "venue": "高知",
+        "venue": "金沢",
         "grade": "",
-        "name": "トレノ賞",
+        "name": "金沢城鼠多門賞",
         "winner": ""
       },
       "after": {
         "date": "2026-07-19",
-        "time": "18:05",
+        "time": "18:15",
         "sport": "nar",
-        "venue": "高知",
+        "venue": "金沢",
         "grade": "",
-        "name": "トレノ賞",
+        "name": "金沢城鼠多門賞",
         "winner": ""
       },
       "source": "地方競馬",
-      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=31",
+      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=22",
       "note": "地方競馬公式レース情報"
     }
   ]
