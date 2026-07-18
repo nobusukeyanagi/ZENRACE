@@ -1,16 +1,18 @@
 {
-  "generated_at": "2026-07-18T05:32:33.442532+09:00",
+  "generated_at": "2026-07-19T05:12:17.807155+09:00",
   "sources": [
     {
       "name": "JRA",
       "ok": true,
-      "patch_count": 8,
+      "patch_count": 12,
       "fetched_urls": [
         "https://www.jra.go.jp/datafile/seiseki/replay/2026/jyusyo.html",
         "https://www.jra.go.jp/keiba/calendar2026/2026/7/0719.html",
         "https://www.jra.go.jp/keiba/calendar2026/2026/7/0719.html",
         "https://www.jra.go.jp/keiba/calendar2026/2026/7/0726.html",
-        "https://www.jra.go.jp/keiba/calendar2026/2026/7/0726.html"
+        "https://www.jra.go.jp/keiba/calendar2026/2026/7/0726.html",
+        "https://www.jra.go.jp/keiba/calendar2026/2026/8/0802.html",
+        "https://www.jra.go.jp/keiba/calendar2026/2026/8/0802.html"
       ],
       "warnings": [],
       "error": ""
@@ -21,8 +23,6 @@
       "patch_count": 8,
       "fetched_urls": [
         "https://www.keiba.go.jp/gradedrace/schedule.html",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F16&k_babaCode=32",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F16&k_babaCode=36",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=10",
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=10&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=31",
@@ -31,9 +31,9 @@
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=22&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=03",
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=03&k_nenndo=2026",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F20&k_babaCode=10",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F20&k_babaCode=23",
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=23&k_nenndo=2026",
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F20&k_babaCode=10",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F22&k_babaCode=20",
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=20&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F22&k_babaCode=36",
@@ -45,7 +45,9 @@
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F28&k_babaCode=24",
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=24&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F29&k_babaCode=36",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F30&k_babaCode=36"
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F30&k_babaCode=36",
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F08%2F02&k_babaCode=10",
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F08%2F02&k_babaCode=31"
       ],
       "warnings": [
         "地方競馬重賞一覧の本文を十分に確認できませんでした。個別レース情報の取得は継続します。"
@@ -60,13 +62,14 @@
         "https://www.boatrace.jp/owpc/pc/race/gradesch?hcd=01",
         "https://www.boatrace.jp/owpc/pc/race/gradesch?hcd=02",
         "https://www.boatrace.jp/owpc/pc/race/gradesch?hcd=03",
-        "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=07&hd=20260718",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=13&hd=20260718",
+        "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=07&hd=20260718",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=16&hd=20260722",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=09&hd=20260723",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=19&hd=20260724",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=22&hd=20260724",
-        "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=03&hd=20260728"
+        "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=03&hd=20260728",
+        "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=11&hd=20260802"
       ],
       "warnings": [],
       "error": ""
@@ -110,10 +113,19 @@
         "https://autorace.jp/race_info/Program/kawaguchi/2026-07-20_12",
         "https://autorace.jp/race_info/Program/kawaguchi/2026-07-20_11",
         "https://autorace.jp/race_info/Program/kawaguchi/2026-07-20_10",
-        "https://autorace.jp/race_info/Program/kawaguchi/2026-07-20_09"
+        "https://autorace.jp/race_info/Program/kawaguchi/2026-07-20_09",
+        "https://autorace.jp/race_info/RaceResult/hamamatsu/2026-08-02_12",
+        "https://autorace.jp/race_info/RaceResult/hamamatsu/2026-08-02_11",
+        "https://autorace.jp/race_info/RaceResult/hamamatsu/2026-08-02_10",
+        "https://autorace.jp/race_info/RaceResult/hamamatsu/2026-08-02_09",
+        "https://autorace.jp/race_info/Program/hamamatsu/2026-08-02_12",
+        "https://autorace.jp/race_info/Program/hamamatsu/2026-08-02_11",
+        "https://autorace.jp/race_info/Program/hamamatsu/2026-08-02_10",
+        "https://autorace.jp/race_info/Program/hamamatsu/2026-08-02_09"
       ],
       "warnings": [
-        "2026-07-20 川口: 優勝戦ページを特定できませんでした"
+        "2026-07-20 川口: 優勝戦ページを特定できませんでした",
+        "2026-08-02 浜松: 優勝戦ページを特定できませんでした"
       ],
       "error": ""
     }

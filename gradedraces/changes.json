@@ -1,147 +1,174 @@
 {
-  "generated_at": "2026-07-18T05:32:33.442512+09:00",
-  "center_date": "2026-07-18",
+  "generated_at": "2026-07-19T05:12:17.807139+09:00",
+  "center_date": "2026-07-19",
   "window": {
-    "start": "2026-07-16",
-    "end": "2026-08-01"
+    "start": "2026-07-17",
+    "end": "2026-08-02"
   },
-  "target_count": 32,
-  "change_count": 5,
+  "target_count": 36,
+  "change_count": 6,
   "changes": [
     {
-      "date": "2026-07-19",
-      "sport": "nar",
-      "venue": "盛岡",
-      "name": "いしがきマイラーズ",
+      "date": "2026-08-02",
+      "sport": "jra",
+      "venue": "新潟",
+      "name": "アイビスサマーダッシュ",
       "before": {
-        "date": "2026-07-19",
-        "time": "17:40",
-        "sport": "nar",
-        "venue": "盛岡",
-        "grade": "M3",
-        "name": "いしがきマイラーズ",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-19",
-        "time": "17:25",
-        "sport": "nar",
-        "venue": "盛岡",
-        "grade": "M3",
-        "name": "いしがきマイラーズ",
-        "winner": ""
-      },
-      "source": "地方競馬",
-      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=10",
-      "note": "地方競馬公式レース情報"
-    },
-    {
-      "date": "2026-07-19",
-      "sport": "nar",
-      "venue": "帯広",
-      "name": "ばんえい大賞典",
-      "before": {
-        "date": "2026-07-19",
+        "date": "2026-08-02",
         "time": "",
-        "sport": "nar",
-        "venue": "帯広",
-        "grade": "BG3",
-        "name": "ばんえい大賞典",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-19",
-        "time": "20:00",
-        "sport": "nar",
-        "venue": "帯広",
-        "grade": "BG3",
-        "name": "ばんえい大賞典",
-        "winner": ""
-      },
-      "source": "地方競馬",
-      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=03",
-      "note": "地方競馬公式レース情報"
-    },
-    {
-      "date": "2026-07-20",
-      "sport": "nar",
-      "venue": "笠松",
-      "name": "サマーカップ",
-      "before": {
-        "date": "2026-07-20",
-        "time": "",
-        "sport": "nar",
-        "venue": "笠松",
-        "grade": "SPⅡ",
-        "name": "サマーカップ",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-20",
-        "time": "17:15",
-        "sport": "nar",
-        "venue": "笠松",
-        "grade": "SPⅡ",
-        "name": "サマーカップ",
-        "winner": ""
-      },
-      "source": "地方競馬",
-      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F20&k_babaCode=23",
-      "note": "地方競馬公式レース情報"
-    },
-    {
-      "date": "2026-07-18",
-      "sport": "boat",
-      "venue": "蒲郡",
-      "name": "モーターボート大賞",
-      "before": {
-        "date": "2026-07-18",
-        "time": "20:45",
-        "sport": "boat",
-        "venue": "蒲郡",
-        "grade": "GⅡ",
-        "name": "モーターボート大賞",
-        "winner": ""
-      },
-      "after": {
-        "date": "2026-07-18",
-        "time": "20:39",
-        "sport": "boat",
-        "venue": "蒲郡",
-        "grade": "GⅡ",
-        "name": "モーターボート大賞",
-        "winner": ""
-      },
-      "source": "ボートレース",
-      "evidence_url": "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=07&hd=20260718",
-      "note": "12R発売締切予定時刻"
-    },
-    {
-      "date": "2026-07-18",
-      "sport": "boat",
-      "venue": "尼崎",
-      "name": "オールレディース",
-      "before": {
-        "date": "2026-07-18",
-        "time": "",
-        "sport": "boat",
-        "venue": "尼崎",
+        "sport": "jra",
+        "venue": "新潟",
         "grade": "GⅢ",
-        "name": "オールレディース",
+        "name": "アイビスサマーダッシュ",
         "winner": ""
       },
       "after": {
-        "date": "2026-07-18",
-        "time": "16:35",
-        "sport": "boat",
-        "venue": "尼崎",
-        "grade": "GⅢ",
-        "name": "オールレディース",
+        "date": "2026-08-02",
+        "time": "",
+        "sport": "jra",
+        "venue": "新潟",
+        "grade": "GIII",
+        "name": "アイビスサマーダッシュ",
         "winner": ""
       },
-      "source": "ボートレース",
-      "evidence_url": "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=13&hd=20260718",
-      "note": "12R発売締切予定時刻"
+      "source": "JRA",
+      "evidence_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/jyusyo.html",
+      "note": "JRA重賞一覧"
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "jra",
+      "venue": "札幌",
+      "name": "クイーンS",
+      "before": {
+        "date": "2026-08-02",
+        "time": "",
+        "sport": "jra",
+        "venue": "札幌",
+        "grade": "GⅢ",
+        "name": "クイーンステークス",
+        "winner": ""
+      },
+      "after": {
+        "date": "2026-08-02",
+        "time": "",
+        "sport": "jra",
+        "venue": "札幌",
+        "grade": "GIII",
+        "name": "クイーンS",
+        "winner": ""
+      },
+      "source": "JRA",
+      "evidence_url": "https://www.jra.go.jp/datafile/seiseki/replay/2026/jyusyo.html",
+      "note": "JRA重賞一覧"
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "jra",
+      "venue": "新潟",
+      "name": "アイビスサマーダッシュ",
+      "before": {
+        "date": "2026-08-02",
+        "time": "",
+        "sport": "jra",
+        "venue": "新潟",
+        "grade": "GIII",
+        "name": "アイビスサマーダッシュ",
+        "winner": ""
+      },
+      "after": {
+        "date": "2026-08-02",
+        "time": "15:35",
+        "sport": "jra",
+        "venue": "新潟",
+        "grade": "GIII",
+        "name": "アイビスサマーダッシュ",
+        "winner": ""
+      },
+      "source": "JRA",
+      "evidence_url": "https://www.jra.go.jp/keiba/calendar2026/2026/8/0802.html",
+      "note": "JRA競馬番組"
+    },
+    {
+      "date": "2026-08-02",
+      "sport": "jra",
+      "venue": "札幌",
+      "name": "クイーンS",
+      "before": {
+        "date": "2026-08-02",
+        "time": "",
+        "sport": "jra",
+        "venue": "札幌",
+        "grade": "GIII",
+        "name": "クイーンS",
+        "winner": ""
+      },
+      "after": {
+        "date": "2026-08-02",
+        "time": "16:00",
+        "sport": "jra",
+        "venue": "札幌",
+        "grade": "GIII",
+        "name": "クイーンS",
+        "winner": ""
+      },
+      "source": "JRA",
+      "evidence_url": "https://www.jra.go.jp/keiba/calendar2026/2026/8/0802.html",
+      "note": "JRA競馬番組"
+    },
+    {
+      "date": "2026-07-22",
+      "sport": "nar",
+      "venue": "門別",
+      "name": "リリーカップ",
+      "before": {
+        "date": "2026-07-22",
+        "time": "",
+        "sport": "nar",
+        "venue": "門別",
+        "grade": "H3",
+        "name": "リリーカップ",
+        "winner": ""
+      },
+      "after": {
+        "date": "2026-07-22",
+        "time": "20:35",
+        "sport": "nar",
+        "venue": "門別",
+        "grade": "H3",
+        "name": "リリーカップ",
+        "winner": ""
+      },
+      "source": "地方競馬",
+      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F22&k_babaCode=36",
+      "note": "地方競馬公式レース情報"
+    },
+    {
+      "date": "2026-07-23",
+      "sport": "nar",
+      "venue": "門別",
+      "name": "王冠賞",
+      "before": {
+        "date": "2026-07-23",
+        "time": "",
+        "sport": "nar",
+        "venue": "門別",
+        "grade": "H2",
+        "name": "王冠賞",
+        "winner": ""
+      },
+      "after": {
+        "date": "2026-07-23",
+        "time": "20:35",
+        "sport": "nar",
+        "venue": "門別",
+        "grade": "H2",
+        "name": "王冠賞",
+        "winner": ""
+      },
+      "source": "地方競馬",
+      "evidence_url": "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F23&k_babaCode=36",
+      "note": "地方競馬公式レース情報"
     }
   ]
 }

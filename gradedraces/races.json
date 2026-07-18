@@ -3214,20 +3214,20 @@
   },
   {
     "date": "2026-07-22",
-    "time": "",
+    "time": "20:35",
     "sport": "nar",
-    "venue": "大井",
-    "grade": "SⅢ",
-    "name": "サンタアニタトロフィー",
+    "venue": "門別",
+    "grade": "H3",
+    "name": "リリーカップ",
     "winner": ""
   },
   {
     "date": "2026-07-22",
     "time": "",
     "sport": "nar",
-    "venue": "門別",
-    "grade": "H3",
-    "name": "リリーカップ",
+    "venue": "大井",
+    "grade": "SⅢ",
+    "name": "サンタアニタトロフィー",
     "winner": ""
   },
   {
@@ -3241,7 +3241,7 @@
   },
   {
     "date": "2026-07-23",
-    "time": "",
+    "time": "20:35",
     "sport": "nar",
     "venue": "門別",
     "grade": "H2",
@@ -3376,20 +3376,20 @@
   },
   {
     "date": "2026-08-02",
-    "time": "",
+    "time": "15:35",
     "sport": "jra",
     "venue": "新潟",
-    "grade": "GⅢ",
+    "grade": "GIII",
     "name": "アイビスサマーダッシュ",
     "winner": ""
   },
   {
     "date": "2026-08-02",
-    "time": "",
+    "time": "16:00",
     "sport": "jra",
     "venue": "札幌",
-    "grade": "GⅢ",
-    "name": "クイーンステークス",
+    "grade": "GIII",
+    "name": "クイーンS",
     "winner": ""
   },
   {
