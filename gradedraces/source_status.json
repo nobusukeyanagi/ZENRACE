@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-20T05:16:29.560422+09:00",
+  "generated_at": "2026-07-21T06:48:29.541107+09:00",
   "sources": [
     {
       "name": "JRA",
@@ -28,15 +28,14 @@
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=22",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F19&k_babaCode=03",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F20&k_babaCode=23",
-        "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=23&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F20&k_babaCode=10",
-        "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=10&k_nenndo=2026",
-        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F22&k_babaCode=36",
-        "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=36&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F22&k_babaCode=20",
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=20&k_nenndo=2026",
+        "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F22&k_babaCode=36",
+        "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=36&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F23&k_babaCode=36",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F26&k_babaCode=10",
+        "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=10&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F26&k_babaCode=22",
         "https://www.keiba.go.jp/KeibaWeb/DataRoom/JyusyoRaceWinhorse?k_babaCode=22&k_nenndo=2026",
         "https://www.keiba.go.jp/KeibaWeb/TodayRaceInfo/RaceList?k_raceDate=2026%2F07%2F28&k_babaCode=10",
@@ -56,13 +55,11 @@
     {
       "name": "ボートレース",
       "ok": true,
-      "patch_count": 2,
+      "patch_count": 0,
       "fetched_urls": [
         "https://www.boatrace.jp/owpc/pc/race/gradesch?hcd=01",
         "https://www.boatrace.jp/owpc/pc/race/gradesch?hcd=02",
         "https://www.boatrace.jp/owpc/pc/race/gradesch?hcd=03",
-        "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=13&hd=20260718",
-        "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=07&hd=20260718",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=16&hd=20260722",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=09&hd=20260723",
         "https://www.boatrace.jp/owpc/pc/race/raceindex?jcd=19&hd=20260724",
@@ -95,7 +92,12 @@
         "2026-07-28 豊橋 11R: 404 Client Error: Not Found for url: https://keirin.jp/pc/race/raceresult?joCode=45&kaisaiBi=20260728&raceNo=11",
         "2026-07-28 豊橋 10R: 404 Client Error: Not Found for url: https://keirin.jp/pc/race/raceresult?joCode=45&kaisaiBi=20260728&raceNo=10",
         "2026-07-28 豊橋 9R: 404 Client Error: Not Found for url: https://keirin.jp/pc/race/raceresult?joCode=45&kaisaiBi=20260728&raceNo=9",
-        "2026-07-28 豊橋: 決勝ページを特定できませんでした"
+        "2026-07-28 豊橋: 決勝ページを特定できませんでした",
+        "2026-08-04 小田原 12R: 404 Client Error: Not Found for url: https://keirin.jp/pc/race/raceresult?joCode=36&kaisaiBi=20260804&raceNo=12",
+        "2026-08-04 小田原 11R: 404 Client Error: Not Found for url: https://keirin.jp/pc/race/raceresult?joCode=36&kaisaiBi=20260804&raceNo=11",
+        "2026-08-04 小田原 10R: 404 Client Error: Not Found for url: https://keirin.jp/pc/race/raceresult?joCode=36&kaisaiBi=20260804&raceNo=10",
+        "2026-08-04 小田原 9R: 404 Client Error: Not Found for url: https://keirin.jp/pc/race/raceresult?joCode=36&kaisaiBi=20260804&raceNo=9",
+        "2026-08-04 小田原: 決勝ページを特定できませんでした"
       ],
       "error": ""
     },
