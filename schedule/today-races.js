@@ -162,11 +162,11 @@
     return `
       <article class="venue-row" data-mode="${track.mode}">
         <div class="venue-card sport-${row.sport}">
-          <div class="venue-name">${row.venue}</div>
-          <div class="venue-icons">
+          <div class="venue-title-line">
+            <div class="venue-name">${row.venue}</div>
             <span class="venue-sport-icon ${row.sport}" aria-hidden="true"></span>
-            ${row.grade ? `<span class="venue-grade-icon ${row.grade.accent ? "accent" : "muted"}" aria-label="格 ${row.grade.label}">${row.grade.label}</span>` : ""}
           </div>
+          ${row.grade ? `<div class="venue-grade-row"><span class="venue-grade-icon ${row.grade.accent ? "accent" : "muted"}" aria-label="格 ${row.grade.label}">${row.grade.label}</span></div>` : ""}
         </div>
         <div class="venue-track-shell">
           <div class="venue-track" data-mode="${track.mode}" data-anchor="${track.anchor}">${track.cards}</div>

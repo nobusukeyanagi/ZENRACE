@@ -73,17 +73,18 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
 }
 .venue-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.11)}
 .venue-card{
-  min-height:var(--row-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  min-height:var(--row-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
   padding:5px 6px;border-right:1px solid rgba(255,255,255,.16);color:#fff
 }
 .venue-card.sport-keirin{background:linear-gradient(180deg,#d66c1d,#bd5510)}
 .venue-card.sport-auto{background:linear-gradient(180deg,#7e47af,#683397)}
 .venue-card.sport-boat{background:linear-gradient(180deg,#237fc8,#1264a8)}
 .venue-card.sport-nar{background:linear-gradient(180deg,#93643a,#704722)}
+.venue-title-line{display:flex;align-items:center;justify-content:center;gap:.5em;min-width:0}
 .venue-name{font-size:16px;line-height:1.05;font-weight:950;letter-spacing:-.01em;text-align:center;white-space:nowrap}
-.venue-icons{display:flex;align-items:center;justify-content:center;gap:5px;min-height:21px}
+.venue-grade-row{display:flex;align-items:center;justify-content:center;min-height:20px}
 .venue-sport-icon{
-  width:21px;height:21px;display:block;background:#fff;
+  flex:0 0 19px;width:19px;height:19px;display:block;background:#fff;
   filter:drop-shadow(0 1px 1px rgba(0,0,0,.16));-webkit-filter:drop-shadow(0 1px 1px rgba(0,0,0,.16))
 }
 .venue-sport-icon.keirin{-webkit-mask:url('../gradedraces/icons/keirin.png') center / contain no-repeat;mask:url('../gradedraces/icons/keirin.png') center / contain no-repeat}
@@ -119,6 +120,8 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
 .race-card.cancelled{color:#69717c;background:#eef0f3}
 .race-card.cancelled .race-time{font-size:13px;letter-spacing:.04em}
 .race-card.upcoming{background:#f7f7f7}
+/* 未開催の1Rを、開催中の金帯直後のレース列と同じX座標へ送る。 */
+.race-card.prestart{margin-left:var(--focus-band-shift)}
 .race-card.placeholder,.race-card.spacer{box-shadow:none;border-color:transparent;background:transparent;color:transparent;pointer-events:none}
 .race-card.placeholder .race-no,.race-card.placeholder .race-time,.race-card.spacer .race-no,.race-card.spacer .race-time{visibility:hidden}
 .race-scroll-tail{
@@ -142,6 +145,6 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
   .date-nav{grid-template-columns:29px minmax(140px,auto) 29px}.date-arrow{width:29px}.date-title{font-size:15px}
   .today-btn{min-width:60px;height:30px;padding-inline:9px}
   .today-page{padding:5px}
-  .venue-name{font-size:15px}.venue-icons{gap:4px;min-height:19px}.venue-sport-icon{width:19px;height:19px}.venue-grade-icon{height:18px;min-width:23px;padding-inline:3px;font-size:8px}
+  .venue-name{font-size:15px}.venue-title-line{gap:.45em}.venue-sport-icon{flex-basis:17px;width:17px;height:17px}.venue-grade-row{min-height:18px}.venue-grade-icon{height:18px;min-width:23px;padding-inline:3px;font-size:8px}
   .race-card .race-no{font-size:14px}.race-card .race-time{font-size:13px}
 }
