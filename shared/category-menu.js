@@ -13,10 +13,11 @@
       { id: "about", label: "ABOUT", path: "about/" },
     ],
     schedule: [
-      { id: "today", label: "本日の開催", path: "schedule/" },
+      { id: "today", label: "本日のレース", path: "schedule/" },
       { id: "timetable", label: "時刻表", path: "timetable/" },
-      { id: "monthly", label: "月別日程", path: "monthly/" },
-      { id: "grade", label: "グレード", path: "gradedraces/" },
+      { id: "quick-results", label: "結果早見", path: "results/" },
+      { id: "monthly", label: "開催日程", path: "monthly/" },
+      { id: "grade", label: "グレード日程", path: "gradedraces/" },
     ],
     vote: [
       { id: "racecard", label: "出走表", path: "vote/" },

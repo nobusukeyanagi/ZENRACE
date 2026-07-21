@@ -19,7 +19,7 @@
     },
     {
       id: "schedule",
-      label: "開催",
+      label: "スケジュール",
       path: "schedule/",
       icon: `
         <svg viewBox="0 0 96 96" aria-hidden="true">
@@ -48,7 +48,7 @@
     },
     {
       id: "onair",
-      label: "ONAIR",
+      label: "オンエア",
       path: "onair/",
       icon: `
         <svg viewBox="0 0 112 96" aria-hidden="true">
@@ -83,7 +83,7 @@
     const first = relative.split("/").filter(Boolean)[0] || "";
 
     if (["settings", "guide", "about"].includes(first) || first === "") return "home";
-    if (["schedule", "timetable", "monthly", "gradedraces"].includes(first)) return "schedule";
+    if (["schedule", "timetable", "results", "monthly", "gradedraces"].includes(first)) return "schedule";
     if (first === "vote") return "vote";
     if (first === "onair") return "onair";
     if (first === "mypage") return "mypage";
