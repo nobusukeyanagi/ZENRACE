@@ -111,15 +111,12 @@
     }
 
     const cards = [];
-    const minutesUntilFirstRace = row.races[0].minutes - REFERENCE_MINUTES;
-    const anchor = nextIndex === 0 && minutesUntilFirstRace >= 30 ? "after-focus" : "focus";
-
-    // 1R前は左側に実レースがないため、基準列まで透明スロットを置く。
+    // まだ1Rが発走していない開催は、1Rを金帯の次の列へ統一する。
+    // 実レースのない左側に透明スロットを2つ置くことで、PC・iPhoneとも
+    // 開催中の「金帯の次レース」と同じX座標に固定する。
+    const anchor = nextIndex === 0 ? "after-focus" : "focus";
     if (nextIndex === 0) {
-      const spacerCount = anchor === "after-focus" ? 2 : 1;
-      for (let index = 0; index < spacerCount; index += 1) {
-        cards.push(createCard(null, "spacer"));
-      }
+      cards.push(createCard(null, "spacer"), createCard(null, "spacer"));
     }
 
     row.races.forEach((race, index) => {
@@ -150,10 +147,11 @@
   const buildFutureTrack = (row) => ({
     mode: "future",
     anchor: "left",
-    cards: [
-      ...row.races.map((race, index) => createCard(race, `upcoming${index === 0 ? " anchor-card" : ""}`)),
-      '<span class="race-scroll-tail" aria-hidden="true"></span>',
-    ].join(""),
+    // 未来日は1Rを左端に置き、最終レース以降の空白領域を作らない。
+    cards: row.races.map((race, index) => createCard(
+      race,
+      `upcoming${index === 0 ? " anchor-card" : ""}`,
+    )).join(""),
   });
 
   const renderRow = (row, dayDiff) => {
@@ -235,8 +233,8 @@
     setScrollLeftExactly(track, target);
   };
 
-  const bindPastEndClamp = (track) => {
-    if (!track || track.dataset.mode !== "past" || track.dataset.endClampBound === "true") return;
+  const bindEndClamp = (track) => {
+    if (!track || !["past", "future"].includes(track.dataset.mode) || track.dataset.endClampBound === "true") return;
     track.dataset.endClampBound = "true";
     let frame = 0;
     const clamp = () => {
@@ -266,7 +264,7 @@
     board.dataset.dayMode = dayDiff < 0 ? "past" : dayDiff > 0 ? "future" : "today";
     const rows = groupRacesByVenue();
     board.innerHTML = rows.map((row) => renderRow(row, dayDiff)).join("");
-    board.querySelectorAll(".venue-track").forEach(bindPastEndClamp);
+    board.querySelectorAll(".venue-track").forEach(bindEndClamp);
 
     board.querySelectorAll(".race-card[href='#']").forEach((card) => {
       card.addEventListener("click", (event) => {
