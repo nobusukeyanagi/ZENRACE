@@ -40,8 +40,12 @@
   const diffDays = (a, b) => Math.round((startOfDay(a) - startOfDay(b)) / 86400000);
   const isHoliday = (value) => JAPAN_HOLIDAYS_2026.has(dateKey(value));
   const formatDateTitle = (value) => {
-    const holidayClass = isHoliday(value) ? " holiday" : "";
-    return `${value.getFullYear()}年 ${value.getMonth() + 1}月 ${value.getDate()}日 <span class="date-weekday${holidayClass}">(${WEEKDAY[value.getDay()]})</span>`;
+    const weekday = value.getDay();
+    const classes = ["date-weekday"];
+    if (isHoliday(value)) classes.push("holiday");
+    else if (weekday === 0) classes.push("sunday");
+    else if (weekday === 6) classes.push("saturday");
+    return `${value.getFullYear()}年 ${value.getMonth() + 1}月 ${value.getDate()}日 <span class="${classes.join(" ")}">(${WEEKDAY[weekday]})</span>`;
   };
   const timeToMinutes = (time) => {
     const [hour, minute] = String(time).split(":").map(Number);
@@ -106,7 +110,11 @@
     row.races.forEach((race, index) => {
       let className = "upcoming";
       if (index < nextIndex) className = "finished";
-      if (index === nextIndex) className = "current anchor-card";
+      if (index === nextIndex) {
+        className = anchor === "after-focus"
+          ? "upcoming prestart anchor-card"
+          : "current anchor-card";
+      }
       cards.push(createCard(race, className));
     });
     cards.push('<span class="race-scroll-tail" aria-hidden="true"></span>');
@@ -118,13 +126,10 @@
   const buildPastTrack = (row) => ({
     mode: "past",
     anchor: "right",
-    cards: [
-      ...row.races.map((race, index) => createCard(
-        race,
-        index === row.races.length - 1 ? "finished final anchor-card" : "finished",
-      )),
-      '<span class="race-scroll-tail" aria-hidden="true"></span>',
-    ].join(""),
+    cards: row.races.map((race, index) => createCard(
+      race,
+      index === row.races.length - 1 ? "finished final anchor-card" : "finished",
+    )).join(""),
   });
 
   const buildFutureTrack = (row) => ({
@@ -212,6 +217,21 @@
     setScrollLeftExactly(track, target);
   };
 
+  const bindPastEndClamp = (track) => {
+    if (!track || track.dataset.mode !== "past" || track.dataset.endClampBound === "true") return;
+    track.dataset.endClampBound = "true";
+    let frame = 0;
+    const clamp = () => {
+      frame = 0;
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      if (track.scrollLeft > maxScroll) track.scrollLeft = maxScroll;
+    };
+    track.addEventListener("scroll", () => {
+      if (!frame) frame = requestAnimationFrame(clamp);
+    }, { passive: true });
+    track.addEventListener("touchend", clamp, { passive: true });
+  };
+
 
 
   const render = () => {
@@ -228,6 +248,7 @@
     board.dataset.dayMode = dayDiff < 0 ? "past" : dayDiff > 0 ? "future" : "today";
     const rows = groupRacesByVenue();
     board.innerHTML = rows.map((row) => renderRow(row, dayDiff)).join("");
+    board.querySelectorAll(".venue-track").forEach(bindPastEndClamp);
 
     board.querySelectorAll(".race-card[href='#']").forEach((card) => {
       card.addEventListener("click", (event) => {

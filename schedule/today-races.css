@@ -8,7 +8,7 @@
   --track-gap:7px;
   --track-pad-x:8px;
   --focus-slot-index:1;
-  --focus-band-shift:0px;
+  --focus-band-shift:6px;
   --focus-band-w:44px;
   --focus-band-left:calc(
     var(--venue-card-w) + var(--track-pad-x) +
@@ -41,7 +41,8 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
 .date-arrow{width:34px;height:34px;border:0;background:transparent;color:var(--gold);font-size:27px;line-height:1;cursor:pointer}
 .date-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.045em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28)}
 .date-weekday{color:inherit}
-.date-weekday.holiday{color:#ff7676;text-shadow:0 1px 6px rgba(0,0,0,.72),0 0 8px rgba(255,118,118,.18)}
+.date-weekday.holiday,.date-weekday.sunday{color:#ff7676;text-shadow:0 1px 6px rgba(0,0,0,.72),0 0 8px rgba(255,118,118,.18)}
+.date-weekday.saturday{color:#75b8ff;text-shadow:0 1px 6px rgba(0,0,0,.72),0 0 8px rgba(117,184,255,.16)}
 .date-toolbar-side{display:flex;align-items:center;min-width:0}
 .date-toolbar-side.right{justify-content:flex-end}
 .today-btn{
@@ -93,7 +94,7 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
 .venue-track{
   position:relative;z-index:1;display:flex;gap:var(--track-gap);align-items:center;min-height:var(--row-h);
   padding:5px var(--track-pad-x);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  touch-action:pan-x pan-y;overscroll-behavior-x:contain;overscroll-behavior-y:auto;scroll-snap-type:none;
+  touch-action:pan-x pan-y;overscroll-behavior-x:none;overscroll-behavior-y:auto;scroll-snap-type:none;
   scroll-behavior:auto
 }
 .venue-track::-webkit-scrollbar{display:none}
