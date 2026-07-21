@@ -2,8 +2,13 @@ name: Graded-race Update
 
 on:
   schedule:
-    # 毎日 日本時間2:17（UTCでは前日17:17）
-    - cron: '17 17 * * *'
+    # 通常更新：日本時間 2:17 / 8:17 / 14:17 / 20:17 / 23:17
+    # 開催番組の公開と、ナイター終了後の公式結果公開を同日中に拾う。
+    - cron: '17 17 * * *'  # JST 02:17（前日UTC 17:17）
+    - cron: '17 23 * * *'  # JST 08:17（前日UTC 23:17）
+    - cron: '17 5 * * *'   # JST 14:17
+    - cron: '17 11 * * *'  # JST 20:17
+    - cron: '17 14 * * *'  # JST 23:17
     # 3か月に1回：1・4・7・10月8日 日本時間3:17
     # UTCでは同月7日18:17。
     - cron: '17 18 7 1,4,7,10 *'
@@ -109,7 +114,7 @@ jobs:
               output.write(f'chunk_days={chunk_days}\n')
           PY
 
-      - name: Update past 2 days through future 14 days
+      - name: Update upcoming and unresolved official data
         if: steps.plan.outputs.mode == 'daily'
         working-directory: gradedraces
         env:
@@ -118,13 +123,11 @@ jobs:
           if [ -n "$BASE_DATE" ]; then
             python -m scripts.update_races \
               --date "$BASE_DATE" \
-              --before 2 \
-              --after 14 \
+              --smart \
               --fail-if-all-sources-fail
           else
             python -m scripts.update_races \
-              --before 2 \
-              --after 14 \
+              --smart \
               --fail-if-all-sources-fail
           fi
 
@@ -137,6 +140,43 @@ jobs:
             --end '${{ steps.plan.outputs.end_date }}' \
             --chunk-days '${{ steps.plan.outputs.chunk_days }}' \
             --fail-if-any-chunk-fails
+
+      - name: Write update quality summary
+        if: always()
+        working-directory: gradedraces
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          def load(name):
+              path = Path(name)
+              return json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
+
+          changes = load('changes.json')
+          incomplete = load('incomplete_records.json')
+          status = load('source_status.json')
+          lines = [
+              '# Graded-race Update quality',
+              '',
+              f"- 更新モード: {changes.get('selection_mode', 'quarterly')}",
+              f"- 取得対象: {changes.get('target_count', 0)}件",
+              f"- 変更: {changes.get('change_count', 0)}件",
+              f"- 終了済み未解決: {incomplete.get('past_unresolved_count', 0)}件",
+              f"- 開催前の時刻未公開: {incomplete.get('upcoming_missing_time_count', 0)}件",
+              '',
+              '## Sources',
+          ]
+          for source in status.get('sources', []):
+              state = 'OK' if source.get('ok') else 'FAILED'
+              lines.append(
+                  f"- {source.get('name', '')}: {state}, "
+                  f"patches={source.get('patch_count', 0)}, warnings={len(source.get('warnings', []))}"
+              )
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as output:
+              output.write('\n'.join(lines) + '\n')
+          PY
 
       - name: Validate races.json
         working-directory: gradedraces
@@ -162,6 +202,7 @@ jobs:
 
           [ -f gradedraces/changes.json ] && git add gradedraces/changes.json || true
           [ -f gradedraces/source_status.json ] && git add gradedraces/source_status.json || true
+          [ -f gradedraces/incomplete_records.json ] && git add gradedraces/incomplete_records.json || true
           [ -f gradedraces/range_update_report.json ] && git add gradedraces/range_update_report.json || true
           [ -f gradedraces/grade_normalization_report.json ] && git add gradedraces/grade_normalization_report.json || true
 
@@ -181,6 +222,7 @@ jobs:
           path: |
             gradedraces/changes.json
             gradedraces/source_status.json
+            gradedraces/incomplete_records.json
             gradedraces/range_update_report.json
             gradedraces/grade_normalization_report.json
           if-no-files-found: ignore
