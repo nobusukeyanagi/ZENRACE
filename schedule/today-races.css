@@ -8,10 +8,10 @@
   --track-gap:7px;
   --track-pad-x:8px;
   --focus-slot-index:1;
-  --focus-band-shift:5px;
+  --focus-band-shift:0px;
   --focus-band-w:44px;
   --focus-band-left:calc(
-    var(--venue-card-w) + 1px + var(--track-pad-x) +
+    var(--venue-card-w) + var(--track-pad-x) +
     (var(--focus-slot-index) * (var(--race-card-w) + var(--track-gap))) +
     var(--focus-band-shift) + ((var(--race-card-w) - var(--focus-band-w)) / 2)
   );
@@ -93,25 +93,28 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
 .venue-track{
   position:relative;z-index:1;display:flex;gap:var(--track-gap);align-items:center;min-height:var(--row-h);
   padding:5px var(--track-pad-x);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  touch-action:pan-x pan-y;overscroll-behavior-x:contain;overscroll-behavior-y:auto;scroll-snap-type:x proximity;
-  scroll-padding-left:calc(var(--track-pad-x) + var(--focus-band-shift))
+  touch-action:pan-x pan-y;overscroll-behavior-x:contain;overscroll-behavior-y:auto;scroll-snap-type:none;
+  scroll-behavior:auto
 }
 .venue-track::-webkit-scrollbar{display:none}
 .race-card{
   flex:0 0 var(--race-card-w);width:var(--race-card-w);height:var(--race-card-h);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:4px 5px;
-  border:1px solid rgba(240,204,112,.86);border-radius:8px;color:var(--text);background:var(--panel);text-decoration:none;text-align:center;
-  scroll-snap-align:start;box-shadow:0 2px 5px rgba(0,0,0,.18);-webkit-tap-highlight-color:transparent
+  border:1px solid #8f6a18;border-radius:8px;color:var(--text);background:var(--panel);text-decoration:none;text-align:center;
+  box-shadow:0 0 0 1px rgba(255,230,161,.42),0 2px 5px rgba(0,0,0,.20);-webkit-tap-highlight-color:transparent
 }
 .race-card .race-no{font-size:15px;font-weight:950;line-height:1}
 .race-card .race-time{font-size:14px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
-.race-card.current{color:#171108;border-color:rgba(240,204,112,.86);background:#fff9e6;box-shadow:0 2px 5px rgba(0,0,0,.18)}
+.race-card.current{color:#171108;border-color:#8f6a18;background:#fff9e6;box-shadow:0 0 0 1px rgba(255,230,161,.42),0 2px 5px rgba(0,0,0,.20)}
 .race-card.finished{color:#69717c;background:#eef0f3}
 .race-card.upcoming{background:#f7f7f7}
 .race-card.placeholder,.race-card.spacer{box-shadow:none;border-color:transparent;background:transparent;color:transparent;pointer-events:none}
 .race-card.placeholder .race-no,.race-card.placeholder .race-time,.race-card.spacer .race-no,.race-card.spacer .race-time{visibility:hidden}
-.race-end-tail{flex:0 0 calc(100% - var(--race-card-w) - (2 * var(--track-pad-x)));height:1px;pointer-events:none}
-.race-active-tail{flex:0 0 calc(100% - (2 * var(--track-pad-x)));height:1px;pointer-events:none}
+.race-scroll-tail{
+  flex:0 0 calc(100% + (var(--race-card-w) * 2) + (var(--track-gap) * 2));
+  width:calc(100% + (var(--race-card-w) * 2) + (var(--track-gap) * 2));
+  height:1px;pointer-events:none
+}
 .race-card:focus-visible{outline:2px solid #ffe7a0;outline-offset:1px}
 
 .today-race-toast{

@@ -80,42 +80,60 @@
     if (nextIndex < 0) {
       return {
         mode: "ended",
+        anchor: "previous",
         cards: [
           ...row.races.map((race, index) => createCard(
             race,
-            index === row.races.length - 1 ? "finished final" : "finished",
+            index === row.races.length - 1 ? "finished final anchor-card" : "finished",
           )),
-          '<span class="race-end-tail" aria-hidden="true"></span>',
+          '<span class="race-scroll-tail" aria-hidden="true"></span>',
         ].join(""),
       };
     }
 
     const cards = [];
-    if (nextIndex === 0) cards.push(createCard(null, "spacer"));
+    const minutesUntilFirstRace = row.races[0].minutes - REFERENCE_MINUTES;
+    const anchor = nextIndex === 0 && minutesUntilFirstRace >= 30 ? "after-focus" : "focus";
+
+    // 1R前は左側に実レースがないため、基準列まで透明スロットを置く。
+    if (nextIndex === 0) {
+      const spacerCount = anchor === "after-focus" ? 2 : 1;
+      for (let index = 0; index < spacerCount; index += 1) {
+        cards.push(createCard(null, "spacer"));
+      }
+    }
+
     row.races.forEach((race, index) => {
       let className = "upcoming";
       if (index < nextIndex) className = "finished";
-      if (index === nextIndex) className = "current";
+      if (index === nextIndex) className = "current anchor-card";
       cards.push(createCard(race, className));
     });
-    cards.push('<span class="race-active-tail" aria-hidden="true"></span>');
-    return { mode: "active", cards: cards.join("") };
+    cards.push('<span class="race-scroll-tail" aria-hidden="true"></span>');
+
+    return { mode: "active", anchor, cards: cards.join("") };
   };
+
 
   const buildPastTrack = (row) => ({
     mode: "past",
+    anchor: "right",
     cards: [
       ...row.races.map((race, index) => createCard(
         race,
-        index === row.races.length - 1 ? "finished final" : "finished",
+        index === row.races.length - 1 ? "finished final anchor-card" : "finished",
       )),
-      '<span class="race-end-tail" aria-hidden="true"></span>',
+      '<span class="race-scroll-tail" aria-hidden="true"></span>',
     ].join(""),
   });
 
   const buildFutureTrack = (row) => ({
     mode: "future",
-    cards: row.races.map((race) => createCard(race, "upcoming")).join(""),
+    anchor: "left",
+    cards: [
+      ...row.races.map((race, index) => createCard(race, `upcoming${index === 0 ? " anchor-card" : ""}`)),
+      '<span class="race-scroll-tail" aria-hidden="true"></span>',
+    ].join(""),
   });
 
   const renderRow = (row, dayDiff) => {
@@ -130,7 +148,7 @@
           <span class="venue-sport-icon ${row.sport}" aria-hidden="true"></span>
         </div>
         <div class="venue-track-shell">
-          <div class="venue-track" data-mode="${track.mode}">${track.cards}</div>
+          <div class="venue-track" data-mode="${track.mode}" data-anchor="${track.anchor}">${track.cards}</div>
         </div>
       </article>`;
   };
@@ -141,58 +159,60 @@
       slotWidth: parseFloat(styles.getPropertyValue("--race-card-w")) || 76,
       slotGap: parseFloat(styles.getPropertyValue("--track-gap")) || 7,
       trackPad: parseFloat(styles.getPropertyValue("--track-pad-x")) || 8,
-      bandShift: parseFloat(styles.getPropertyValue("--focus-band-shift")) || 0,
+      bandWidth: parseFloat(styles.getPropertyValue("--focus-band-w")) || 44,
     };
   };
 
   const setScrollLeftExactly = (track, value) => {
     const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-    track.style.scrollSnapType = "none";
-    track.scrollLeft = Math.min(maxScroll, Math.max(0, value));
-    requestAnimationFrame(() => {
-      track.style.scrollSnapType = "";
-    });
+    const target = Math.min(maxScroll, Math.max(0, value));
+    track.scrollLeft = target;
+    return target;
+  };
+
+  const getAnchorPositions = (track, card) => {
+    const board = document.getElementById("todayBoard");
+    const boardRect = board.getBoundingClientRect();
+    const trackRect = track.getBoundingClientRect();
+    const { slotWidth, slotGap, trackPad, bandWidth } = readLayout();
+    const boardStyles = getComputedStyle(board, "::before");
+    const bandLeft = parseFloat(boardStyles.left);
+    const bandVisualLeft = Number.isFinite(bandLeft)
+      ? boardRect.left + bandLeft
+      : trackRect.left + trackPad + slotWidth + slotGap;
+    const actualCardWidth = card?.getBoundingClientRect().width || slotWidth;
+    const focusLeft = bandVisualLeft + ((bandWidth - actualCardWidth) / 2) - trackRect.left;
+    return {
+      left: trackPad,
+      previous: focusLeft - actualCardWidth - slotGap,
+      focus: focusLeft,
+      afterFocus: focusLeft + actualCardWidth + slotGap,
+      right: track.clientWidth - trackPad - actualCardWidth,
+    };
   };
 
   const alignTrack = (track) => {
     if (!track) return;
-    const mode = track.dataset.mode || "active";
-    const { slotWidth, slotGap, trackPad, bandShift } = readLayout();
+    const card = track.querySelector(".anchor-card");
+    if (!card) return setScrollLeftExactly(track, 0);
 
-    // 過去日は最終レースの右端を、全開催場で同じ位置に揃える。
-    if (mode === "past") {
-      const finalCard = track.querySelector(".race-card.final");
-      if (!finalCard) return setScrollLeftExactly(track, 0);
-      track.style.justifyContent = track.scrollWidth <= track.clientWidth ? "flex-end" : "flex-start";
-      const desiredLeft = track.clientWidth - trackPad - finalCard.offsetWidth;
-      return setScrollLeftExactly(track, finalCard.offsetLeft - desiredLeft);
-    }
+    const anchor = track.dataset.anchor || "focus";
+    const positions = getAnchorPositions(track, card);
+    const desiredLeft = anchor === "left"
+      ? positions.left
+      : anchor === "previous"
+        ? positions.previous
+        : anchor === "after-focus"
+          ? positions.afterFocus
+          : anchor === "right"
+            ? positions.right
+            : positions.focus;
 
-    // 未来日は1Rを左端に揃える。
-    if (mode === "future") {
-      track.style.justifyContent = "flex-start";
-      return setScrollLeftExactly(track, 0);
-    }
-
-    // 当日で終了済みの開催は、最終レースを共通の左端位置に置く。
-    if (mode === "ended") {
-      track.style.justifyContent = "flex-start";
-      const finalCard = track.querySelector(".race-card.final");
-      if (!finalCard) return setScrollLeftExactly(track, 0);
-      return setScrollLeftExactly(track, finalCard.offsetLeft - trackPad - bandShift);
-    }
-
-    // 当日の開催中は、直近レースの1つ左のボタンを全行で同じX座標に固定する。
-    track.style.justifyContent = "flex-start";
-    const currentCard = track.querySelector(".race-card.current");
-    if (!currentCard) return setScrollLeftExactly(track, 0);
-    const anchorCard = currentCard.previousElementSibling;
-    if (anchorCard?.classList.contains("race-card")) {
-      return setScrollLeftExactly(track, anchorCard.offsetLeft - trackPad - bandShift);
-    }
-    const target = currentCard.offsetLeft - trackPad - (FOCUS_SLOT_INDEX * (slotWidth + slotGap)) - bandShift;
-    return setScrollLeftExactly(track, target);
+    const target = card.offsetLeft - desiredLeft;
+    setScrollLeftExactly(track, target);
   };
+
+
 
   const render = () => {
     const board = document.getElementById("todayBoard");
@@ -218,7 +238,9 @@
 
     const alignAllTracks = () => board.querySelectorAll(".venue-track").forEach(alignTrack);
     requestAnimationFrame(() => requestAnimationFrame(alignAllTracks));
-    window.setTimeout(alignAllTracks, 120);
+    window.setTimeout(alignAllTracks, 60);
+    window.setTimeout(alignAllTracks, 180);
+    document.fonts?.ready.then(alignAllTracks).catch(() => {});
   };
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -235,7 +257,11 @@
       render();
     });
 
+    const realignVisibleTracks = () => document.querySelectorAll(".venue-track").forEach(alignTrack);
     render();
-    window.addEventListener("resize", () => document.querySelectorAll(".venue-track").forEach(alignTrack));
+    window.addEventListener("resize", realignVisibleTracks);
+    window.addEventListener("orientationchange", () => window.setTimeout(realignVisibleTracks, 120));
+    window.addEventListener("pageshow", () => window.setTimeout(realignVisibleTracks, 80));
+    window.visualViewport?.addEventListener("resize", () => window.setTimeout(realignVisibleTracks, 40));
   });
 })();
