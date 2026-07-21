@@ -1,138 +1,110 @@
 :root{
   --date-toolbar-h:46px;
   --header-total-h:calc(var(--category-menu-total-h) + var(--date-toolbar-h));
-  --venue-card-w:112px;
-  --race-card-w:116px;
-  --race-card-h:82px;
-  --track-gap:14px;
-  --track-pad-x:10px;
+  --venue-card-w:100px;
+  --race-card-w:92px;
+  --race-card-h:62px;
+  --track-gap:7px;
+  --track-pad-x:8px;
   --focus-slot-index:1;
   --focus-band-left:calc(var(--track-pad-x) + (var(--focus-slot-index) * (var(--race-card-w) + var(--track-gap))));
+  --keirin:#d8661d;
+  --auto:#7545af;
+  --gold:#f0cc70;
+  --line:#d8dbe0;
+  --panel:#f7f7f7;
+  --text:#101114;
 }
 
 *{box-sizing:border-box}
+html,body,button{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+}
+button{font:inherit;-webkit-tap-highlight-color:transparent}
 
 .date-toolbar{
-  position:fixed;left:0;right:0;top:calc(var(--visual-top) + var(--category-menu-total-h));z-index:9500;
+  position:fixed;left:0;right:0;top:calc(var(--visual-top) + var(--category-menu-total-h));z-index:9990;
   width:100%;height:var(--date-toolbar-h);display:grid;grid-template-columns:minmax(70px,1fr) auto minmax(70px,1fr);align-items:center;
-  padding:0 8px;color:#fff;
-  background:
-    linear-gradient(110deg,rgba(213,171,67,.12),transparent 30%,transparent 72%,rgba(213,171,67,.10)),
-    linear-gradient(180deg,#101010,#050505);
-  border-bottom:1px solid rgba(213,171,67,.35);
-  box-shadow:0 4px 14px rgba(0,0,0,.24);
+  padding:0 8px;color:#fff;background:linear-gradient(180deg,#181818,#090909);
+  border-bottom:1px solid rgba(213,171,67,.34);box-shadow:0 4px 13px rgba(0,0,0,.20);touch-action:none
 }
 .date-nav{display:grid;grid-template-columns:34px minmax(152px,auto) 34px;align-items:center;gap:2px}
-.date-arrow{width:34px;height:34px;border:0;background:transparent;color:#f0cc70;font-size:27px;line-height:1;cursor:pointer}
-.date-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.04em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28)}
+.date-arrow{width:34px;height:34px;border:0;background:transparent;color:var(--gold);font-size:27px;line-height:1;cursor:pointer}
+.date-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.045em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28)}
 .date-toolbar-side{display:flex;align-items:center;min-width:0}
 .date-toolbar-side.right{justify-content:flex-end}
 .today-btn{
-  min-width:64px;height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(240,204,112,.55);
-  background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(255,255,255,.04));color:#fff;font-size:12px;font-weight:900;letter-spacing:.04em;cursor:pointer
+  min-width:66px;height:32px;padding:0 13px;border:1px solid rgba(242,216,137,.42);border-radius:8px;
+  color:#f8e8b8;background:rgba(255,255,255,.055);font-size:12px;font-weight:850;cursor:pointer
 }
-.today-btn.is-current{background:linear-gradient(180deg,#f4dc97,#d6a749);color:#17130b;border-color:#f4dc97}
+.today-btn.is-current{color:#171108;border-color:#ffe6a1;background:var(--gold);box-shadow:0 0 0 1px rgba(255,230,161,.25)}
+.today-btn:disabled{cursor:default;opacity:1}
 
-.today-page{
-  width:min(100%,760px);
-  margin:0 auto;
-  padding:12px 0 18px;
-}
-.today-board{display:flex;flex-direction:column;gap:14px;padding:0 0 10px}
+.zenrace-content-shell{touch-action:pan-x pan-y!important}
+.today-page{width:min(100%,760px);margin:0 auto;padding:7px 5px 10px}
+.today-board{display:flex;flex-direction:column;gap:5px}
 .venue-row{
-  display:grid;
-  grid-template-columns:var(--venue-card-w) minmax(0,1fr);
-  align-items:stretch;
-  gap:12px;
+  display:grid;grid-template-columns:var(--venue-card-w) minmax(0,1fr);align-items:stretch;gap:5px;
+  min-height:var(--race-card-h)
 }
 .venue-card{
-  min-height:var(--race-card-h);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  padding:10px 8px;border-radius:10px;color:#fff;
-  box-shadow:0 6px 14px rgba(0,0,0,.22);
+  min-height:var(--race-card-h);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  padding:5px 6px;border:1px solid rgba(255,255,255,.14);border-radius:8px;color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 2px 6px rgba(0,0,0,.18)
 }
-.venue-card.sport-keirin{background:linear-gradient(180deg,#d56d20,#bc5a15)}
-.venue-card.sport-auto{background:linear-gradient(180deg,#8443c2,#6f34a7)}
-.venue-name{font-size:19px;line-height:1.1;font-weight:950;letter-spacing:.02em;text-align:center}
+.venue-card.sport-keirin{background:linear-gradient(180deg,#df7323,var(--keirin))}
+.venue-card.sport-auto{background:linear-gradient(180deg,#824db8,var(--auto))}
+.venue-name{font-size:15px;line-height:1.05;font-weight:950;letter-spacing:-.01em;text-align:center;white-space:nowrap}
 .venue-sport-icon{
-  width:28px;height:28px;display:block;background:#fff;border-radius:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.32)
+  width:24px;height:24px;display:block;background:#fff;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.16));-webkit-filter:drop-shadow(0 1px 1px rgba(0,0,0,.16))
 }
-.venue-sport-icon.keirin{-webkit-mask:url('../gradedraces/icons/keirin.png') center / 80% no-repeat;mask:url('../gradedraces/icons/keirin.png') center / 80% no-repeat;background:#fff}
-.venue-sport-icon.auto{-webkit-mask:url('../gradedraces/icons/auto.png') center / 80% no-repeat;mask:url('../gradedraces/icons/auto.png') center / 80% no-repeat;background:#fff}
+.venue-sport-icon.keirin{-webkit-mask:url('../gradedraces/icons/keirin.png') center / contain no-repeat;mask:url('../gradedraces/icons/keirin.png') center / contain no-repeat}
+.venue-sport-icon.auto{-webkit-mask:url('../gradedraces/icons/auto.png') center / contain no-repeat;mask:url('../gradedraces/icons/auto.png') center / contain no-repeat}
 
 .venue-track-shell{
-  position:relative;
-  min-height:var(--race-card-h);
-  overflow:hidden;
-  border-radius:12px;
+  position:relative;min-height:var(--race-card-h);overflow:hidden;border:1px solid rgba(213,171,67,.18);border-radius:8px;
+  background:linear-gradient(180deg,#181818,#090909);box-shadow:0 2px 6px rgba(0,0,0,.16)
 }
 .venue-track-shell::before{
-  content:"";
-  position:absolute;
-  top:-10px;bottom:-10px;
-  left:var(--focus-band-left);
-  width:var(--race-card-w);
-  border-radius:14px;
-  background:linear-gradient(180deg,#f6ef11,#efe000);
-  box-shadow:0 0 0 1px rgba(255,247,182,.35),0 0 18px rgba(242,216,31,.14);
-  pointer-events:none;
+  content:"";position:absolute;top:0;bottom:0;left:var(--focus-band-left);width:var(--race-card-w);
+  background:linear-gradient(180deg,#efd787,#cfa33e);box-shadow:inset 1px 0 rgba(255,255,255,.24),inset -1px 0 rgba(84,56,8,.12);pointer-events:none
 }
 .venue-track{
-  position:relative;z-index:1;
-  display:flex;gap:var(--track-gap);align-items:center;
-  min-height:var(--race-card-h);
-  padding:0 var(--track-pad-x);
-  overflow-x:auto;overflow-y:hidden;
-  scrollbar-width:none;
-  -webkit-overflow-scrolling:touch;
-  touch-action:pan-x;
-  overscroll-behavior-x:contain;
-  scroll-snap-type:x proximity;
+  position:relative;z-index:1;display:flex;gap:var(--track-gap);align-items:center;min-height:var(--race-card-h);
+  padding:4px var(--track-pad-x);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  touch-action:pan-x;overscroll-behavior-x:contain;overscroll-behavior-y:none;scroll-snap-type:x proximity
 }
 .venue-track::-webkit-scrollbar{display:none}
 .race-card{
-  flex:0 0 var(--race-card-w);
-  width:var(--race-card-w);height:var(--race-card-h);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
-  padding:8px;border-radius:16px;border:2px solid rgba(32,32,32,.9);
-  background:#ededed;color:#171717;text-decoration:none;
-  scroll-snap-align:start;
-  box-shadow:0 6px 14px rgba(0,0,0,.2);
+  flex:0 0 var(--race-card-w);width:var(--race-card-w);height:calc(var(--race-card-h) - 8px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:4px 5px;
+  border:1px solid var(--line);border-radius:8px;color:var(--text);background:var(--panel);text-decoration:none;text-align:center;
+  scroll-snap-align:start;box-shadow:0 2px 5px rgba(0,0,0,.18);-webkit-tap-highlight-color:transparent
 }
-.race-card .race-no{font-size:17px;font-weight:950;line-height:1}
-.race-card .race-time{font-size:18px;font-weight:500;line-height:1.05}
-.race-card.current{background:#fff8d7;border-color:#2b2417}
-.race-card.finished{opacity:.92;background:#ece8e4}
-.race-card.upcoming{background:#f1f1f1}
-.race-card.placeholder,
-.race-card.spacer{
-  box-shadow:none;border-color:transparent;background:transparent;color:transparent;pointer-events:none
-}
-.race-card.placeholder .race-no,
-.race-card.placeholder .race-time,
-.race-card.spacer .race-no,
-.race-card.spacer .race-time{visibility:hidden}
-.race-card:focus-visible{outline:2px solid #ffe7a0;outline-offset:2px}
-.race-card.empty-state{justify-content:center;color:#8f98a7;border-style:dashed;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
-.race-card.empty-state .race-time{font-size:13px;line-height:1.35;text-align:center}
+.race-card .race-no{font-size:13px;font-weight:950;line-height:1}
+.race-card .race-time{font-size:12px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.race-card.current{color:#171108;border-color:#b98e28;background:#fff9e6;box-shadow:0 0 0 1px rgba(255,230,161,.25),0 2px 5px rgba(0,0,0,.20)}
+.race-card.finished{color:#69717c;background:#eef0f3}
+.race-card.upcoming{background:#f7f7f7}
+.race-card.placeholder,.race-card.spacer{box-shadow:none;border-color:transparent;background:transparent;color:transparent;pointer-events:none}
+.race-card.placeholder .race-no,.race-card.placeholder .race-time,.race-card.spacer .race-no,.race-card.spacer .race-time{visibility:hidden}
+.race-card:focus-visible{outline:2px solid #ffe7a0;outline-offset:1px}
 
 .today-race-toast{
   position:fixed;left:50%;bottom:calc(var(--bottom-nav-total-h,62px) + 16px);z-index:12000;
   max-width:min(88vw,420px);padding:10px 16px;color:#18130a;border:1px solid rgba(255,255,255,.42);
   border-radius:999px;background:linear-gradient(135deg,#f2da8e,#c28c25);box-shadow:0 10px 28px rgba(0,0,0,.28);
-  font-size:13px;font-weight:850;opacity:0;pointer-events:none;transform:translate(-50%,12px);
-  transition:opacity .18s ease,transform .18s ease;
+  font-size:13px;font-weight:850;opacity:0;pointer-events:none;transform:translate(-50%,12px);transition:opacity .18s ease,transform .18s ease
 }
 .today-race-toast.is-visible{opacity:1;transform:translate(-50%,0)}
 
 @media(max-width:430px){
-  :root{--date-toolbar-h:44px;--venue-card-w:100px;--race-card-w:104px;--race-card-h:78px;--track-gap:12px;--track-pad-x:8px}
+  :root{--date-toolbar-h:44px;--venue-card-w:92px;--race-card-w:86px;--race-card-h:58px;--track-gap:6px;--track-pad-x:6px}
   .date-toolbar{grid-template-columns:62px auto 62px;padding-inline:5px}
-  .date-nav{grid-template-columns:29px minmax(140px,auto) 29px}
-  .date-arrow{width:29px}
-  .date-title{font-size:15px}
+  .date-nav{grid-template-columns:29px minmax(140px,auto) 29px}.date-arrow{width:29px}.date-title{font-size:15px}
   .today-btn{min-width:60px;height:30px;padding-inline:9px}
-  .venue-name{font-size:17px}
-  .race-card .race-no{font-size:16px}
-  .race-card .race-time{font-size:17px}
+  .today-page{padding:5px}.today-board{gap:4px}.venue-row{gap:4px}
+  .venue-name{font-size:14px}.venue-sport-icon{width:22px;height:22px}
+  .race-card .race-no{font-size:12px}.race-card .race-time{font-size:11px}
 }

@@ -38,13 +38,21 @@
   const pad = (value) => String(value).padStart(2, "0");
   const dateKey = (value) => `${value.getFullYear()}-${pad(value.getMonth() + 1)}-${pad(value.getDate())}`;
   const startOfDay = (value) => new Date(value.getFullYear(), value.getMonth(), value.getDate());
-  const addDays = (value, amount) => {
-    const next = new Date(value);
-    next.setDate(next.getDate() + amount);
-    return next;
-  };
   const diffDays = (a, b) => Math.round((startOfDay(a) - startOfDay(b)) / 86400000);
   const formatDateTitle = (value) => `${value.getFullYear()}年 ${value.getMonth() + 1}月 ${value.getDate()}日 (${WEEKDAY[value.getDay()]})`;
+
+  const disableContentPinch = () => {
+    const shell = document.querySelector(".zenrace-content-shell");
+    if (!shell) return;
+    const blockMultiTouch = (event) => {
+      if (event.touches && event.touches.length > 1) event.preventDefault();
+    };
+    shell.addEventListener("touchstart", blockMultiTouch, { passive: false });
+    shell.addEventListener("touchmove", blockMultiTouch, { passive: false });
+    for (const type of ["gesturestart", "gesturechange", "gestureend"]) {
+      shell.addEventListener(type, (event) => event.preventDefault(), { passive: false });
+    }
+  };
 
   const shiftTime = (time, minutes) => {
     const [h, m] = time.split(":").map(Number);
@@ -175,6 +183,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", () => {
+    disableContentPinch();
     document.getElementById("prevDate")?.addEventListener("click", () => {
       selectedDate.setDate(selectedDate.getDate() - 1);
       render();
