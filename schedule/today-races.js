@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const BASE_DATE = new Date();
-  const todayBase = new Date(BASE_DATE.getFullYear(), BASE_DATE.getMonth(), BASE_DATE.getDate());
+  // 出走表デモの基準日。レースデータは2026年2月23日の固定データ。
+  const todayBase = new Date(2026, 1, 23);
   const selectedDate = new Date(todayBase);
   const REFERENCE_MINUTES = 16 * 60 + 40;
   const FOCUS_SLOT_INDEX = 1;
