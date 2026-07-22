@@ -36,12 +36,14 @@
   };
 
   const raceCard = (race, cancelled = false) => {
+    const parts = timeParts(race.time);
+    const minute = cancelled ? "中止" : String(parts?.minute ?? "").padStart(2, "0");
     const label = `${race.venue} ${race.race} ${cancelled ? "中止" : race.time}`;
     return `
-      <a class="timetable-race sport-${race.sport}" href="#" aria-label="${label}">
-        <span class="race-venue">${race.venue}</span>
-        <span class="race-main">${race.race}</span>
-        <span class="race-time">${cancelled ? "中止" : race.time}</span>
+      <a class="timetable-race sport-${race.sport}${cancelled ? " is-cancelled" : ""}" href="#" aria-label="${label}">
+        <span class="race-minute">${minute}</span>
+        <span class="race-sport-line" aria-hidden="true"></span>
+        <span class="race-detail"><span class="race-venue">${race.venue}</span> <span class="race-no">${race.race}</span></span>
       </a>`;
   };
 

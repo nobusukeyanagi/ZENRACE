@@ -1,19 +1,18 @@
 :root{
   --timetable-gold:#d5ab43;
-  --timetable-gold-dark:#8b6a00;
+  --timetable-gold-light:#f0cc70;
+  --timetable-gold-dark:#8f6a18;
   --timetable-blue:#2f62ad;
-  --timetable-card:#060606;
-  --timetable-text:#fff;
-  --hour-label-w:62px;
+  --timetable-text:#101114;
+  --hour-label-w:58px;
 }
 
 *{box-sizing:border-box}
 html,body,button{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif}
-body{background:#060606}
 button{font:inherit}
 
 .timetable-page{
-  width:min(100%,680px);
+  width:min(100%,760px);
   margin:0 auto;
   padding:7px 5px 12px;
 }
@@ -21,50 +20,47 @@ button{font:inherit}
   overflow:hidden;
   border:1px solid rgba(213,171,67,.30);
   border-radius:8px;
-  background:#000;
-  box-shadow:0 8px 24px rgba(0,0,0,.22);
+  background:linear-gradient(180deg,#181818,#090909);
+  box-shadow:0 8px 24px rgba(0,0,0,.20);
 }
 .hour-group{
   display:grid;
   grid-template-columns:var(--hour-label-w) minmax(0,1fr);
-  gap:8px;
   min-height:94px;
-  padding:8px;
-  background:#000;
-  border-bottom:1px solid rgba(255,255,255,.10);
+  background:transparent;
+  border-bottom:1px solid rgba(255,255,255,.11);
   scroll-margin-top:6px;
 }
 .hour-group:last-child{border-bottom:0}
-.hour-group.current-hour{
-  background:linear-gradient(135deg,#d8b34d 0%,#b98918 100%);
-  box-shadow:inset 0 1px rgba(255,245,197,.38),inset 0 -1px rgba(62,38,0,.28);
-}
 .hour-label{
   display:flex;
   align-items:center;
   justify-content:center;
-  min-height:78px;
-  border:2px solid var(--timetable-blue);
+  min-height:94px;
+  padding:6px 2px;
+  border-right:1px solid rgba(255,255,255,.16);
   color:#fff;
-  background:#050505;
+  background:rgba(0,0,0,.18);
   font-family:Georgia,"Times New Roman",serif;
-  font-size:38px;
+  font-size:36px;
   font-weight:700;
   line-height:1;
   font-variant-numeric:tabular-nums;
   text-shadow:0 2px 4px rgba(0,0,0,.42);
 }
 .current-hour .hour-label{
-  color:#161006;
-  border-color:#ffdf7f;
-  background:#f1ca63;
+  color:#171108;
+  background:linear-gradient(180deg,#efd787,#cfa33e);
+  box-shadow:inset 1px 0 rgba(255,255,255,.24),inset -1px 0 rgba(84,56,8,.12);
   text-shadow:none;
 }
 .hour-races{
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
+  gap:7px;
   align-content:start;
+  padding:8px;
+  background:transparent;
 }
 .timetable-race{
   position:relative;
@@ -74,69 +70,63 @@ button{font:inherit}
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:2px;
-  padding:6px 4px 12px;
+  gap:4px;
+  padding:5px 4px;
   overflow:hidden;
-  border:2px solid var(--timetable-gold-dark);
+  border:1px solid var(--timetable-gold-dark);
+  border-radius:8px;
   color:var(--timetable-text);
-  background:var(--timetable-card);
+  background:#fff;
   text-decoration:none;
   text-align:center;
+  box-shadow:0 0 0 1px rgba(255,230,161,.35),0 2px 5px rgba(0,0,0,.20);
   -webkit-tap-highlight-color:transparent;
 }
-.current-hour .timetable-race{
-  border-color:#6f5100;
-  box-shadow:0 2px 5px rgba(42,27,0,.26);
+.race-minute{
+  display:block;
+  color:#111;
+  font-size:27px;
+  font-weight:950;
+  line-height:.95;
+  letter-spacing:.01em;
+  font-variant-numeric:tabular-nums;
 }
-.timetable-race::after{
-  content:"";
-  position:absolute;
-  left:8px;
-  right:8px;
-  bottom:7px;
-  height:5px;
+.race-sport-line{
+  display:block;
+  width:calc(100% - 14px);
+  height:4px;
+  flex:0 0 4px;
+  border-radius:999px;
   background:#1185c8;
 }
-.timetable-race.sport-keirin::after{background:#f17c32}
-.timetable-race.sport-auto::after{background:#8a56b5}
-.timetable-race.sport-boat::after{background:#1185c8}
-.timetable-race.sport-nar::after{background:#9a673e}
-.timetable-race.sport-jra::after{background:#2d9f54}
-.race-venue{
-  width:100%;
+.timetable-race.sport-keirin .race-sport-line{background:#f17c32}
+.timetable-race.sport-auto .race-sport-line{background:#8a56b5}
+.timetable-race.sport-boat .race-sport-line{background:#1185c8}
+.timetable-race.sport-nar .race-sport-line{background:#9a673e}
+.timetable-race.sport-jra .race-sport-line{background:#2d9f54}
+.race-detail{
+  display:block;
+  max-width:100%;
   overflow:hidden;
-  color:#fff;
-  font-size:12px;
+  color:#333840;
+  font-size:10px;
   font-weight:900;
   line-height:1.05;
   white-space:nowrap;
   text-overflow:ellipsis;
 }
-.race-main{
-  color:#fff;
-  font-size:17px;
-  font-weight:950;
-  line-height:1;
-  white-space:nowrap;
-}
-.race-time{
-  color:#e7e7e7;
-  font-size:11px;
-  font-weight:850;
-  line-height:1;
-  font-variant-numeric:tabular-nums;
-}
+.race-venue,.race-no{display:inline}
 .timetable-race:focus-visible{outline:2px solid #fff1b5;outline-offset:-4px}
 
-.cancelled-group{background:#0b0b0b}
 .cancelled-group .hour-label{
   font-family:inherit;
-  font-size:14px;
+  font-size:13px;
   font-weight:900;
   letter-spacing:.04em;
 }
-.cancelled-group .timetable-race{opacity:.78}
-.cancelled-group .race-time{color:#ff9b9b}
+.cancelled-group .timetable-race{background:#eef0f3}
+.cancelled-group .race-minute{font-size:17px;color:#69717c;letter-spacing:.04em}
+.cancelled-group .race-detail{color:#69717c}
 
 .timetable-empty{
   min-height:260px;
@@ -177,21 +167,19 @@ button{font:inherit}
 @media(max-width:430px){
   :root{--hour-label-w:48px}
   .timetable-page{padding:5px 4px 10px}
-  .hour-group{gap:6px;min-height:84px;padding:6px}
-  .hour-label{min-height:70px;font-size:32px}
-  .hour-races{gap:6px}
-  .timetable-race{height:70px;padding:5px 3px 11px;border-width:1.5px}
-  .timetable-race::after{left:6px;right:6px;bottom:6px;height:4px}
-  .race-venue{font-size:10px}
-  .race-main{font-size:15px}
-  .race-time{font-size:10px}
+  .hour-group{min-height:84px}
+  .hour-label{min-height:84px;font-size:31px}
+  .hour-races{gap:6px;padding:6px}
+  .timetable-race{height:70px;gap:3px;padding:4px 3px;border-radius:7px}
+  .race-minute{font-size:24px}
+  .race-sport-line{width:calc(100% - 10px);height:4px;flex-basis:4px}
+  .race-detail{font-size:9px}
 }
 
 @media(max-width:350px){
   :root{--hour-label-w:44px}
-  .hour-group{gap:4px;padding:5px}
-  .hour-races{gap:4px}
+  .hour-races{gap:4px;padding:5px}
   .timetable-race{height:68px}
-  .race-venue{font-size:9px}
-  .race-main{font-size:14px}
+  .race-minute{font-size:22px}
+  .race-detail{font-size:8px}
 }
