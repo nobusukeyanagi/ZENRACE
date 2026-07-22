@@ -1,0 +1,84 @@
+:root{
+  --date-toolbar-h:46px;
+  --venue-card-w:100px;
+  --gold:#f0cc70;
+  --keirin:#d8661d;
+  --auto:#7545af;
+  --boat:#1876c9;
+  --nar:#8b5a2b;
+  --jra:#2b7f55;
+}
+*{box-sizing:border-box}
+html,body,button{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+}
+button{font:inherit;-webkit-tap-highlight-color:transparent}
+.date-toolbar{
+  position:fixed;left:0;right:0;top:calc(var(--visual-top) + var(--category-menu-total-h));z-index:9990;
+  width:100%;height:var(--date-toolbar-h);display:grid;grid-template-columns:minmax(70px,1fr) auto minmax(70px,1fr);align-items:center;
+  padding:0 8px;color:#fff;background:linear-gradient(180deg,#181818,#090909);
+  border-bottom:1px solid rgba(213,171,67,.34);box-shadow:0 4px 13px rgba(0,0,0,.20);touch-action:none
+}
+.date-nav{display:grid;grid-template-columns:34px minmax(152px,auto) 34px;align-items:center;gap:2px}
+.date-arrow{width:34px;height:34px;border:0;background:transparent;color:var(--gold);font-size:27px;line-height:1;cursor:pointer}
+.date-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.045em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28)}
+.date-weekday{color:inherit}
+.date-weekday.holiday,.date-weekday.sunday{color:#ff7676;text-shadow:0 1px 6px rgba(0,0,0,.72),0 0 8px rgba(255,118,118,.18)}
+.date-weekday.saturday{color:#75b8ff;text-shadow:0 1px 6px rgba(0,0,0,.72),0 0 8px rgba(117,184,255,.16)}
+.date-toolbar-side{display:flex;align-items:center;min-width:0}
+.date-toolbar-side.left{justify-content:flex-start}.date-toolbar-side.right{justify-content:flex-end}
+.update-btn,.today-btn{min-width:66px;height:32px;padding:0 13px;border:1px solid rgba(242,216,137,.42);border-radius:8px;color:#f8e8b8;background:rgba(255,255,255,.055);font-size:12px;font-weight:850;cursor:pointer}
+.update-btn:active{color:#171108;border-color:#ffe6a1;background:var(--gold)}
+.today-btn.is-current{color:#171108;border-color:#ffe6a1;background:var(--gold);box-shadow:0 0 0 1px rgba(255,230,161,.25)}
+.today-btn:disabled{cursor:default;opacity:1}
+.zenrace-content-shell{overflow-x:hidden!important;overflow-y:auto!important;touch-action:pan-x pan-y!important;-webkit-overflow-scrolling:touch}
+.results-page{width:min(100%,760px);margin:0 auto;padding:7px 5px 12px}
+.results-board{border:1px solid rgba(213,171,67,.24);border-radius:8px;overflow:hidden;background:linear-gradient(180deg,#181818,#090909)}
+.results-group{display:grid;grid-template-columns:var(--venue-card-w) minmax(0,1fr);align-items:stretch}
+.results-group:not(:last-child){border-bottom:1px solid rgba(255,255,255,.11)}
+.venue-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px 5px;border-right:1px solid rgba(255,255,255,.16);color:#fff}
+.venue-card.sport-keirin{background:linear-gradient(180deg,#d66c1d,#bd5510)}
+.venue-card.sport-auto{background:linear-gradient(180deg,#7e47af,#683397)}
+.venue-card.sport-boat{background:linear-gradient(180deg,#237fc8,#1264a8)}
+.venue-card.sport-nar{background:linear-gradient(180deg,#93643a,#704722)}
+.venue-card.sport-jra{background:linear-gradient(180deg,#2b7f55,#195f3d)}
+.venue-title-line{display:flex;align-items:center;justify-content:center;gap:.5em;min-width:0}
+.venue-name{font-size:17px;line-height:1.05;font-weight:950;letter-spacing:-.01em;text-align:center;white-space:nowrap}
+.venue-meta-row{display:flex;align-items:center;justify-content:center;gap:3px;min-height:20px;flex-wrap:nowrap}
+.venue-sport-icon{flex:0 0 19px;width:19px;height:19px;display:block;background:#fff;filter:drop-shadow(0 1px 1px rgba(0,0,0,.16))}
+.venue-sport-icon.keirin{-webkit-mask:url('../gradedraces/icons/keirin.png') center / contain no-repeat;mask:url('../gradedraces/icons/keirin.png') center / contain no-repeat}
+.venue-grade-icon{min-width:25px;height:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px;border-radius:5px;color:#fff;font-size:9px;font-weight:1000;line-height:1;letter-spacing:-.03em;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 1px 2px rgba(0,0,0,.2)}
+.venue-grade-icon.accent{background:#d4232b}.venue-grade-icon.muted{background:#707782}
+.venue-status-icon{width:16px;height:16px;display:block;border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.22)}
+.venue-status-icon.girls{border-radius:4px}
+.venue-day-label{color:rgba(255,255,255,.95);font-size:10px;font-weight:900;line-height:1;letter-spacing:.01em;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.28)}
+.result-table-wrap{padding:0;overflow:hidden}
+.result-table{width:100%;border-collapse:collapse;table-layout:fixed;background:transparent}
+.result-table col.r-col{width:44px}
+.result-table col.finish-col{width:42px}
+.result-table col.payout-col{width:86px}
+.result-table col.pop-col{width:52px}
+.result-table thead th{padding:7px 4px;border-bottom:1px solid rgba(213,171,67,.18);background:rgba(255,255,255,.03);color:#f0cc70;font-size:11px;font-weight:900;line-height:1;text-align:center;white-space:nowrap}
+.result-table tbody td{padding:7px 4px;border-top:1px solid rgba(255,255,255,.09);color:#f4f6f9;font-size:13px;font-weight:700;line-height:1.1;text-align:center;font-variant-numeric:tabular-nums}
+.result-table tbody tr:first-child td{border-top:none}
+.result-table tbody tr:nth-child(odd){background:rgba(255,255,255,.016)}
+.result-table tbody tr.featured td{background:rgba(212,35,43,.08)}
+.result-table .race-col{color:#f0cc70;font-weight:900}
+.result-table .finish-cell{font-size:15px;font-weight:900;color:#ffffff}
+.result-table .finish-cell.win{color:#ffe6a1}
+.result-table .payout-cell{font-size:12px;font-weight:800;text-align:right;padding-right:8px;color:#f6f7f8}
+.result-table .pop-cell{font-size:12px;color:#d5dbe2}
+.results-placeholder{padding:56px 16px;color:#c0c6cf;text-align:center}
+.results-placeholder h2{margin:0 0 10px;color:#f0cc70;font-size:18px;font-weight:900}
+.results-placeholder p{margin:0;font-size:13px;font-weight:800;line-height:1.6}
+@media(max-width:430px){
+  :root{--date-toolbar-h:44px;--venue-card-w:96px}
+  .date-toolbar{grid-template-columns:62px auto 62px;padding-inline:5px}
+  .date-nav{grid-template-columns:29px minmax(140px,auto) 29px}.date-arrow{width:29px}.date-title{font-size:15px}
+  .update-btn,.today-btn{min-width:60px;height:30px;padding-inline:9px}
+  .results-page{padding:5px}
+  .venue-name{font-size:16px}.venue-title-line{gap:.45em}.venue-sport-icon{flex-basis:16px;width:16px;height:16px}.venue-meta-row{min-height:17px;gap:2px}.venue-grade-icon{height:17px;min-width:22px;padding-inline:3px;font-size:8px}.venue-status-icon{width:14px;height:14px}.venue-day-label{font-size:8px}
+  .result-table col.r-col{width:40px}.result-table col.finish-col{width:36px}.result-table col.payout-col{width:78px}.result-table col.pop-col{width:46px}
+  .result-table thead th{font-size:10px;padding:6px 3px}
+  .result-table tbody td{font-size:12px;padding:6px 3px}.result-table .finish-cell{font-size:14px}.result-table .payout-cell{font-size:11px;padding-right:6px}.result-table .pop-cell{font-size:11px}
+}
