@@ -4,6 +4,9 @@
   --monthly-line:#d8dde6;
   --monthly-text:#18202a;
   --monthly-muted:#738091;
+  --monthly-gold-border:rgba(143,106,24,.48);
+  --sat:#eaf4ff;
+  --sun:#fff0f0;
   --jra:#23834a;
   --nar:#8b5a2b;
   --boat:#1876c9;
@@ -20,15 +23,15 @@ body{
 button{font:inherit}
 .zenrace-content-shell{background:linear-gradient(180deg,#f6f8fb,#e9edf3)}
 .monthly-page{width:min(100%,760px);margin:0 auto;padding:7px 6px 12px}
-.monthly-schedule{width:100%}
+.monthly-schedule{width:100%;display:flex;flex-direction:column;gap:4px}
 .day-card{
   display:grid;
   grid-template-columns:45px minmax(0,1fr);
   overflow:hidden;
-  border:1px solid var(--monthly-line);
+  border:1px solid var(--monthly-gold-border);
   border-radius:8px;
   background:var(--monthly-panel);
-  box-shadow:0 1px 5px rgba(15,23,42,.055);
+  box-shadow:0 2px 7px rgba(0,0,0,.09);
 }
 .date-cell{
   display:flex;
@@ -41,6 +44,8 @@ button{font:inherit}
   background:#f8fafc;
   white-space:nowrap;
 }
+.day-card.sat .date-cell{background:var(--sat)}
+.day-card.sun .date-cell,.day-card.holiday .date-cell{background:var(--sun)}
 .date-number{font-size:22px;line-height:1;font-weight:950;letter-spacing:-.05em}
 .date-weekday{font-size:9px;line-height:1;font-weight:900;color:var(--monthly-muted)}
 .venue-grid{
@@ -62,12 +67,12 @@ button{font:inherit}
   --sport:#555;
   position:relative;
   min-width:0;
-  min-height:54px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
+  min-height:58px;
+  display:grid;
+  grid-template-rows:18px 18px;
+  align-content:center;
+  justify-items:center;
+  row-gap:5px;
   padding:5px 4px;
   overflow:hidden;
   border:1.5px solid color-mix(in srgb,var(--sport) 82%,#000 18%);
@@ -93,7 +98,7 @@ button{font:inherit}
 .venue-button.sport-nar{--sport:var(--nar)}
 .venue-button.sport-jra{--sport:var(--jra)}
 .venue-button:active{transform:translateY(1px);background:color-mix(in srgb,var(--sport) 5%,#fff)}
-.venue-main-line{display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;max-width:100%}
+.venue-main-line{height:18px;display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;max-width:100%}
 .venue-name{
   min-width:0;
   overflow:hidden;
@@ -118,6 +123,7 @@ button{font:inherit}
 .sport-icon.nar{-webkit-mask:url('../gradedraces/icons/nar.png') center/contain no-repeat;mask:url('../gradedraces/icons/nar.png') center/contain no-repeat}
 .sport-icon.jra{-webkit-mask:url('../gradedraces/icons/jra.png') center/contain no-repeat;mask:url('../gradedraces/icons/jra.png') center/contain no-repeat}
 .venue-meta-line{
+  height:18px;
   min-height:18px;
   display:flex;
   align-items:center;
@@ -187,9 +193,10 @@ button{font:inherit}
   .date-number{font-size:19px}.date-weekday{font-size:8px}
   .venue-grid{--venue-columns:3;gap:4px;padding:5px}
   .venue-sport-group{gap:4px}
-  .venue-button{min-height:52px;gap:4px;padding:5px 3px}
+  .venue-button{min-height:56px;grid-template-rows:17px 17px;row-gap:5px;padding:5px 3px}
+  .venue-main-line{height:17px}
   .venue-name{font-size:13px}.sport-icon{flex-basis:15px;width:15px;height:15px}
-  .venue-meta-line{gap:2px}.grade-icon{min-width:22px;height:16px;font-size:7.5px}.status-icon{width:15px;height:15px}.day-label{min-width:16px;height:16px;padding:0 3px;font-size:8px}.day-label.multi-digit{padding-inline:2px;font-size:7px;letter-spacing:-.05em}
+  .venue-meta-line{height:17px;min-height:17px;gap:2px}.grade-icon{min-width:22px;height:16px;font-size:7.5px}.status-icon{width:15px;height:15px}.day-label{min-width:16px;height:16px;padding:0 3px;font-size:8px}.day-label.multi-digit{padding-inline:2px;font-size:7px;letter-spacing:-.05em}
 }
 @media(max-width:350px){
   .venue-grid{--venue-columns:2}

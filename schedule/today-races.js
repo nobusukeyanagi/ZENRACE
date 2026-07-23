@@ -291,8 +291,8 @@
       ? `<img class="venue-status-icon girls" src="icons/girls.png" alt="" aria-hidden="true">`
       : "";
     const dayLabel = renderVenueDayLabel(venueDay);
-    const metaLine = gradeIcon || sessionIcon || girlsIcon || dayLabel
-      ? `<div class="venue-meta-row">${gradeIcon}${sessionIcon}${girlsIcon}${dayLabel}</div>`
+    const metaLine = gradeIcon || dayLabel || sessionIcon || girlsIcon
+      ? `<div class="venue-meta-row">${gradeIcon}${dayLabel}${sessionIcon}${girlsIcon}</div>`
       : "";
 
     return `

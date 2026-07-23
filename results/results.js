@@ -102,7 +102,7 @@
           <div class="venue-name">${entry.venue}</div>
           <span class="venue-sport-icon ${entry.sport}" aria-hidden="true"></span>
         </div>
-        <div class="venue-meta-row">${gradeHtml}${sessionHtml}${girlsHtml}${dayHtml}</div>
+        <div class="venue-meta-row">${gradeHtml}${dayHtml}${sessionHtml}${girlsHtml}</div>
       </div>`;
   };
 

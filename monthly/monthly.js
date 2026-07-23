@@ -5949,7 +5949,7 @@
     const girls = item.girls
       ? '<img class="status-icon girls" src="../schedule/icons/girls.png" alt="" aria-hidden="true">'
       : "";
-    const showDay = item.sport !== "nar" && item.day;
+    const showDay = item.sport !== "nar" && item.sport !== "jra" && item.day;
     const day = showDay ? renderDayLabel(item.day) : "";
     const aria = [item.venue, item.grade, item.session, item.girls ? "ガールズ" : "", showDay ? item.day : ""].filter(Boolean).join(" ");
 
@@ -5958,7 +5958,7 @@
         <span class="venue-name">${escapeHtml(item.venue)}</span>
         <span class="sport-icon ${escapeHtml(item.sport)}" aria-hidden="true"></span>
       </span>
-      <span class="venue-meta-line">${grade}${session}${girls}${day}</span>
+      <span class="venue-meta-line">${grade}${day}${session}${girls}</span>
     </button>`;
   };
 
