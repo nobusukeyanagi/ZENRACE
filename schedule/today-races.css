@@ -64,7 +64,7 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
 }
 .venue-focus-band{
   position:absolute;z-index:0;top:0;bottom:0;left:var(--focus-band-left);width:var(--focus-band-w);
-  background:linear-gradient(180deg,#efd787,#cfa33e);
+  background:#d5ab43;
   box-shadow:inset 1px 0 rgba(255,255,255,.24),inset -1px 0 rgba(84,56,8,.12);
   pointer-events:none;transform:translate3d(0,0,0);will-change:transform
 }
