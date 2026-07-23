@@ -23,7 +23,7 @@ button{font:inherit}
 .monthly-schedule{width:100%}
 .day-card{
   display:grid;
-  grid-template-columns:38px minmax(0,1fr);
+  grid-template-columns:45px minmax(0,1fr);
   overflow:hidden;
   border:1px solid var(--monthly-line);
   border-radius:8px;
@@ -44,12 +44,19 @@ button{font:inherit}
 .date-number{font-size:22px;line-height:1;font-weight:950;letter-spacing:-.05em}
 .date-weekday{font-size:9px;line-height:1;font-weight:900;color:var(--monthly-muted)}
 .venue-grid{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
+  --venue-columns:5;
+  display:flex;
+  flex-direction:column;
   gap:5px;
   min-width:0;
   padding:6px;
   background:#090909;
+}
+.venue-sport-group{
+  display:grid;
+  grid-template-columns:repeat(var(--venue-columns),minmax(0,1fr));
+  gap:5px;
+  min-width:0;
 }
 .venue-button{
   --sport:#555;
@@ -171,16 +178,17 @@ button{font:inherit}
 }
 .monthly-toast.is-visible{opacity:1;transform:translate(-50%,0)}
 @media(hover:hover){.venue-button:hover{background:color-mix(in srgb,var(--sport) 4%,#fff)}}
-@media(max-width:600px){.venue-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:600px){.venue-grid{--venue-columns:4}}
 @media(max-width:430px){
   .monthly-page{padding:5px}
-  .day-card{grid-template-columns:36px minmax(0,1fr)}
+  .day-card{grid-template-columns:43px minmax(0,1fr)}
   .date-number{font-size:19px}.date-weekday{font-size:8px}
-  .venue-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:5px}
+  .venue-grid{--venue-columns:3;gap:4px;padding:5px}
+  .venue-sport-group{gap:4px}
   .venue-button{min-height:52px;gap:4px;padding:5px 3px}
   .venue-name{font-size:13px}.sport-icon{flex-basis:15px;width:15px;height:15px}
   .venue-meta-line{gap:2px}.grade-icon{min-width:22px;height:16px;font-size:7.5px}.status-icon{width:15px;height:15px}.day-label{font-size:8px}
 }
 @media(max-width:350px){
-  .venue-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .venue-grid{--venue-columns:2}
 }

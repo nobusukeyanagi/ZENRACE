@@ -102,6 +102,22 @@
     </button>`;
   };
 
+  const venueGroupsHtml = (venues) => {
+    const groups = [];
+    venues.forEach((item) => {
+      const lastGroup = groups.at(-1);
+      if (lastGroup?.sport === item.sport) {
+        lastGroup.items.push(item);
+        return;
+      }
+      groups.push({ sport: item.sport, items: [item] });
+    });
+
+    return groups.map((group) => `<div class="venue-sport-group sport-group-${escapeHtml(group.sport)}">
+      ${group.items.map(venueButtonHtml).join("")}
+    </div>`).join("");
+  };
+
   const dayHtml = (day) => {
     const date = parseDate(day.date);
     return `<article class="day-card">
@@ -109,7 +125,7 @@
         <span class="date-number">${date.getDate()}</span>
         <span class="date-weekday">${WEEKDAY[date.getDay()]}</span>
       </div>
-      <div class="venue-grid">${day.venues.map(venueButtonHtml).join("")}</div>
+      <div class="venue-grid">${venueGroupsHtml(day.venues)}</div>
     </article>`;
   };
 
