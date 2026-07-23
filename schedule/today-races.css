@@ -11,7 +11,7 @@
   --focus-band-shift:6px;
   --focus-band-w:44px;
   --focus-band-left:calc(
-    var(--venue-card-w) + var(--track-pad-x) +
+    var(--track-pad-x) +
     (var(--focus-slot-index) * (var(--race-card-w) + var(--track-gap))) +
     var(--focus-band-shift) + ((var(--race-card-w) - var(--focus-band-w)) / 2)
   );
@@ -62,14 +62,14 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
   border:1px solid rgba(213,171,67,.34);border-radius:8px;
   background:linear-gradient(180deg,#181818,#090909)
 }
-.today-board::before{
-  content:"";position:absolute;z-index:0;top:0;bottom:0;left:var(--focus-band-left);width:var(--focus-band-w);
+.venue-focus-band{
+  position:absolute;z-index:0;top:0;bottom:0;left:var(--focus-band-left);width:var(--focus-band-w);
   background:linear-gradient(180deg,#efd787,#cfa33e);
   box-shadow:inset 1px 0 rgba(255,255,255,.24),inset -1px 0 rgba(84,56,8,.12);
-  pointer-events:none
+  pointer-events:none;transform:translate3d(0,0,0);will-change:transform
 }
-.today-board[data-day-mode="past"]::before,
-.today-board[data-day-mode="future"]::before{display:none}
+.venue-row[data-mode="past"] .venue-focus-band,
+.venue-row[data-mode="future"] .venue-focus-band{display:none}
 .venue-row{
   position:relative;z-index:1;display:grid;grid-template-columns:var(--venue-card-w) minmax(0,1fr);align-items:stretch;
   min-height:var(--row-h)

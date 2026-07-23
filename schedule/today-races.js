@@ -325,6 +325,7 @@
           ${metaLine}
         </div>
         <div class="venue-track-shell">
+          <span class="venue-focus-band" aria-hidden="true"></span>
           <div class="venue-track" data-mode="${track.mode}" data-anchor="${track.anchor}">${track.cards}</div>
         </div>
       </article>`;
@@ -336,6 +337,8 @@
       slotWidth: parseFloat(styles.getPropertyValue("--race-card-w")) || 76,
       slotGap: parseFloat(styles.getPropertyValue("--track-gap")) || 7,
       trackPad: parseFloat(styles.getPropertyValue("--track-pad-x")) || 8,
+      focusSlotIndex: parseFloat(styles.getPropertyValue("--focus-slot-index")) || 1,
+      focusBandShift: parseFloat(styles.getPropertyValue("--focus-band-shift")) || 0,
       bandWidth: parseFloat(styles.getPropertyValue("--focus-band-w")) || 44,
     };
   };
@@ -348,17 +351,13 @@
   };
 
   const getAnchorPositions = (track, card) => {
-    const board = document.getElementById("todayBoard");
-    const boardRect = board.getBoundingClientRect();
-    const trackRect = track.getBoundingClientRect();
-    const { slotWidth, slotGap, trackPad, bandWidth } = readLayout();
-    const boardStyles = getComputedStyle(board, "::before");
-    const bandLeft = parseFloat(boardStyles.left);
-    const bandVisualLeft = Number.isFinite(bandLeft)
-      ? boardRect.left + bandLeft
-      : trackRect.left + trackPad + slotWidth + slotGap;
+    const { slotWidth, slotGap, trackPad, focusSlotIndex, focusBandShift, bandWidth } = readLayout();
+    const bandLeft = trackPad
+      + (focusSlotIndex * (slotWidth + slotGap))
+      + focusBandShift
+      + ((slotWidth - bandWidth) / 2);
     const actualCardWidth = card?.getBoundingClientRect().width || slotWidth;
-    const focusLeft = bandVisualLeft + ((bandWidth - actualCardWidth) / 2) - trackRect.left;
+    const focusLeft = bandLeft + ((bandWidth - actualCardWidth) / 2);
     return {
       left: trackPad,
       previous: focusLeft - actualCardWidth - slotGap,
@@ -409,6 +408,34 @@
     track.dataset.maxScroll = String(max);
     if (track.scrollLeft < min) track.scrollLeft = min;
     else if (track.scrollLeft > max) track.scrollLeft = max;
+  };
+
+  const syncTrackBand = (track) => {
+    if (!track) return;
+    const band = track.parentElement?.querySelector(".venue-focus-band");
+    if (!band) return;
+    const baseScroll = Number.parseFloat(track.dataset.bandBaseScroll || "0");
+    const offset = baseScroll - track.scrollLeft;
+    band.style.transform = `translate3d(${offset}px,0,0)`;
+  };
+
+  const resetTrackBand = (track) => {
+    if (!track) return;
+    track.dataset.bandBaseScroll = String(track.scrollLeft);
+    syncTrackBand(track);
+  };
+
+  const bindTrackBand = (track) => {
+    if (!track || track.dataset.bandBound === "true") return;
+    track.dataset.bandBound = "true";
+    let frame = 0;
+    track.addEventListener("scroll", () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        syncTrackBand(track);
+      });
+    }, { passive: true });
   };
 
   const bindTodayClamp = (track) => {
@@ -462,7 +489,10 @@
       : '<div class="today-empty">この日の開催データは準備中です</div>';
     board.querySelectorAll(".venue-track").forEach((track) => {
       bindEndClamp(track);
-      if (dayDiff === 0) bindTodayClamp(track);
+      if (dayDiff === 0) {
+        bindTodayClamp(track);
+        bindTrackBand(track);
+      }
     });
 
     board.querySelectorAll(".race-card[href='#']").forEach((card) => {
@@ -474,7 +504,10 @@
 
     const alignAllTracks = () => board.querySelectorAll(".venue-track").forEach((track) => {
       alignTrack(track);
-      if (dayDiff === 0) clampTodayTrack(track);
+      if (dayDiff === 0) {
+        clampTodayTrack(track);
+        resetTrackBand(track);
+      }
     });
     requestAnimationFrame(() => requestAnimationFrame(alignAllTracks));
     window.setTimeout(alignAllTracks, 60);
@@ -509,7 +542,10 @@
       const isCurrentDay = dateKey(selectedDate) === dateKey(todayBase);
       document.querySelectorAll(".venue-track").forEach((track) => {
         alignTrack(track);
-        if (isCurrentDay) clampTodayTrack(track);
+        if (isCurrentDay) {
+          clampTodayTrack(track);
+          resetTrackBand(track);
+        }
       });
     };
     render();
