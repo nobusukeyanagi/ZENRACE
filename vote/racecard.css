@@ -73,3 +73,21 @@
 .good-ten-line[data-rank="2"]>*,.surface-stat .stat-line[data-rank="2"]>*{background-color:#e4f5b4!important}
 .good-ten-line[data-rank="3"],.surface-stat .stat-line[data-rank="3"],
 .good-ten-line[data-rank="3"]>*,.surface-stat .stat-line[data-rank="3"]>*{background-color:#cfeeff!important}
+
+/* v80: one ranking palette for ST, trial time, good-10 time and all rate columns */
+.race-table [data-rank="1"],
+.race-table [data-rank="1"] > * {
+  background-color:#fff0b8!important;
+  background-image:linear-gradient(#fff0b8,#fff0b8)!important;
+}
+.race-table [data-rank="2"],
+.race-table [data-rank="2"] > * {
+  background-color:#e4f5b4!important;
+  background-image:linear-gradient(#e4f5b4,#e4f5b4)!important;
+}
+.race-table [data-rank="3"],
+.race-table [data-rank="3"] > * {
+  background-color:#cfeeff!important;
+  background-image:linear-gradient(#cfeeff,#cfeeff)!important;
+}
+.race-table [data-rank]{border-radius:0!important;box-shadow:none!important;background-clip:border-box!important}
