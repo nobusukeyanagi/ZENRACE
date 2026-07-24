@@ -24,7 +24,7 @@
 .date-nav{display:grid;grid-template-columns:36px minmax(152px,auto) 36px;align-items:center;gap:2px}
 .date-arrow{display:grid;width:36px;height:36px;place-items:center;padding:0 0 2px;color:#ead181;border:0;border-radius:0;background:transparent;box-shadow:none;font-size:28px;line-height:1;cursor:pointer}
 .date-arrow:active{color:#fff1b5;border-color:transparent;background:transparent;transform:translateY(1px)}
-.date-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.04em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28)}
+.date-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.045em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;line-height:1}
 .date-weekday.sunday,.date-weekday.holiday{color:#ff7676}
 .date-weekday.saturday{color:#75b8ff}
 .date-toolbar-side{display:flex;align-items:center;min-width:0}

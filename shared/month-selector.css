@@ -22,10 +22,11 @@
 .month-nav{display:grid;grid-template-columns:36px minmax(112px,auto) 36px;align-items:center;gap:2px}
 .month-arrow{display:grid;width:36px;height:36px;place-items:center;padding:0 0 2px;color:#ead181;border:0;border-radius:0;background:transparent;box-shadow:none;font-size:28px;line-height:1;cursor:pointer}
 .month-arrow:active{color:#fff1b5;border-color:transparent;background:transparent;transform:translateY(1px)}
-.month-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.045em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28)}
+.month-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.045em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;line-height:1}
 .month-toolbar-side{display:flex;align-items:center;min-width:0}
+.month-toolbar-side.left{justify-content:flex-start}
 .month-toolbar-side.right{justify-content:flex-end}
-.current-month-btn{
+.current-month-btn,.month-toolbar .today-btn{
   min-width:66px;
   height:32px;
   padding:0 13px;
@@ -37,18 +38,18 @@
   font-weight:850;
   cursor:pointer;
 }
-.current-month-btn.is-current{
+.current-month-btn.is-current,.month-toolbar .today-btn.is-current{
   color:#171108;
   border-color:rgba(242,216,137,.42);
   background:#fff6c8;
   box-shadow:none;
 }
-.current-month-btn:disabled{cursor:default;opacity:1}
+.current-month-btn:disabled,.month-toolbar .today-btn:disabled{cursor:default;opacity:1}
 @media(max-width:430px){
   :root{--month-toolbar-h:44px}
   .month-toolbar{grid-template-columns:62px auto 62px;padding-inline:5px}
   .month-nav{grid-template-columns:32px minmax(98px,auto) 32px}
   .month-arrow{width:32px;height:32px;font-size:25px}
   .month-title{font-size:15px}
-  .current-month-btn{min-width:60px;height:30px;padding-inline:9px}
+  .current-month-btn,.month-toolbar .today-btn{min-width:60px;height:30px;padding-inline:9px}
 }
