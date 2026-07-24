@@ -90,7 +90,7 @@ button{font:inherit}
 .race-minute{
   display:block;
   color:#111;
-  font-size:27px;
+  font-size:25px;
   font-weight:900;
   line-height:.95;
   letter-spacing:.01em;
@@ -114,7 +114,7 @@ button{font:inherit}
   max-width:100%;
   overflow:hidden;
   color:#333840;
-  font-size:12px;
+  font-size:13px;
   font-weight:950;
   line-height:1.05;
   white-space:nowrap;
@@ -180,9 +180,9 @@ button{font:inherit}
   .hour-label{min-height:70px;font-size:19px}
   .hour-races{gap:6px;padding:6px}
   .timetable-race{height:56px;gap:2px;padding:2px 3px;border-radius:7px}
-  .race-minute{font-size:26px}
+  .race-minute{font-size:25px}
   .race-sport-line{width:calc(100% - 10px);height:4px;flex-basis:4px}
-  .race-detail{font-size:12px;letter-spacing:-.055em}
+  .race-detail{font-size:13px;letter-spacing:-.055em}
 }
 
 @media(max-width:350px){
@@ -190,5 +190,5 @@ button{font:inherit}
   .hour-races{gap:4px;padding:5px}
   .timetable-race{height:56px}
   .race-minute{font-size:25px}
-  .race-detail{font-size:11px;letter-spacing:-.06em}
+  .race-detail{font-size:12px;letter-spacing:-.06em}
 }

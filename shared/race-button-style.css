@@ -95,3 +95,12 @@
 @media(prefers-reduced-motion:reduce){
   :is(.race-card,.timetable-race,.venue-button,.race-tab){transition:none}
 }
+/* 出走表系レースボタン: 上端4pxラインと開催場名が干渉しないよう上下を均等化 */
+.race-tab{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:7px 5px 3px;
+}
+.race-tab strong{flex:0 0 auto;min-height:16px}
+.race-tab>span{margin-top:2px}

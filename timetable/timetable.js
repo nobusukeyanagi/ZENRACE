@@ -35,7 +35,8 @@
     return { hour: Number(match[1]), minute: Number(match[2]) };
   };
 
-  const raceNumber = (race) => Number.parseInt(String(race.race), 10) || 0;
+  const SPORT_ORDER = Object.freeze({ keirin: 0, auto: 1, boat: 2, nar: 3, jra: 4 });
+  const sportOrder = (sport) => SPORT_ORDER[sport] ?? 99;
   const raceMinutes = (race) => {
     const parts = timeParts(race.time);
     return parts ? (parts.hour * 60) + parts.minute : Number.POSITIVE_INFINITY;
@@ -71,8 +72,13 @@
 
   const buildHourGroups = (date, races) => {
     const validRaces = races
-      .filter((race) => timeParts(race.time))
-      .sort((a, b) => (raceMinutes(a) - raceMinutes(b)) || (raceNumber(a) - raceNumber(b)));
+      .map((race, sourceIndex) => ({ race, sourceIndex }))
+      .filter(({ race }) => timeParts(race.time))
+      .sort((a, b) =>
+        (raceMinutes(a.race) - raceMinutes(b.race))
+        || (sportOrder(a.race.sport) - sportOrder(b.race.sport))
+        || (a.sourceIndex - b.sourceIndex))
+      .map(({ race }) => race);
     const grouped = new Map();
 
     validRaces.forEach((race) => {

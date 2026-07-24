@@ -6,23 +6,43 @@
       let startX = 0;
       let startY = 0;
       let direction = "";
+      let riderStateFrame = 0;
+
+      const rows = [...scroller.querySelectorAll("tbody tr")];
+      rows.forEach((row) => {
+        const carCell = row.querySelector("td.car-number");
+        const riderCell = row.querySelector("td.rider-name");
+        if (!carCell || !riderCell) return;
+        const shortName = String(riderCell.textContent || "").replace(/[\s　]+/g, "").slice(0, 3);
+        carCell.dataset.riderShort = shortName;
+        if (!carCell.querySelector(".car-number-value")) {
+          const value = document.createElement("span");
+          value.className = "car-number-value";
+          value.textContent = String(carCell.textContent || "").trim();
+          carCell.replaceChildren(value);
+        }
+      });
+
+      const updateRiderNameState = () => {
+        riderStateFrame = 0;
+        const carCell = scroller.querySelector("tbody td.car-number");
+        const riderCell = scroller.querySelector("tbody td.rider-name");
+        if (!carCell || !riderCell) return;
+        const carRect = carCell.getBoundingClientRect();
+        const riderRect = riderCell.getBoundingClientRect();
+        scroller.classList.toggle("rider-name-hidden", riderRect.right <= carRect.right + 1);
+      };
+
+      const queueRiderNameState = () => {
+        if (riderStateFrame) return;
+        riderStateFrame = window.requestAnimationFrame(updateRiderNameState);
+      };
 
       const maxScrollLeft = () => Math.max(0, scroller.scrollWidth - scroller.clientWidth);
 
-      const riderColumn = scroller.querySelector("thead th:nth-child(2)");
-      const updateRiderNameFallback = () => {
-        const riderWidth = riderColumn?.getBoundingClientRect().width || 154;
-        scroller.classList.toggle("is-rider-hidden", scroller.scrollLeft >= riderWidth - 1);
-      };
-      let scrollFrame = 0;
-      scroller.addEventListener("scroll", () => {
-        if (scrollFrame) return;
-        scrollFrame = requestAnimationFrame(() => {
-          scrollFrame = 0;
-          updateRiderNameFallback();
-        });
-      }, { passive: true });
-      requestAnimationFrame(updateRiderNameFallback);
+      scroller.addEventListener("scroll", queueRiderNameState, { passive: true });
+      window.addEventListener("resize", queueRiderNameState, { passive: true });
+      queueRiderNameState();
 
       scroller.addEventListener("touchstart", (event) => {
         if (event.touches.length !== 1) return;
@@ -58,7 +78,7 @@
         const max = maxScrollLeft();
         scroller.scrollLeft = Math.min(max, Math.max(0, scroller.scrollLeft));
         direction = "";
-        updateRiderNameFallback();
+        queueRiderNameState();
       }, { passive: true });
     });
   };

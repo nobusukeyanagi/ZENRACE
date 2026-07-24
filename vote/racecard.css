@@ -3,23 +3,20 @@
 .vote-racecard{width:min(100%,760px);margin:0 auto;padding:0 0 34px}
 .section{margin:10px 8px 0;overflow:hidden;border:1px solid #c9c9cf;border-radius:10px;background:#fff;box-shadow:0 9px 23px rgba(0,0,0,.25)}
 .table-scroll{overflow-x:auto;overflow-y:hidden;background:#fff;-webkit-overflow-scrolling:touch;scrollbar-color:#7545af #eee;overscroll-behavior-x:contain;touch-action:pan-x pan-y}
-.race-table{width:914px;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;color:#15171a}
-.race-table col.col-car{width:42px}.race-table col.col-rider{width:154px}.race-table col.col-handicap{width:62px}.race-table col.col-st{width:56px}.race-table col.col-trial{width:64px}.race-table col.col-deviation{width:64px}.race-table col.col-points{width:78px}.race-table col.col-rank{width:102px}.race-table col.col-finals{width:56px}.race-table col.col-victories{width:92px}.race-table col.col-machine{width:144px}
-.race-table th,.race-table td{padding:4px 7px;border-right:1px solid #d2d3d7;border-bottom:1px solid #d2d3d7;text-align:center;white-space:nowrap}
-.race-table th{height:30px;color:#fff;background:var(--auto-purple);font-size:11.5px;font-weight:1000;line-height:1.08}
-.race-table td{height:44px;color:#15171a;background:#fff;font-size:12.5px;font-weight:850}
+.race-table{width:940px;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;color:#15171a}
+.race-table col.col-car{width:32px}.race-table col.col-rider{width:116px}.race-table col.col-profile{width:126px}.race-table col.col-handicap{width:58px}.race-table col.col-st{width:49px}.race-table col.col-trial{width:58px}.race-table col.col-deviation{width:58px}.race-table col.col-points{width:72px}.race-table col.col-rank{width:92px}.race-table col.col-finals{width:50px}.race-table col.col-victories{width:86px}.race-table col.col-machine{width:143px}
+.race-table th,.race-table td{padding:3px 6px;border-right:1px solid #d2d3d7;border-bottom:1px solid #d2d3d7;text-align:center;white-space:nowrap}
+.race-table th{height:25px;color:#fff;background:var(--auto-purple);font-size:10px;font-weight:1000;line-height:1.05}
+.race-table td{height:39px;color:#15171a;background:#fff;font-size:11px;font-weight:850}
 .race-table th:first-child,.race-table td:first-child{position:sticky;left:0;z-index:4;padding:0;box-shadow:5px 0 8px -7px rgba(0,0,0,.8)}
 .race-table th:first-child{z-index:6;color:#fff;background:var(--auto-purple);border-right:1px solid rgba(255,255,255,.32)}
 .race-table td:first-child{border-right:0}
 .race-table th:last-child,.race-table td:last-child{border-right:0}.race-table tbody tr:last-child td{border-bottom:0}
-.race-table .rider-name{text-align:left;overflow:hidden;white-space:normal}
-.rider-name-main{display:block;overflow:hidden;color:#15171a;font-size:16px;font-weight:1000;line-height:1.08;text-overflow:ellipsis;white-space:nowrap}
-.rider-profile{display:block;margin-top:2px;overflow:hidden;color:#7a8089;font-size:10.5px;font-weight:800;line-height:1;text-overflow:ellipsis;white-space:nowrap}
-.race-table .machine-name{text-align:left;font-size:12px;font-weight:900;overflow:hidden;text-overflow:ellipsis}
-.race-table .handicap{font-size:13px;font-weight:1000;font-variant-numeric:tabular-nums}
-.car-number{font-size:15px!important;font-weight:1000!important;line-height:1!important;text-align:center!important;vertical-align:middle!important;font-variant-numeric:tabular-nums}
-.car-number-value{display:block;font-size:15px;line-height:1}
-.car-rider-short{display:none;margin-top:3px;overflow:hidden;font-size:11px!important;font-weight:1000!important;line-height:1;letter-spacing:-.06em;text-overflow:clip;white-space:nowrap}
-.table-scroll.is-rider-hidden .car-rider-short{display:block}
+.race-table .rider-name{text-align:left;font-size:12px;font-weight:1000;overflow:hidden;text-overflow:ellipsis}
+.race-table .machine-name{text-align:left;font-weight:900;overflow:hidden;text-overflow:ellipsis}
+.car-number{font-size:13px!important;font-weight:1000!important;text-align:center!important;vertical-align:middle!important;font-variant-numeric:tabular-nums}
+.car-number-value{display:block;line-height:1}
+.table-scroll.rider-name-hidden .race-table td.car-number{padding:4px 0 12px!important;vertical-align:top!important}
+.table-scroll.rider-name-hidden .race-table td.car-number::after{content:attr(data-rider-short);position:absolute;right:1px;bottom:3px;left:1px;overflow:hidden;font-size:8px;font-weight:1000;line-height:1;letter-spacing:-.10em;white-space:nowrap;text-align:center;text-overflow:clip}
 .car-1{color:#111!important;background:#f3f4f5!important}.car-2{color:#fff!important;background:#171717!important}.car-3{color:#fff!important;background:#e51125!important}.car-4{color:#fff!important;background:#0877bd!important}.car-5{color:#111!important;background:#f2d819!important}.car-6{color:#fff!important;background:#07914a!important}.car-7{color:#111!important;background:#ee8b10!important}.car-8{color:#fff!important;background:#d9008f!important}
-@media(max-width:430px){.vote-racecard{padding-top:0}.section{margin-inline:8px}.race-table th{font-size:11px}.race-table td{height:42px;font-size:12px}.rider-name-main{font-size:15.5px}.rider-profile{font-size:10px}}
+@media(max-width:430px){.vote-racecard{padding-top:0}.section{margin-inline:8px}.race-table td{height:37px}}
