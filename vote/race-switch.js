@@ -46,7 +46,7 @@
         const key = keyOf(race);
         const active = key === activeKey;
         const featured = isFeaturedRace(race);
-        return `<a class="race-tab sport-${race.sport}${featured ? " featured-race" : ""}${active ? " active" : ""}" href="#" data-race-key="${key}" data-race-time="${race.time}"${active ? ' aria-current="true"' : ""}><strong><span class="race-tab-name">${race.venue}</span><span class="race-tab-icon ${race.sport}" aria-hidden="true"></span></strong><span>${race.race} ${race.time}</span></a>`;
+        return `<a class="race-tab sport-${race.sport}${featured ? " featured-race" : ""}${active ? " active" : ""}" href="#" data-race-key="${key}" data-race-time="${race.time}" data-race-venue="${race.venue}"${active ? ' aria-current="true"' : ""}><strong><span class="race-tab-name">${race.venue}</span><span class="race-tab-icon ${race.sport}" aria-hidden="true"></span></strong><span>${race.race} ${race.time}</span></a>`;
       }).join("");
       this.innerHTML = `<section class="race-switch-wrap" aria-label="レース切り替え"><div class="race-switch">${tabs}</div></section>`;
 
@@ -65,6 +65,19 @@
           event.preventDefault();
           showPreparingToast();
         });
+      });
+
+      const applyVenueFilter = (venue, enabled) => {
+        this.querySelectorAll(".race-tab").forEach((tab) => {
+          tab.hidden = Boolean(enabled && tab.dataset.raceVenue !== venue);
+        });
+        track?.classList.toggle("is-venue-filtered", Boolean(enabled));
+        requestAnimationFrame(() => requestAnimationFrame(alignActive));
+      };
+
+      document.addEventListener("zenrace:race-venue-filter", (event) => {
+        const venue = String(event.detail?.venue || "");
+        applyVenueFilter(venue, Boolean(event.detail?.enabled && venue));
       });
 
       requestAnimationFrame(() => requestAnimationFrame(alignActive));
