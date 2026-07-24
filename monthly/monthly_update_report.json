@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-07-24T10:36:39.969715+09:00",
+  "generated_at": "2026-07-24T11:03:07.997269+09:00",
   "target_date": "2026-07-24",
   "before_count": 33,
-  "after_count": 33,
-  "changed": false,
+  "after_count": 32,
+  "changed": true,
   "before": [
     {
       "sport": "keirin",
@@ -322,12 +322,6 @@
       "day": "初日"
     },
     {
-      "sport": "auto",
-      "venue": "山陽",
-      "grade": "普通",
-      "session": "midnight"
-    },
-    {
       "sport": "boat",
       "venue": "桐生",
       "grade": "一般",
@@ -458,17 +452,16 @@
     {
       "sport": "auto",
       "ok": true,
-      "entry_count": 0,
+      "entry_count": 4,
       "fetched_urls": [
-        "https://autorace.jp/race_info/Program/kawaguchi/2026-07-24_01",
-        "https://autorace.jp/race_info/Program/isesaki/2026-07-24_01",
-        "https://autorace.jp/race_info/Program/hamamatsu/2026-07-24_01",
-        "https://autorace.jp/race_info/Program/iizuka/2026-07-24_01",
+        "https://autorace.jp/race_info/Program/kawaguchi/2026-07-24",
+        "https://autorace.jp/race_info/Program/isesaki/2026-07-24",
+        "https://autorace.jp/race_info/Program/hamamatsu/2026-07-24",
+        "https://autorace.jp/race_info/Program/iizuka/2026-07-24",
+        "https://autorace.jp/race_info/Program/sanyo/2026-07-24",
         "https://autorace.jp/race_info/Program/sanyo/2026-07-24_01"
       ],
-      "warnings": [
-        "取得結果が0件だったため、既存データを保全しました。"
-      ],
+      "warnings": [],
       "error": ""
     },
     {
