@@ -1,0 +1,98 @@
+:root{
+  --race-button-border:#8f6a18;
+  --race-button-border-glow:rgba(255,230,161,.38);
+  --race-button-active:#f0cc70;
+  --race-button-pressed:#f6df9c;
+  --race-sport-keirin:#f17c32;
+  --race-sport-auto:#8a56b5;
+  --race-sport-boat:#1185c8;
+  --race-sport-nar:#9a673e;
+  --race-sport-jra:#2d9f54;
+}
+
+/* 4ページ共通のレース／開催場ボタン骨格 */
+:is(.race-card,.timetable-race,.venue-button,.race-tab){
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--race-button-border);
+  border-radius:8px;
+  box-shadow:0 0 0 1px var(--race-button-border-glow),0 2px 5px rgba(0,0,0,.20);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .08s ease,background-color .12s ease,box-shadow .12s ease;
+}
+
+:is(.race-card,.timetable-race,.venue-button,.race-tab)::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  top:0;
+  right:0;
+  left:0;
+  height:3px;
+  border-radius:7px 7px 0 0;
+  background:var(--race-sport-color,#6f7782);
+  pointer-events:none;
+}
+
+/* 競技色は4ページ共通値を使用 */
+:is(.race-card,.timetable-race,.venue-button,.race-tab).sport-keirin,
+.venue-row.sport-keirin{--race-sport-color:var(--race-sport-keirin)}
+:is(.race-card,.timetable-race,.venue-button,.race-tab).sport-auto,
+.venue-row.sport-auto{--race-sport-color:var(--race-sport-auto)}
+:is(.race-card,.timetable-race,.venue-button,.race-tab).sport-boat,
+.venue-row.sport-boat{--race-sport-color:var(--race-sport-boat)}
+:is(.race-card,.timetable-race,.venue-button,.race-tab).sport-nar,
+.venue-row.sport-nar{--race-sport-color:var(--race-sport-nar)}
+:is(.race-card,.timetable-race,.venue-button,.race-tab).sport-jra,
+.venue-row.sport-jra{--race-sport-color:var(--race-sport-jra)}
+
+/* 押下時は位置と影を共通化。色は状態より弱い一時表現にする。 */
+:is(.race-card,.timetable-race,.venue-button,.race-tab):active:not(.placeholder):not(.spacer){
+  transform:translateY(1px) scale(.985);
+  background:var(--race-button-pressed);
+  box-shadow:0 0 0 1px rgba(255,230,161,.26),0 1px 2px rgba(0,0,0,.18);
+}
+
+:is(.race-card,.timetable-race,.venue-button,.race-tab):focus-visible{
+  outline:2px solid #ffe7a0;
+  outline-offset:1px;
+}
+
+/* 選択中・直近は競技色ではなくZENRACE共通の金で示す。 */
+.race-card.current,
+.timetable-race.current,
+.timetable-race[aria-current="true"],
+.venue-button.selected,
+.venue-button[aria-pressed="true"],
+.race-tab.active,
+.race-tab[aria-current="true"]{
+  color:#171108;
+  border-color:var(--race-button-border);
+  background:var(--race-button-active);
+  box-shadow:0 0 0 1px rgba(255,230,161,.48),0 4px 11px rgba(0,0,0,.26);
+}
+
+/* 注目レースも枠線は金を維持し、赤は文字と外側の光だけに使う。 */
+.race-card.featured-race,
+.timetable-race.featured-race{
+  border:1px solid var(--race-button-border);
+  box-shadow:0 0 0 1px rgba(255,226,143,.46),0 0 0 3px rgba(212,35,43,.38),0 2px 5px rgba(0,0,0,.20);
+}
+
+/* 時刻表の従来の中央線は廃止し、共通の上端ラインへ統合。 */
+.timetable-race .race-sport-line{display:none}
+
+/* 出走表の従来の中央区切り線を廃止。 */
+.race-tab>span{
+  margin-top:3px;
+  padding-top:0;
+  border-top:0;
+}
+
+/* 本日のレースの透明調整スロットには競技色ラインを表示しない。 */
+.race-card.placeholder::before,
+.race-card.spacer::before{display:none}
+
+@media(prefers-reduced-motion:reduce){
+  :is(.race-card,.timetable-race,.venue-button,.race-tab){transition:none}
+}

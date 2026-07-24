@@ -316,7 +316,7 @@
       : "";
 
     return `
-      <article class="venue-row" data-mode="${track.mode}">
+      <article class="venue-row sport-${row.sport}" data-mode="${track.mode}">
         <div class="venue-card sport-${row.sport}">
           <div class="venue-title-line">
             <div class="venue-name">${row.venue}</div>
