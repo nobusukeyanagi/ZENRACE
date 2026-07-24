@@ -38,6 +38,35 @@
   };
 
   class ZenraceRaceSwitch extends HTMLElement {
+    setVenueFilter(venue, enabled) {
+      const normalizedVenue = String(venue || '');
+      const shouldFilter = Boolean(enabled && normalizedVenue);
+      const track = this.querySelector('.race-switch');
+      const tabs = [...this.querySelectorAll('.race-tab')];
+
+      tabs.forEach((tab) => {
+        const filteredOut = shouldFilter && tab.dataset.raceVenue !== normalizedVenue;
+        tab.classList.toggle('is-filtered-out', filteredOut);
+        tab.setAttribute('aria-hidden', String(filteredOut));
+        tab.tabIndex = filteredOut ? -1 : 0;
+      });
+
+      track?.classList.toggle('is-venue-filtered', shouldFilter);
+      this.dataset.venueFilter = shouldFilter ? normalizedVenue : '';
+
+      const active = this.querySelector('.race-tab.active:not(.is-filtered-out)');
+      requestAnimationFrame(() => {
+        if (!track) return;
+        if (!active) {
+          track.scrollLeft = 0;
+          return;
+        }
+        const leftPadding = Number.parseFloat(getComputedStyle(track).paddingLeft) || 0;
+        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+        track.scrollLeft = Math.min(maxScroll, Math.max(0, active.offsetLeft - leftPadding));
+      });
+    }
+
     connectedCallback() {
       if (this.dataset.ready === "true") return;
       this.dataset.ready = "true";
@@ -67,23 +96,26 @@
         });
       });
 
-      const applyVenueFilter = (venue, enabled) => {
-        this.querySelectorAll(".race-tab").forEach((tab) => {
-          tab.hidden = Boolean(enabled && tab.dataset.raceVenue !== venue);
-        });
-        track?.classList.toggle("is-venue-filtered", Boolean(enabled));
-        requestAnimationFrame(() => requestAnimationFrame(alignActive));
+      this._venueFilterHandler = (event) => {
+        const venue = String(event.detail?.venue || '');
+        this.setVenueFilter(venue, Boolean(event.detail?.enabled && venue));
       };
-
-      document.addEventListener("zenrace:race-venue-filter", (event) => {
-        const venue = String(event.detail?.venue || "");
-        applyVenueFilter(venue, Boolean(event.detail?.enabled && venue));
-      });
+      document.addEventListener('zenrace:race-venue-filter', this._venueFilterHandler);
 
       requestAnimationFrame(() => requestAnimationFrame(alignActive));
       setTimeout(alignActive, 120);
       window.addEventListener("pageshow", alignActive);
-      if ("ResizeObserver" in window) new ResizeObserver(alignActive).observe(track);
+      if ('ResizeObserver' in window) {
+        this._resizeObserver = new ResizeObserver(alignActive);
+        this._resizeObserver.observe(track);
+      }
+    }
+
+    disconnectedCallback() {
+      if (this._venueFilterHandler) {
+        document.removeEventListener('zenrace:race-venue-filter', this._venueFilterHandler);
+      }
+      this._resizeObserver?.disconnect();
     }
   }
 

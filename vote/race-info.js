@@ -37,9 +37,14 @@
         filterToggle.setAttribute('aria-pressed', String(venueOnly));
         filterToggle.setAttribute('aria-label', venueOnly ? '全開催場のレースを表示' : '浜松のレースだけ表示');
         filterToggle.classList.toggle('is-active', venueOnly);
-        document.dispatchEvent(new CustomEvent('zenrace:race-venue-filter', {
-          detail: { venue: '浜松', enabled: venueOnly },
-        }));
+        const raceSwitch = document.querySelector('zenrace-race-switch');
+        if (raceSwitch && typeof raceSwitch.setVenueFilter === 'function') {
+          raceSwitch.setVenueFilter('浜松', venueOnly);
+        } else {
+          document.dispatchEvent(new CustomEvent('zenrace:race-venue-filter', {
+            detail: { venue: '浜松', enabled: venueOnly },
+          }));
+        }
       });
 
       const dateLine = this.querySelector('.race-info-date');

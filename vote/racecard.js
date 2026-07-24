@@ -26,12 +26,7 @@
 
       const updateRiderNameState = () => {
         riderStateFrame = 0;
-        const carCell = scroller.querySelector("tbody td.car-number");
-        const riderCell = scroller.querySelector("tbody td.rider-name");
-        if (!carCell || !riderCell) return;
-        const carRect = carCell.getBoundingClientRect();
-        const riderRect = riderCell.getBoundingClientRect();
-        scroller.classList.toggle("rider-name-hidden", riderRect.right <= carRect.right + 1);
+        scroller.classList.toggle('rider-name-hidden', scroller.scrollLeft > 0.5);
       };
 
       const queueRiderNameState = () => {
