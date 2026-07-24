@@ -29,7 +29,7 @@
 .stat-line.rank-first,.stat-line.rank-second,.stat-line.rank-third{font-weight:800}
 .stat-line.rank-first .surface-value,.stat-line.rank-second .surface-value,.stat-line.rank-third .surface-value{font-weight:800}
 .data-stack>span.rank-first,.data-stack>span.rank-second,.data-stack>span.rank-third{font-weight:800}
-.good-ten-time{padding-inline:5px!important}.good-ten-line{display:grid!important;width:100%;grid-template-columns:2.3em 1fr;align-items:center;column-gap:2px;overflow:visible!important;text-overflow:clip!important}.good-ten-label{text-align:left}.good-ten-value{text-align:right;font-variant-numeric:tabular-nums}
+.good-ten-time{padding-inline:5px!important}.good-ten-line{display:grid!important;width:100%;grid-template-columns:auto auto;align-items:center;justify-content:center;column-gap:1px;overflow:visible!important;text-overflow:clip!important}.good-ten-label,.good-ten-value{text-align:left}.good-ten-value{font-variant-numeric:tabular-nums}.good-ten-line.rank-first,.stat-line.rank-first{background:#fff0b8!important}.good-ten-line.rank-second,.stat-line.rank-second{background:#e4f5b4!important}.good-ten-line.rank-third,.stat-line.rank-third{background:#cfeeff!important}
 .race-results{padding-inline:5px!important;text-align:center!important}
 .result-line{display:grid!important;width:100%;grid-template-columns:1em minmax(2ch,1fr) .7ch minmax(2ch,1fr) .7ch minmax(2ch,1fr) .7ch minmax(2ch,1fr) .7ch minmax(2.2ch,1fr);align-items:center;justify-content:stretch;column-gap:0;overflow:visible!important;text-overflow:clip!important}
 .result-label{text-align:left}.result-number,.result-separator{text-align:center}.result-total{text-align:center}
