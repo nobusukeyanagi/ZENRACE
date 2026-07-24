@@ -116,14 +116,24 @@ button{font:inherit}
   flex:0 0 16px;
   width:16px;
   height:16px;
-  display:block;
+  display:grid;
+  place-items:center;
+  border-radius:4px;
   background:var(--sport);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 1px 2px rgba(0,0,0,.16);
 }
-.sport-icon.keirin{-webkit-mask:url('../gradedraces/icons/keirin.png') center/contain no-repeat;mask:url('../gradedraces/icons/keirin.png') center/contain no-repeat}
-.sport-icon.auto{-webkit-mask:url('../gradedraces/icons/auto.png') center/contain no-repeat;mask:url('../gradedraces/icons/auto.png') center/contain no-repeat}
-.sport-icon.boat{-webkit-mask:url('../gradedraces/icons/boat.png') center/contain no-repeat;mask:url('../gradedraces/icons/boat.png') center/contain no-repeat}
-.sport-icon.nar{-webkit-mask:url('../gradedraces/icons/nar.png') center/contain no-repeat;mask:url('../gradedraces/icons/nar.png') center/contain no-repeat}
-.sport-icon.jra{-webkit-mask:url('../gradedraces/icons/jra.png') center/contain no-repeat;mask:url('../gradedraces/icons/jra.png') center/contain no-repeat}
+.sport-icon::before{
+  content:"";
+  width:12px;
+  height:12px;
+  display:block;
+  background:#fff;
+}
+.sport-icon.keirin::before{-webkit-mask:url('../gradedraces/icons/keirin.png') center/contain no-repeat;mask:url('../gradedraces/icons/keirin.png') center/contain no-repeat}
+.sport-icon.auto::before{-webkit-mask:url('../gradedraces/icons/auto.png') center/contain no-repeat;mask:url('../gradedraces/icons/auto.png') center/contain no-repeat}
+.sport-icon.boat::before{-webkit-mask:url('../gradedraces/icons/boat.png') center/contain no-repeat;mask:url('../gradedraces/icons/boat.png') center/contain no-repeat}
+.sport-icon.nar::before{-webkit-mask:url('../gradedraces/icons/nar.png') center/contain no-repeat;mask:url('../gradedraces/icons/nar.png') center/contain no-repeat}
+.sport-icon.jra::before{-webkit-mask:url('../gradedraces/icons/jra.png') center/contain no-repeat;mask:url('../gradedraces/icons/jra.png') center/contain no-repeat}
 .venue-meta-line{
   height:18px;
   min-height:18px;
@@ -183,7 +193,7 @@ button{font:inherit}
   .venue-sport-group{gap:4px}
   .venue-button{min-height:56px;grid-template-rows:17px 17px;row-gap:5px;padding:5px 3px}
   .venue-main-line{height:17px}
-  .venue-name{font-size:14px}.sport-icon{flex-basis:15px;width:15px;height:15px}
+  .venue-name{font-size:14px}.sport-icon{flex-basis:15px;width:15px;height:15px}.sport-icon::before{width:11px;height:11px}
   .venue-meta-line{height:17px;min-height:17px;gap:2px}.grade-icon{min-width:16px;height:16px;padding:0 1px;border-radius:4px;font-size:7px}.status-icon{width:16px;height:16px;border-radius:4px}.day-label{min-width:16px;height:16px;padding:0;border-radius:4px;font-size:8px}.day-label.multi-digit{min-width:16px;padding-inline:1px;font-size:7px;letter-spacing:-.05em}
 }
 @media(max-width:350px){

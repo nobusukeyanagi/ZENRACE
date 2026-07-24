@@ -52,7 +52,7 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
   color:#f8e8b8;background:rgba(255,255,255,.055);font-size:12px;font-weight:850;cursor:pointer
 }
 .update-btn:active{color:#171108;border-color:#ffe6a1;background:var(--gold)}
-.today-btn.is-current{color:#171108;border-color:#ffe6a1;background:var(--gold);box-shadow:0 0 0 1px rgba(255,230,161,.25)}
+.today-btn.is-current{color:#171108;border-color:rgba(242,216,137,.42);background:#fff6c8;box-shadow:none}
 .today-btn:disabled{cursor:default;opacity:1}
 
 .zenrace-content-shell{overflow-x:hidden!important;overflow-y:auto!important;touch-action:pan-x pan-y!important;-webkit-overflow-scrolling:touch}
@@ -118,7 +118,7 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
   border:1px solid #8f6a18;border-radius:8px;color:var(--text);background:var(--panel);text-decoration:none;text-align:center;
   box-shadow:0 0 0 1px rgba(255,230,161,.42),0 2px 5px rgba(0,0,0,.20);-webkit-tap-highlight-color:transparent
 }
-.race-card .race-no{font-size:16px;font-weight:950;line-height:1}
+.race-card .race-no{font-size:17px;font-weight:950;line-height:1}
 .race-card .race-time{font-size:15px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
 .race-card.current{color:#171108;border-color:#8f6a18;background:#fff9e6;box-shadow:0 0 0 1px rgba(255,230,161,.42),0 2px 5px rgba(0,0,0,.20)}
 .race-card.finished{color:#69717c;background:#eef0f3}
@@ -165,5 +165,5 @@ button{font:inherit;-webkit-tap-highlight-color:transparent}
   .update-btn,.today-btn{min-width:60px;height:30px;padding-inline:9px}
   .today-page{padding:5px}
   .venue-name{font-size:16px}.venue-title-line{gap:.45em}.venue-sport-icon{flex-basis:16px;width:16px;height:16px}.venue-meta-row{min-height:17px;gap:2px}.venue-grade-icon{min-width:16px;height:16px;padding:0 1px;border-radius:4px;font-size:7px}.venue-status-icon{width:16px;height:16px;border-radius:4px}.venue-day-label{min-width:16px;height:16px;padding:0;border-radius:4px;font-size:8px}.venue-day-label.multi-digit{min-width:16px;padding-inline:1px;font-size:7px;letter-spacing:-.05em}
-  .race-card .race-no{font-size:15px}.race-card .race-time{font-size:14px}
+  .race-card .race-no{font-size:16px}.race-card .race-time{font-size:14px}
 }
