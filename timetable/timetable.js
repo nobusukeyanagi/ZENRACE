@@ -90,7 +90,7 @@
     const hourMarkup = [...grouped.entries()]
       .sort(([a], [b]) => a - b)
       .map(([hour, hourRaces]) => `
-        <section class="hour-group${date === BASE_DATE && hour === TARGET_HOUR ? " current-hour" : ""}" data-hour="${hour}" aria-label="${hour}時台">
+        <section class="hour-group${date === BASE_DATE && hour === TARGET_HOUR ? " current-hour" : ""}${hourRaces.length <= 4 ? " single-row" : ""}" data-hour="${hour}" aria-label="${hour}時台">
           <div class="hour-label">${hour}</div>
           <div class="hour-races">${hourRaces.map((race) => raceCard(date, race)).join("")}</div>
         </section>`)

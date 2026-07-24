@@ -76,6 +76,7 @@
 .timetable-race.featured-race{
   border:1px solid var(--race-button-border);
   box-shadow:0 0 0 3px rgba(212,35,43,.38),0 2px 5px rgba(0,0,0,.20);
+  animation:none!important;
 }
 
 /* 時刻表の従来の中央線は廃止し、共通の上端ラインへ統合。 */
@@ -121,6 +122,7 @@
 .race-tab.featured-race{
   border-color:var(--race-button-border);
   box-shadow:0 0 0 3px rgba(212,35,43,.38),0 2px 5px rgba(0,0,0,.20);
+  animation:none!important;
 }
 .race-tab.featured-race .race-tab-name,
 .race-tab.featured-race>span{color:#b91620}

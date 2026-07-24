@@ -21,8 +21,9 @@
   box-shadow:0 4px 13px rgba(0,0,0,.20);
   touch-action:none;
 }
-.date-nav{display:grid;grid-template-columns:34px minmax(152px,auto) 34px;align-items:center;gap:2px}
-.date-arrow{width:34px;height:34px;border:0;background:transparent;color:#f0cc70;font-size:27px;line-height:1;cursor:pointer}
+.date-nav{display:grid;grid-template-columns:36px minmax(152px,auto) 36px;align-items:center;gap:2px}
+.date-arrow{display:grid;width:36px;height:36px;place-items:center;padding:0 0 2px;color:#ead181;border:0;border-radius:0;background:transparent;box-shadow:none;font-size:28px;line-height:1;cursor:pointer}
+.date-arrow:active{color:#fff1b5;border-color:transparent;background:transparent;transform:translateY(1px)}
 .date-title{text-align:center;color:#fff;font-size:17px;font-weight:900;letter-spacing:.04em;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.28)}
 .date-weekday.sunday,.date-weekday.holiday{color:#ff7676}
 .date-weekday.saturday{color:#75b8ff}
@@ -53,8 +54,8 @@
 @media(max-width:430px){
   :root{--date-toolbar-h:44px}
   .date-toolbar{grid-template-columns:62px auto 62px;padding-inline:5px}
-  .date-nav{grid-template-columns:29px minmax(140px,auto) 29px}
-  .date-arrow{width:29px}
+  .date-nav{grid-template-columns:32px minmax(136px,auto) 32px}
+  .date-arrow{width:32px;height:32px;font-size:25px}
   .date-title{font-size:15px}
   .update-btn,.today-btn{min-width:60px;height:30px;padding-inline:9px}
 }

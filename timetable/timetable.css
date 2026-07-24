@@ -67,6 +67,10 @@ button{font:inherit}
   padding:8px;
   background:transparent;
 }
+
+/* 1段だけの時刻枠は、ボタン上下の余白を同じ値に固定する。 */
+.hour-group.single-row{min-height:74px}
+.hour-group.single-row .hour-label{min-height:72px}
 .timetable-race{
   position:relative;
   min-width:0;
@@ -178,6 +182,8 @@ button{font:inherit}
   .timetable-page{padding:5px 4px 10px}
   .hour-group{min-height:70px}
   .hour-label{min-height:70px;font-size:19px}
+  .hour-group.single-row{min-height:70px}
+  .hour-group.single-row .hour-label{min-height:68px}
   .hour-races{gap:6px;padding:6px}
   .timetable-race{height:56px;gap:2px;padding:2px 3px;border-radius:7px}
   .race-minute{font-size:25px}
@@ -187,6 +193,8 @@ button{font:inherit}
 
 @media(max-width:350px){
   :root{--hour-label-w:43px}
+  .hour-group.single-row{min-height:68px}
+  .hour-group.single-row .hour-label{min-height:66px}
   .hour-races{gap:4px;padding:5px}
   .timetable-race{height:56px}
   .race-minute{font-size:25px}
