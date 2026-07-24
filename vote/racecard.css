@@ -3,8 +3,8 @@
 .vote-racecard{width:min(100%,760px);margin:0 auto;padding:0 0 34px}
 .section{margin:10px 8px 0;overflow:hidden;border:1px solid rgba(240,204,112,.38);border-radius:14px;background:#fff;box-shadow:none;outline:0;filter:none}
 .zenrace-content-shell{overflow-x:hidden!important;overflow-y:auto}.zenrace-content-sizer{width:100%!important;max-width:100%;overflow-x:clip}.zenrace-content-stage{width:100%!important;max-width:100%;overflow-x:clip}.table-scroll{position:relative;width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;background:#fff;-webkit-overflow-scrolling:touch;scrollbar-color:#7545af #eee;overscroll-behavior-x:none;touch-action:pan-x pan-y}
-.race-table{width:1030px;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;color:#15171a}
-.race-table col.col-car{width:38px}.race-table col.col-rider{width:116px}.race-table col.col-hst{width:64px}.race-table col.col-trial{width:64px}.race-table col.col-win-rate,.race-table col.col-quinella-rate,.race-table col.col-place-rate{width:80px}.race-table col.col-results{width:176px}.race-table col.col-recent-ten{width:154px}.race-table col.col-rank{width:70px}.race-table col.col-machine{width:108px}
+.race-table{width:1116px;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;color:#15171a}
+.race-table col.col-car{width:38px}.race-table col.col-rider{width:116px}.race-table col.col-hst{width:58px}.race-table col.col-trial{width:64px}.race-table col.col-good-ten-time{width:92px}.race-table col.col-recent-ten{width:154px}.race-table col.col-win-rate,.race-table col.col-quinella-rate,.race-table col.col-place-rate{width:80px}.race-table col.col-results{width:176px}.race-table col.col-rank{width:70px}.race-table col.col-machine{width:108px}
 .race-table th,.race-table td{padding:2px 5px;border-right:1px solid #d2d3d7;border-bottom:1px solid #d2d3d7;text-align:center;white-space:nowrap}
 .race-table th{height:28px;color:#fff;background:var(--auto-purple);font-size:13px;font-weight:1000;line-height:1.05}
 .race-table td{height:44px;color:#15171a;background:#fff;font-size:13px;font-weight:700;line-height:1}
@@ -29,6 +29,7 @@
 .stat-line.rank-first,.stat-line.rank-second,.stat-line.rank-third{font-weight:800}
 .stat-line.rank-first .surface-value,.stat-line.rank-second .surface-value,.stat-line.rank-third .surface-value{font-weight:800}
 .data-stack>span.rank-first,.data-stack>span.rank-second,.data-stack>span.rank-third{font-weight:800}
+.good-ten-time{padding-inline:5px!important}.good-ten-line{display:grid!important;width:100%;grid-template-columns:2.3em 1fr;align-items:center;column-gap:2px;overflow:visible!important;text-overflow:clip!important}.good-ten-label{text-align:left}.good-ten-value{text-align:right;font-variant-numeric:tabular-nums}
 .race-results{padding-inline:5px!important;text-align:center!important}
 .result-line{display:grid!important;width:100%;grid-template-columns:1em minmax(2ch,1fr) .7ch minmax(2ch,1fr) .7ch minmax(2ch,1fr) .7ch minmax(2ch,1fr) .7ch minmax(2.2ch,1fr);align-items:center;justify-content:stretch;column-gap:0;overflow:visible!important;text-overflow:clip!important}
 .result-label{text-align:left}.result-number,.result-separator{text-align:center}.result-total{text-align:center}
