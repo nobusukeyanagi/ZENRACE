@@ -1,135 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#090909">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>トップ | ZENRACE</title>
+<link rel="stylesheet" href="./shared/category-menu.css?v=57">
+<link rel="stylesheet" href="./shared/page-shell.css?v=19">
+<link rel="stylesheet" href="./home/home.css?v=61">
+<script src="./shared/category-menu.js?v=39" defer></script>
+<script src="./shared/fixed-layout.js?v=21" defer></script>
+<script src="./shared/bottom-nav.js?v=61" defer></script>
+<script src="./home/home.js?v=58" defer></script>
+</head>
+<body>
+<zenrace-category-menu category="home" active="home"></zenrace-category-menu>
+<div class="zenrace-content-shell" data-zenrace-pinch-shell>
+  <div class="zenrace-content-sizer" data-zenrace-pinch-sizer>
+    <div class="zenrace-content-stage" data-zenrace-pinch-stage>
+      <main class="home-page">
+        <section class="brand-panel" aria-label="ZENRACE">
+          <img class="brand-logo" src="./home/assets/zenrace-logo.png?v=50" alt="ZENRACE">
+        </section>
 
-<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" name="viewport"/><meta content="#050607" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><title>出走表 | ZENRACE</title><link href="../shared/category-menu.css?v=57" rel="stylesheet"/><link href="../shared/page-shell.css?v=19" rel="stylesheet"/><link href="racecard.css?v=65" rel="stylesheet"/><link href="race-switch.css?v=63" rel="stylesheet"/><link href="race-info.css?v=56" rel="stylesheet"/><link href="../shared/race-button-style.css?v=6" rel="stylesheet"/><script defer="" src="race-info.js?v=56"></script><script defer="" src="../shared/category-menu.js?v=49"></script><script defer="" src="../shared/fixed-layout.js?v=21"></script><script defer="" src="../shared/bottom-nav.js?v=61"></script><script defer="" src="race-switch.js?v=67"></script><script defer src="racecard.js?v=61"></script></head><body><zenrace-category-menu active="racecard" category="vote"></zenrace-category-menu><div class="zenrace-content-shell" data-zenrace-pinch-shell=""><div class="zenrace-content-sizer" data-zenrace-pinch-sizer=""><div class="zenrace-content-stage" data-zenrace-pinch-stage=""><zenrace-race-switch active-key="浜松-12R-16:45"></zenrace-race-switch><zenrace-race-info></zenrace-race-info><main class="vote-racecard">
+        <section class="wallet-panel" aria-label="ポイント情報">
+          <div class="balance-row balance-row--delca">
+            <span class="balance-label">投票用デルカ</span>
+            <strong class="balance-value"><span class="balance-number">123,456,789</span><small class="balance-unit">pt</small></strong>
+          </div>
+          <div class="balance-row balance-row--coin">
+            <span class="balance-label">ZENコイン</span>
+            <strong class="balance-value"><span class="balance-number">123,456,789</span><small class="balance-unit">zen</small></strong>
+          </div>
 
-<section class="section" aria-label="浜松12R 出走表">
-  <div class="table-scroll">
-    <table class="race-table">
-      <colgroup>
-        <col class="col-car" />
-        <col class="col-rider" />
-        <col class="col-hst" />
-        <col class="col-trial" />
-        <col class="col-win-rate" />
-        <col class="col-quinella-rate" />
-        <col class="col-place-rate" />
-        <col class="col-results" />
-        <col class="col-rank" />
-        <col class="col-machine" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th>車番</th>
-          <th>選手</th>
-          <th>H･ST</th>
-          <th>試走T</th>
-          <th>勝率</th>
-          <th>連対率</th>
-          <th>複勝率</th>
-          <th>成績</th>
-          <th>ランク</th>
-          <th>車名</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="car-number car-1">1</td>
-          <td class="rider-name"><span class="rider-name-main">黒川 京介</span><span class="rider-profile">川口 33期 27歳</span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.10</span></td>
-          <td class="data-stack"><span>3.28</span><span>偏 .078</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">4.3</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">18.8</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">8.7</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">50.0</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">17.4</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">56.3</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">2</span><span class="result-separator">-</span><span class="result-number">2</span><span class="result-separator">-</span><span class="result-number">4</span><span class="result-separator">-</span><span class="result-number">38</span><span class="result-separator">/</span><span class="result-number result-total">46</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">5</span><span class="result-separator">-</span><span class="result-number">1</span><span class="result-separator">-</span><span class="result-number">7</span><span class="result-separator">/</span><span class="result-number result-total">16</span></span></td>
-          <td class="data-stack rank-cell"><span>S-2</span><span>前 S-2</span></td>
-          <td class="data-stack machine-name"><span>イットウセイ</span><span>1級</span></td>
-        </tr>
-        <tr>
-          <td class="car-number car-2">2</td>
-          <td class="rider-name"><span class="rider-name-main">鈴木 圭一郎</span><span class="rider-profile">浜松 32期 31歳</span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.13</span></td>
-          <td class="data-stack"><span>3.31</span><span>偏 .095</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">8.6</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">54.5</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">20.7</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">81.8</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">34.5</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">90.9</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">5</span><span class="result-separator">-</span><span class="result-number">7</span><span class="result-separator">-</span><span class="result-number">8</span><span class="result-separator">-</span><span class="result-number">38</span><span class="result-separator">/</span><span class="result-number result-total">58</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">6</span><span class="result-separator">-</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">1</span><span class="result-separator">-</span><span class="result-number">1</span><span class="result-separator">/</span><span class="result-number result-total">11</span></span></td>
-          <td class="data-stack rank-cell"><span>S-3</span><span>前 S-3</span></td>
-          <td class="data-stack machine-name"><span>カルマＳ５Ｋ</span><span>1級</span></td>
-        </tr>
-        <tr>
-          <td class="car-number car-3">3</td>
-          <td class="rider-name"><span class="rider-name-main">青山 周平</span><span class="rider-profile">伊勢崎 31期 41歳</span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.10</span></td>
-          <td class="data-stack"><span>3.28</span><span>偏 .086</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">14.0</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">28.6</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">28.1</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">42.9</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">43.9</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">64.3</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">8</span><span class="result-separator">-</span><span class="result-number">8</span><span class="result-separator">-</span><span class="result-number">9</span><span class="result-separator">-</span><span class="result-number">32</span><span class="result-separator">/</span><span class="result-number result-total">57</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">4</span><span class="result-separator">-</span><span class="result-number">2</span><span class="result-separator">-</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">5</span><span class="result-separator">/</span><span class="result-number result-total">14</span></span></td>
-          <td class="data-stack rank-cell"><span>S-1</span><span>前 S-1</span></td>
-          <td class="data-stack machine-name"><span>ハルク・７３</span><span>1級</span></td>
-        </tr>
-        <tr>
-          <td class="car-number car-4">4</td>
-          <td class="rider-name"><span class="rider-name-main">金子 大輔</span><span class="rider-profile">浜松 29期 45歳</span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.10</span></td>
-          <td class="data-stack"><span>3.27</span><span>偏 .074</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">8.9</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">8.3</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">15.6</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">25.0</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">26.7</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">50.0</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">4</span><span class="result-separator">-</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">5</span><span class="result-separator">-</span><span class="result-number">33</span><span class="result-separator">/</span><span class="result-number result-total">45</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">1</span><span class="result-separator">-</span><span class="result-number">2</span><span class="result-separator">-</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">6</span><span class="result-separator">/</span><span class="result-number result-total">12</span></span></td>
-          <td class="data-stack rank-cell"><span>S-5</span><span>前 S-4</span></td>
-          <td class="data-stack machine-name"><span>サンクチュアリ</span><span>1級</span></td>
-        </tr>
-        <tr>
-          <td class="car-number car-5">5</td>
-          <td class="rider-name"><span class="rider-name-main">長田 稚也</span><span class="rider-profile">飯塚 34期 25歳</span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.13</span></td>
-          <td class="data-stack"><span>3.27</span><span>偏 .084</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">21.3</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">12.5</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">44.3</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">25.0</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">50.8</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">41.7</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">13</span><span class="result-separator">-</span><span class="result-number">14</span><span class="result-separator">-</span><span class="result-number">4</span><span class="result-separator">-</span><span class="result-number">30</span><span class="result-separator">/</span><span class="result-number result-total">61</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">4</span><span class="result-separator">-</span><span class="result-number">14</span><span class="result-separator">/</span><span class="result-number result-total">24</span></span></td>
-          <td class="data-stack rank-cell"><span>S-8</span><span>前 S-39</span></td>
-          <td class="data-stack machine-name"><span>ロシナンテ</span><span>1級</span></td>
-        </tr>
-        <tr>
-          <td class="car-number car-6">6</td>
-          <td class="rider-name"><span class="rider-name-main">佐藤 励</span><span class="rider-profile">川口 35期 25歳</span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.11</span></td>
-          <td class="data-stack"><span>3.28</span><span>偏 .094</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">17.1</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">14.3</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">29.3</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">28.6</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">46.3</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">47.6</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">7</span><span class="result-separator">-</span><span class="result-number">5</span><span class="result-separator">-</span><span class="result-number">7</span><span class="result-separator">-</span><span class="result-number">22</span><span class="result-separator">/</span><span class="result-number result-total">41</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">4</span><span class="result-separator">-</span><span class="result-number">11</span><span class="result-separator">/</span><span class="result-number result-total">21</span></span></td>
-          <td class="data-stack rank-cell"><span>S-4</span><span>前 S-6</span></td>
-          <td class="data-stack machine-name"><span>シロウＷＶ・Ｓ</span><span>1級</span></td>
-        </tr>
-        <tr>
-          <td class="car-number car-7">7</td>
-          <td class="rider-name"><span class="rider-name-main">鈴木 宏和</span><span class="rider-profile">浜松 32期 39歳</span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.08</span></td>
-          <td class="data-stack"><span>3.29</span><span>偏 .094</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">14.5</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">26.3</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">33.3</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">36.8</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">46.4</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">63.2</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">10</span><span class="result-separator">-</span><span class="result-number">13</span><span class="result-separator">-</span><span class="result-number">9</span><span class="result-separator">-</span><span class="result-number">37</span><span class="result-separator">/</span><span class="result-number result-total">69</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">5</span><span class="result-separator">-</span><span class="result-number">2</span><span class="result-separator">-</span><span class="result-number">5</span><span class="result-separator">-</span><span class="result-number">7</span><span class="result-separator">/</span><span class="result-number result-total">19</span></span></td>
-          <td class="data-stack rank-cell"><span>S-15</span><span>前 S-16</span></td>
-          <td class="data-stack machine-name"><span>ナアーモ</span><span>1級</span></td>
-        </tr>
-        <tr>
-          <td class="car-number car-8">8</td>
-          <td class="rider-name"><span class="rider-name-main">佐藤 摩弥</span><span class="rider-profile">川口 31期 33歳 <span class="female-mark" aria-label="女子選手">♥</span></span></td>
-          <td class="data-stack"><span>H0</span><span>ST0.13</span></td>
-          <td class="data-stack"><span>3.31</span><span>偏 .078</span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">29.0</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">42.9</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">54.8</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">57.1</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack surface-stat"><span class="stat-line"><span class="surface-label">良</span><span class="surface-value">71.0</span><span class="surface-unit">%</span></span><span class="stat-line"><span class="surface-label">湿</span><span class="surface-value">71.4</span><span class="surface-unit">%</span></span></td>
-          <td class="data-stack race-results"><span class="result-line"><span class="result-label">良</span><span class="result-number">9</span><span class="result-separator">-</span><span class="result-number">8</span><span class="result-separator">-</span><span class="result-number">5</span><span class="result-separator">-</span><span class="result-number">9</span><span class="result-separator">/</span><span class="result-number result-total">31</span></span><span class="result-line"><span class="result-label">湿</span><span class="result-number">3</span><span class="result-separator">-</span><span class="result-number">1</span><span class="result-separator">-</span><span class="result-number">1</span><span class="result-separator">-</span><span class="result-number">2</span><span class="result-separator">/</span><span class="result-number result-total">7</span></span></td>
-          <td class="data-stack rank-cell"><span>S-9</span><span>前 S-10</span></td>
-          <td class="data-stack machine-name"><span>スミエ９７</span><span>1級</span></td>
-        </tr>
-      </tbody>
-    </table>
+          <div class="wallet-actions">
+            <button class="wallet-action wallet-action--delca" type="button" data-demo-message="遷移先ページは準備中です"><span>デルカ</span>入金</button>
+            <button class="wallet-action wallet-action--delca" type="button" data-demo-message="遷移先ページは準備中です"><span>デルカ</span>に交換</button>
+            <button class="wallet-action wallet-action--delca" type="button" data-demo-message="遷移先ページは準備中です"><span>デルカ</span>履歴</button>
+            <button class="wallet-action wallet-action--coin" type="button" data-demo-message="遷移先ページは準備中です"><span>コイン</span>を貯める</button>
+            <button class="wallet-action wallet-action--coin" type="button" data-demo-message="遷移先ページは準備中です"><span>コイン</span>を使う</button>
+            <button class="wallet-action wallet-action--coin" type="button" data-demo-message="遷移先ページは準備中です"><span>コイン</span>履歴</button>
+          </div>
+        </section>
+
+        <section class="campaign-section" aria-label="キャンペーン">
+          <div class="campaign-carousel" data-carousel>
+            <div class="campaign-track" data-carousel-track>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン1" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-1.webp" alt="競輪の決勝レースは5%還元">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン2" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-2.webp" alt="松山GIオールスター競輪を観に行こう">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン3" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-3.webp" alt="高知GIIサマーナイトフェスティバル">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="キャンペーン4" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-4.webp" alt="森且行選手サイン入りTシャツプレゼント">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="競馬" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-5.png" alt="競馬">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="ボートレース" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-6.png" alt="ボートレース">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="競輪" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-7.png" alt="競輪">
+              </a>
+              <a class="campaign-slide" href="#" aria-label="オートレース" data-demo-message="遷移先ページは準備中です">
+                <img src="./home/assets/campaign-8.png" alt="オートレース">
+              </a>
+            </div>
+          </div>
+          <div class="carousel-controls" aria-label="キャンペーン切り替え">
+            <button class="carousel-arrow" type="button" data-carousel-prev aria-label="前のバナー">‹</button>
+            <div class="carousel-dots" data-carousel-dots></div>
+            <button class="carousel-arrow" type="button" data-carousel-next aria-label="次のバナー">›</button>
+          </div>
+        </section>
+
+        <section class="notice-grid" aria-label="お知らせ">
+          <button type="button" data-demo-message="遷移先ページは準備中です">
+            <span>キャンペーン</span>
+            <strong>2</strong>
+          </button>
+          <button type="button" data-demo-message="遷移先ページは準備中です">
+            <span>ニュース</span>
+            <strong>1</strong>
+          </button>
+          <button type="button" data-demo-message="遷移先ページは準備中です">
+            <span>メッセージ</span>
+            <strong>1</strong>
+          </button>
+        </section>
+
+        <section class="youtube-section" aria-label="ZENRACEチャンネル">
+          <div class="youtube-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/_bt0yvWRrbM?start=4&amp;rel=0&amp;playsinline=1"
+              title="ZENRACE YouTube動画"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <div class="home-end-mark" aria-hidden="true"><span></span></div>
+      </main>
+    </div>
   </div>
-</section>
-</main></div></div></div><zenrace-bottom-nav active="vote"></zenrace-bottom-nav></body></html>
+</div>
+<div class="home-toast" role="status" aria-live="polite" data-home-toast></div>
+<zenrace-bottom-nav active="home"></zenrace-bottom-nav>
+</body>
+</html>

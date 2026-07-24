@@ -3,6 +3,15 @@
 
   const init = () => {
     document.querySelectorAll(".table-scroll").forEach((scroller) => {
+      const pageShell = scroller.closest(".zenrace-content-shell");
+      const keepPageShellAtLeft = () => {
+        if (pageShell && pageShell.scrollLeft !== 0) pageShell.scrollLeft = 0;
+      };
+      if (pageShell) {
+        pageShell.scrollLeft = 0;
+        pageShell.addEventListener("scroll", keepPageShellAtLeft, { passive: true });
+      }
+
       let startX = 0;
       let startY = 0;
       let direction = "";
@@ -30,6 +39,7 @@
       };
 
       const queueRiderNameState = () => {
+        keepPageShellAtLeft();
         if (riderStateFrame) return;
         riderStateFrame = window.requestAnimationFrame(updateRiderNameState);
       };

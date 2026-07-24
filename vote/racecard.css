@@ -1,8 +1,8 @@
 :root{color-scheme:dark;--gold:#f0cc70;--auto-purple:#7545af;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif}
 *{box-sizing:border-box}html{background:#030405}body{color:#f6f7f8;background:linear-gradient(180deg,#050607,#020304)}button,input{font:inherit}a{-webkit-tap-highlight-color:transparent}
 .vote-racecard{width:min(100%,760px);margin:0 auto;padding:0 0 34px}
-.section{margin:10px 8px 0;overflow:hidden;border:1px solid #c9c9cf;border-radius:10px;background:#fff;box-shadow:0 9px 23px rgba(0,0,0,.25)}
-.table-scroll{overflow-x:auto;overflow-y:hidden;background:#fff;-webkit-overflow-scrolling:touch;scrollbar-color:#7545af #eee;overscroll-behavior-x:contain;touch-action:pan-x pan-y}
+.section{margin:10px 8px 0;overflow:hidden;border:1px solid rgba(240,204,112,.38);border-radius:10px;background:#fff;box-shadow:0 9px 23px rgba(0,0,0,.25)}
+.zenrace-content-shell{overflow-x:hidden!important;overflow-y:auto}.zenrace-content-sizer{width:100%!important;max-width:100%;overflow-x:clip}.zenrace-content-stage{width:100%!important;max-width:100%;overflow-x:clip}.table-scroll{position:relative;width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;background:#fff;-webkit-overflow-scrolling:touch;scrollbar-color:#7545af #eee;overscroll-behavior-x:none;touch-action:pan-x pan-y}
 .race-table{width:898px;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;color:#15171a}
 .race-table col.col-car{width:38px}.race-table col.col-rider{width:116px}.race-table col.col-hst{width:64px}.race-table col.col-trial{width:64px}.race-table col.col-win-rate,.race-table col.col-quinella-rate,.race-table col.col-place-rate{width:80px}.race-table col.col-results{width:176px}.race-table col.col-rank{width:78px}.race-table col.col-machine{width:122px}
 .race-table th,.race-table td{padding:2px 5px;border-right:1px solid #d2d3d7;border-bottom:1px solid #d2d3d7;text-align:center;white-space:nowrap}
