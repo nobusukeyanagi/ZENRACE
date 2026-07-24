@@ -1,0 +1,38 @@
+:root{color-scheme:dark;--gold:#f0cc70;--auto-purple:#7545af;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Hiragino Kaku Gothic ProN",Meiryo,sans-serif}
+*{box-sizing:border-box}html{background:#030405}body{color:#f6f7f8;background:linear-gradient(180deg,#050607,#020304)}button,input{font:inherit}a{-webkit-tap-highlight-color:transparent}
+.vote-racecard{width:min(100%,760px);margin:0 auto;padding:0 0 34px}
+.section{margin:10px 8px 0;overflow:hidden;border:1px solid #c9c9cf;border-radius:10px;background:#fff;box-shadow:0 9px 23px rgba(0,0,0,.25)}
+.table-scroll{overflow-x:auto;overflow-y:hidden;background:#fff;-webkit-overflow-scrolling:touch;scrollbar-color:#7545af #eee;overscroll-behavior-x:contain;touch-action:pan-x pan-y}
+.race-table{width:946px;border-collapse:separate;border-spacing:0;table-layout:fixed;background:#fff;color:#15171a}
+.race-table col.col-car{width:38px}.race-table col.col-rider{width:116px}.race-table col.col-hst{width:68px}.race-table col.col-trial{width:68px}.race-table col.col-win-rate{width:82px}.race-table col.col-quinella-rate{width:86px}.race-table col.col-place-rate{width:86px}.race-table col.col-results{width:190px}.race-table col.col-rank{width:82px}.race-table col.col-machine{width:130px}
+.race-table th,.race-table td{padding:2px 5px;border-right:1px solid #d2d3d7;border-bottom:1px solid #d2d3d7;text-align:center;white-space:nowrap}
+.race-table th{height:28px;color:#fff;background:var(--auto-purple);font-size:12px;font-weight:1000;line-height:1.05}
+.race-table td{height:44px;color:#15171a;background:#fff;font-size:13px;font-weight:850;line-height:1}
+.race-table th:first-child,.race-table td:first-child{position:sticky;left:0;z-index:4;padding:0;box-shadow:5px 0 8px -7px rgba(0,0,0,.8)}
+.race-table th:first-child{z-index:6;color:#fff;background:var(--auto-purple);border-right:1px solid rgba(255,255,255,.32)}
+.race-table td:first-child{border-right:0}
+.race-table th:last-child,.race-table td:last-child{border-right:0}.race-table tbody tr:last-child td{border-bottom:0}
+.race-table .rider-name{padding:2px 7px;text-align:left;overflow:hidden}
+.rider-name-main{display:block;overflow:hidden;font-size:14px;font-weight:1000;line-height:1.15;text-overflow:ellipsis;white-space:nowrap}
+.rider-profile{display:block;margin-top:2px;overflow:hidden;color:#66707c;font-size:11px;font-weight:850;line-height:1;letter-spacing:-.02em;text-overflow:ellipsis;white-space:nowrap}
+.female-mark{color:#d51568;font-size:.95em}
+.race-table tbody td:nth-child(n+3){color:#111!important;font-size:13px!important}
+.data-stack{vertical-align:middle;font-variant-numeric:tabular-nums}
+.data-stack>span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;font-size:13px;font-weight:850;line-height:1}
+.data-stack>span+span{margin-top:2px;color:#111;font-size:13px;font-weight:850}
+.surface-stat{padding-inline:4px!important}
+.stat-line{display:grid!important;grid-template-columns:1em 4.2ch .8em;align-items:center;justify-content:center;column-gap:0;overflow:visible!important;text-overflow:clip!important}
+.surface-label{text-align:left}.surface-value{text-align:right}.surface-unit{text-align:left}
+.race-results{padding-inline:5px!important;text-align:center!important}
+.result-line{display:grid!important;grid-template-columns:1em 2.5ch .7ch 2.5ch .7ch 2.5ch .7ch 2.5ch .7ch 2.7ch;align-items:center;justify-content:center;column-gap:0;overflow:visible!important;text-overflow:clip!important}
+.result-label{text-align:left}.result-number,.result-separator{text-align:center}.result-total{text-align:center}
+.rank-cell>span{font-weight:950}
+.rank-cell>span+span{color:#66707c!important;font-size:11px!important;font-weight:850!important;line-height:1;letter-spacing:-.02em}
+.race-table .machine-name{padding-inline:5px;text-align:left;font-weight:900;overflow:hidden}
+.machine-name>span:first-child,.machine-name>span:last-child{font-size:13px;font-weight:900}
+.car-number{font-size:15px!important;font-weight:1000!important;text-align:center!important;vertical-align:middle!important;font-variant-numeric:tabular-nums}
+.car-number-value{display:block;line-height:1}
+.table-scroll.rider-name-hidden .race-table td.car-number{padding:3px 0!important;vertical-align:middle!important}
+.table-scroll.rider-name-hidden .race-table td.car-number::after{content:attr(data-rider-short);position:static;display:block;max-width:100%;margin-top:4px;padding-left:.4px;overflow:hidden;font-size:10px;font-weight:1000;line-height:1;letter-spacing:.4px;white-space:nowrap;text-align:center;text-overflow:clip}
+.car-1{color:#111!important;background:#f3f4f5!important}.car-2{color:#fff!important;background:#171717!important}.car-3{color:#fff!important;background:#e51125!important}.car-4{color:#fff!important;background:#0877bd!important}.car-5{color:#111!important;background:#f2d819!important}.car-6{color:#fff!important;background:#07914a!important}.car-7{color:#111!important;background:#ee8b10!important}.car-8{color:#fff!important;background:#d9008f!important}
+@media(max-width:430px){.vote-racecard{padding-top:0}.section{margin-inline:8px}.race-table td{height:42px}}
