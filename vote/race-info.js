@@ -21,7 +21,7 @@
           <h1 class="race-info-title">第39回全日本選抜オートレース</h1>
           <div class="race-info-status">
             <strong class="race-info-final">優勝戦</strong>
-            <span class="race-info-time"><span class="race-info-time-label">投票締切</span><time datetime="2026-02-23T16:43:00+09:00">16:43</time></span>
+            <span class="race-info-time"><span class="race-info-time-label">締切</span><time datetime="2026-02-23T16:43:00+09:00">16:43</time></span>
             <span class="race-info-time"><span class="race-info-time-label">発走</span><time datetime="2026-02-23T16:45:00+09:00">16:45</time></span>
           </div>
           <p class="race-info-date" aria-label="2026年2月23日(月)　晴　良走路57.0℃　気温20.0℃　湿度43.0%　5100m(10周)"><span class="race-info-date-track"><span class="race-info-date-copy">2026年2月23日(月)　晴　良走路57.0℃　気温20.0℃　湿度43.0%　5100m(10周)</span><span class="race-info-date-copy" aria-hidden="true">2026年2月23日(月)　晴　良走路57.0℃　気温20.0℃　湿度43.0%　5100m(10周)</span></span></p>

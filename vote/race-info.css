@@ -16,13 +16,13 @@ zenrace-race-info{display:block;width:min(100%,760px);margin:0 auto}
 .race-live-button span{margin-right:4px;color:#f0cc70;font-size:9px}
 .race-live-button.active{color:#171108;background:#f0cc70;border-color:#ffe6a1}
 .race-live-button.active span{color:#171108}
-.race-info-title{position:relative;z-index:1;margin:5px 0 5px;color:#fff;font-size:clamp(19px,5vw,26px);line-height:1.24;font-weight:1000;letter-spacing:.01em}
-.race-info-status{gap:8px;flex-wrap:wrap;color:#fff;font-size:clamp(13px,3.45vw,16px);font-weight:1000;line-height:1.35}
-.race-info-final{margin-right:2px;font-size:1.04em;white-space:nowrap}
+.race-info-title{position:relative;z-index:1;margin:1px 0 5px;color:#fff;font-size:22px;line-height:1.24;font-weight:1000;letter-spacing:.01em}
+.race-info-status{gap:8px;flex-wrap:wrap;color:#fff;font-size:18px;font-weight:1000;line-height:1.35}
+.race-info-final{margin-right:2px;font-size:1em;white-space:nowrap}
 .race-info-time{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
-.race-info-time-label{display:inline-flex;align-items:center;justify-content:center;min-height:21px;padding:2px 7px;border:1px solid rgba(255,255,255,.45);border-radius:5px;color:#fff;background:rgba(255,255,255,.08);font-size:.82em;font-weight:1000;line-height:1}
+.race-info-time-label{display:inline-flex;align-items:center;justify-content:center;min-height:21px;padding:2px 7px;border:1px solid rgba(255,255,255,.45);border-radius:5px;color:#fff;background:rgba(255,255,255,.08);font-size:1em;font-weight:1000;line-height:1}
 .race-info-time time{color:#fff;font-size:1em;font-weight:1000;font-variant-numeric:tabular-nums}
-.race-info-date{position:relative;z-index:1;margin:7px 0 0;overflow:hidden;color:#c5cbd3;font-size:12px;font-weight:850;line-height:1.35;white-space:nowrap}
+.race-info-date{position:relative;z-index:1;margin:7px 0 0;overflow:hidden;color:#c5cbd3;font-size:14px;font-weight:850;line-height:1.35;white-space:nowrap}
 .race-info-date-track{display:flex;width:max-content;min-width:100%;gap:2.5em;will-change:transform}
 .race-info-date-copy{display:block;flex:0 0 auto}
 .race-info-date.is-overflowing .race-info-date-track{animation:race-info-marquee 15s linear infinite}
@@ -32,4 +32,4 @@ zenrace-race-info{display:block;width:min(100%,760px);margin:0 auto}
 .race-info-video[hidden]{display:none}
 .race-info-video-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border:0;border-radius:0;background:#000;box-shadow:none}
 .race-info-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-@media(max-width:380px){.shared-race-info{padding-inline:12px}.race-info-primary{gap:6px}.race-info-venue,.race-info-number{font-size:20px}.race-info-icon{flex-basis:20px;width:20px;height:20px}.race-info-icon.auto::before{width:14px;height:14px}.race-live-button{min-height:28px;padding-inline:7px;font-size:10px}.race-info-status{gap:6px}.race-info-time{gap:4px}.race-info-time-label{padding-inline:5px}.race-info-video{margin-inline:-12px;padding-inline:0}}
+@media(max-width:380px){.shared-race-info{padding-inline:12px}.race-info-primary{gap:6px}.race-info-icon{flex-basis:20px;width:20px;height:20px}.race-info-icon.auto::before{width:14px;height:14px}.race-live-button{min-height:28px;padding-inline:7px;font-size:10px}.race-info-status{gap:6px}.race-info-time{gap:4px}.race-info-time-label{padding-inline:5px}.race-info-video{margin-inline:-12px;padding-inline:0}}
